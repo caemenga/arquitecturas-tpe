@@ -10,6 +10,7 @@ import java.util.Optional;
 
 @Service("usuarios")
 public class UsuarioService {
+
     @Autowired
     private UsuarioRepository usuarioRepository;
 

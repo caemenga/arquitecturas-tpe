@@ -1,0 +1,57 @@
+version: '3.1'
+## ejecutar
+## docker compose up -d
+services:
+  db:
+    image: mysql
+    ports:
+      - "3306:3306"
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+     MYSQL_ROOT_PASSWORD: admin
+
+  usuarios:
+    image: mysql
+    ports:
+      - "3307:3306"
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+
+  monopatin:
+    image: mysql
+    ports:
+      - "3308:3306"
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+
+  administrador:
+    image: mysql
+    ports:
+      - "3309:3306"
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+
+  mantenimiento:
+    image: mysql
+    ports:
+      - "3310:3306"
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+
+  paradas:
+    image: mysql
+    ports:
+      - "3311:3306"
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
