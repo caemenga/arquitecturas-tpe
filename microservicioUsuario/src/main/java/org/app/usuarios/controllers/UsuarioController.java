@@ -1,6 +1,7 @@
 package org.app.usuarios.controllers;
 
 
+import lombok.RequiredArgsConstructor;
 import org.app.usuarios.models.entities.Usuario;
 import org.app.usuarios.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.client.RestTemplate;
 
 @RestController
 @RequestMapping("/usuarios")
+@RequiredArgsConstructor
 public class UsuarioController {
 
     @Autowired
@@ -28,7 +30,7 @@ public class UsuarioController {
     }
 
     @PostMapping()
-    public ResponseEntity<?> addAlumno(@RequestBody Usuario u){
+    public ResponseEntity<?> addUsuario(@RequestBody Usuario u){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(usuarioService.addUsuario(u));
         }catch (Exception e){

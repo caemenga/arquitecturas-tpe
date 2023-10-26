@@ -2,7 +2,7 @@ version: '3.1'
 ## ejecutar
 ## docker compose up -d
 services:
-  db:
+  viajes:
     image: mysql
     ports:
       - "3306:3306"
@@ -55,3 +55,5 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: admin
+
+## docker run -d --name mysqlUsuarios -e MYSQL_ROOT_PASSWORD=admin -p 3307:3306 mysql
