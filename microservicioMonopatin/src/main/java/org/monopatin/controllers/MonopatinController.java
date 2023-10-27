@@ -1,7 +1,6 @@
-package org.monopatin.controllers;
+package org.monopatin.Controllers;
 
 import lombok.RequiredArgsConstructor;
-import org.monopatin.entities.Monopatin;
 import org.monopatin.services.MonopatinService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,7 +28,7 @@ public class MonopatinController {
     }
 
     @PostMapping()
-    public ResponseEntity<?> addMonopatin(@RequestBody Monopatin m){
+    public ResponseEntity<?> addMonopatin(@RequestBody org.monopatin.entities.Monopatin m){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(monopatinService.addMonopatin(m));
         }catch (Exception e){
