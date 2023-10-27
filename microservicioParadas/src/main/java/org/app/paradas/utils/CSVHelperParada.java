@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+//import com.opencsv.CSVParser;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
@@ -25,7 +26,7 @@ public class CSVHelperParada {
         }
 
         for (CSVRecord row: parser) {
-            paradas.add(new Parada(Long.parseLong(row.get(0)), Long.parseLong(row.get(1)), Long.parseLong(row.get(2)));
+            paradas.add(new Parada(Long.parseLong(row.get(0)), Long.parseLong(row.get(1)), Long.parseLong(row.get(2))));
         }
         return paradas;
     }
