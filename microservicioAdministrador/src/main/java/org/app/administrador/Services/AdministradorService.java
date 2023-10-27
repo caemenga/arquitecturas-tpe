@@ -1,5 +1,6 @@
 package org.app.administrador.Services;
 
+import org.app.administrador.Entities.Mantenimiento;
 import org.app.administrador.Entities.Monopatin;
 import org.app.administrador.Entities.Parada;
 import org.app.administrador.Repositories.AdministradorRepository;
@@ -24,65 +25,83 @@ public class AdministradorService {
     private RestTemplate restTemplate;
     @Autowired
     private RestTemplate monopatinRestTemplate;
+    @Autowired
+    private RestTemplate mantenimientoRestTemplate;
     
-    public boolean registrarMantenimiento(long idMonopatin) {
+    public ResponseEntity<String> registrarMantenimiento(long idMonopatin) throws Exception{
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
+        //traer monopatin para ver si existe
         ResponseEntity<Monopatin> response = monopatinRestTemplate.exchange(
-                "http://localhost:8085/monopatines/" + idMonopatin,
+                "http://localhost:8082/monopatines/" + idMonopatin,
                 HttpMethod.GET,
                 requestEntity,
                 new ParameterizedTypeReference<Monopatin>() {}
         );
-        if(response.getStatusCode().is2xxSuccessful()){
-            Monopatin mono = response.getBody();
-            if(mono.getEnMantenimiento().equals("false")){
 
+        //si el monopatin es valido
+        if(response.getStatusCode().is2xxSuccessful() && response.getBody() != null){
+            Monopatin monopatin = response.getBody();
+            //si el monopatin no esta en mantenimiento
+            if(monopatin.isEnMantenimiento()){
+                //crear fila y entidad en microserv mantenimiento
+                ResponseEntity<Mantenimiento> resp = mantenimientoRestTemplate.exchange(
+                        "http://localhost:8085/mantenimiento/",
+                        HttpMethod.POST,
+                        requestEntity,
+                        new ParameterizedTypeReference<Mantenimiento>() {}
+                );
+                //si se creo correctamente
+                if(resp.getStatusCode().is2xxSuccessful()) {
+                    //setear monopatin en mantenimiento = true
+                    ResponseEntity<Monopatin> resp2 = monopatinRestTemplate.exchange(
+                            //monopatines/2/mantenimiento/true
+                            "http://localhost:8082/monopatines/" + idMonopatin +"/mantenimiento/" + true,
+                            HttpMethod.PUT,
+                            requestEntity,
+                            new ParameterizedTypeReference<Monopatin>() {}
+                    );
+                    return ResponseEntity.ok("Monopatin agregado a mantenimiento con exito");
+                }
             }
+        } else {
+            return ResponseEntity.ok("Monopatin no encontrado");
         }
-
-//        ResponseEntity<String> respuesta = monopatinRestTemplate.exchange(
-//                "http://localhost:8085/mantenimiento",
-//                HttpMethod.POST,
-//                reqEntity,
-//                String.class
-//        );
-        if(respuesta != null) {
-            return ResponseEntity.ok("Monopatin agregado con exito");
-        }
+        return ResponseEntity.ok("No se");
     }
 
-    public Object finMantenimiento(long idMantenimiento) {
-    }
-
-    public Object ubicarMonopatinEnParada(long idMonopatin) {
-    }
-
-    public Object addMonopatin(Monopatin monopatin) {
-    }
-
-    public Object eliminarMonopatin(long idMonopatin) {
-    }
-
-    public Object addParada(Parada parada) {
-    }
-
-    public Object deleteParada(long idParada) {
-    }
-    
-    public ResponseEntity<?> definirPrecio(long tarifa){
-        
-    }
-
-    public Object anularCuenta(long idCuenta) {
-    }
-
-    public List<Monopatin> reporteMonopatinesPorKM() {
-    }
-
-    public List<Monopatin> reporteMonopatinesPorPausas() {
-    }
-
-    public List<Monopatin> reporteMonopatinesSinPausas() {
-    }
+//    public Object finMantenimiento(long idMantenimiento) {
+//
+//    }
+//
+//    public Object ubicarMonopatinEnParada(long idMonopatin) {
+//    }
+//
+//    public Object addMonopatin(Monopatin monopatin) {
+//    }
+//
+//    public Object eliminarMonopatin(long idMonopatin) {
+//    }
+//
+//    public Object addParada(Parada parada) {
+//    }
+//
+//    public Object deleteParada(long idParada) {
+//    }
+//
+//    public ResponseEntity<?> definirPrecio(long tarifa){
+//
+//    }
+//
+//    public Object anularCuenta(long idCuenta) {
+//    }
+//
+//    public List<Monopatin> reporteMonopatinesPorKM() {
+//    }
+//
+//    public List<Monopatin> reporteMonopatinesPorPausas() {
+//    }
+//
+//    public List<Monopatin> reporteMonopatinesSinPausas() {
+//    }
 }

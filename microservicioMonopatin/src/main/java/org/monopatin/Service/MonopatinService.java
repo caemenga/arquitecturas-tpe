@@ -1,7 +1,7 @@
-package org.monopatin.services;
+package org.monopatin.Service;
 
 import org.monopatin.entities.Monopatin;
-import org.monopatin.repositories.MonopatinRepository;
+import org.monopatin.Repositories.MonopatinRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +30,18 @@ public class MonopatinService {
             if(monopatinRepository.existsById(id)){
                 monopatinRepository.deleteById(id);
                 return true;
+            } else{
+                throw new Exception();
+            }
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
+
+    public Optional<Monopatin> setearMantenimiento(Long id, boolean bol) throws Exception {
+        try{
+            if(monopatinRepository.existsById(id)){
+                return monopatinRepository.setearMantenimiento(id, bol);
             } else{
                 throw new Exception();
             }

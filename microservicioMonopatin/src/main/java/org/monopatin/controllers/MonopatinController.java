@@ -1,7 +1,7 @@
 package org.monopatin.Controllers;
 
 import lombok.RequiredArgsConstructor;
-import org.monopatin.services.MonopatinService;
+import org.monopatin.Service.MonopatinService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,6 +40,16 @@ public class MonopatinController {
     public ResponseEntity<?> getById(@PathVariable("id") Long id){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(monopatinService.getById(id));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se encuentra el objeto buscado");
+        }
+    }
+
+    //monopatines/2/mantenimiento/true
+    @PutMapping( path = "/{id}/mantenimiento/{boolean}")
+    public ResponseEntity<?> setearMantenimiento(@PathVariable("id") Long id, @PathVariable("boolean") boolean bol){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(monopatinService.setearMantenimiento(id, bol));
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se encuentra el objeto buscado");
         }
