@@ -15,7 +15,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="microservicioViaje" target="17" />
+      <module name="microservicioViaje" target="20" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
