@@ -2,7 +2,7 @@ package org.app.usuarios.controllers;
 
 
 import lombok.RequiredArgsConstructor;
-import org.app.usuarios.models.entities.Usuario;
+import org.app.usuarios.entities.Usuario;
 import org.app.usuarios.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -50,7 +50,7 @@ public class UsuarioController {
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<?> deleteByID(@PathVariable("id") Long id){
         try{
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(usuarioService.deleteAlumno(id));
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(usuarioService.deleteUsuario(id));
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. no se pudo eliminar el alumno con id  \"" + id + ". intente nuevamente.\"}");
         }

@@ -1,10 +1,9 @@
-package org.app.viajes.models.Entities;
+package org.app.viajes.models.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
 import org.app.viajes.models.DTO.Monopatin;
-import org.app.viajes.models.DTO.Usuario;
 
 import java.util.Date;
 
@@ -12,24 +11,22 @@ import java.util.Date;
 @Data
 @Getter
 public class Viaje {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    //@Column
+    //private Cuenta cuenta;
+    //@Column
+    //private Monopatin monopatin;
     @Column
-    private Usuario usuario;
+    private Date fechaHoraInicio;
     @Column
-    private Monopatin monopatin;
+    private Date fechaHoraFin;
     @Column
-    private long tiempoViaje;
-    @Column
-    private Date fechaInicio;
-    @Column
-    private Date fechaFin;
-    @Column
-    private long KmRecorridos;
+    private double kilometros;
 
+    //falta constructor con params.
 
-
-
+    public Viaje() {
+    }
 }

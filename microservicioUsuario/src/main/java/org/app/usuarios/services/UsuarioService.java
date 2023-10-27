@@ -1,6 +1,6 @@
 package org.app.usuarios.services;
 
-import org.app.usuarios.models.entities.Usuario;
+import org.app.usuarios.entities.Usuario;
 import org.app.usuarios.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +26,7 @@ public class UsuarioService {
         return usuarioRepository.findById(id);
     }
 
-    public boolean deleteAlumno(long id) throws Exception {
+    public boolean deleteUsuario(long id) throws Exception {
         try{
             if(usuarioRepository.existsById(id)){
                 usuarioRepository.deleteById(id);
