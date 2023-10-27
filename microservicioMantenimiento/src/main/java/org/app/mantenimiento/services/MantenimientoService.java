@@ -26,7 +26,7 @@ public class MantenimientoService {
         return mantenimientoRepository.findById(id);
     }
 
-    public boolean deleteMantenimiento(long id) throws Exception {
+    public boolean deleteMantenimiento(Long id) throws Exception {
         try{
             if(mantenimientoRepository.existsById(id)){
                 mantenimientoRepository.deleteById(id);

@@ -21,7 +21,6 @@
         <module>microservicioAdministrador</module>
         <module>microservicioMantenimiento</module>
         <module>microservicioParadas</module>
-        <module>microservicioViaje</module>
     </modules>
 
     <properties>

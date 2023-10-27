@@ -1,6 +1,6 @@
-package org.app.viajes.repositories;
+package org.monopatin.repositories;
 
-import org.app.viajes.models.entities.Viaje;
+import org.monopatin.entities.Viaje;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

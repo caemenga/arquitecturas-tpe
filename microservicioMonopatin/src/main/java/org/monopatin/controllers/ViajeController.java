@@ -1,8 +1,8 @@
-package org.app.viajes.controllers;
+package org.monopatin.controllers;
 
 import lombok.RequiredArgsConstructor;
-import org.app.viajes.models.entities.Viaje;
-import org.app.viajes.services.ViajeService;
+import org.monopatin.entities.Viaje;
+import org.monopatin.services.ViajeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,7 +38,7 @@ public class ViajeController {
     }
 
     @GetMapping( path = "/{id}")
-    public ResponseEntity<?> getById(@PathVariable("id") long id){
+    public ResponseEntity<?> getById(@PathVariable("id") Long id){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(viajeService.getById(id));
         }catch (Exception e){
