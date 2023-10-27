@@ -38,7 +38,7 @@ public class ParadaController {
     }
 
     @GetMapping( path = "/{id}")
-    public ResponseEntity<?> getById(@PathVariable("id") long id){
+    public ResponseEntity<?> getById(@PathVariable("id") Long id){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(paradaService.getById(id));
         }catch (Exception e){

@@ -15,20 +15,20 @@ import java.sql.Date;
 public class Mantenimiento implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    //@Column
-    //private Monopatin monopatin;
+    private Long id;
+    @Column
+    private Long monopatinId;
     @Column
     private Date inicioMantenimiento;
     @Column
     private Date finMantenimiento;
 
-    /*public Mantenimiento(int id, Monopation monopatin, Date inicioMantenimiento, Date finMantenimiento) {
+    public Mantenimiento(Long id, Long monopatinId, Date inicioMantenimiento, Date finMantenimiento) {
         this.id = id;
-        this.monopatin = monopatin;
+        this.monopatinId = monopatinId;
         this.inicioMantenimiento = inicioMantenimiento;
         this.finMantenimiento = finMantenimiento;
-    }*/
+    }
 
     public Mantenimiento() {
     }

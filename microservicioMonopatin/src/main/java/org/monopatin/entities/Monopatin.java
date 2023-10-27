@@ -12,20 +12,23 @@ import lombok.Setter;
 public class Monopatin {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    /*@Column
-    Parada paradaEstacionamiento;
+    private Long id;
     @Column
-    private GPS gps;*/
+    private Integer paradaEstacionamientoId;
+    @Column
+    private long latitud;
+    @Column
+    private long altitud;
     @Column
     private boolean enMantenimiento;
 
-    /*public Monopatin(int id, Parada paradaEstacionamiento, GPS gps boolean enMantenimiento) {
+    public Monopatin(Long id, Integer paradaEstacionamientoId, long latitud, long altitud) {
         this.id = id;
-        this.paradaEstacionamiento = paradaEstacionamiento;
-        this.gps = gps;
-        this.enMantenimiento = enMantenimiento;
-    }*/
+        this.paradaEstacionamientoId = paradaEstacionamientoId;
+        this.latitud = latitud;
+        this.altitud = altitud;
+        this.enMantenimiento = false;
+    }
 
     public Monopatin() {
     }

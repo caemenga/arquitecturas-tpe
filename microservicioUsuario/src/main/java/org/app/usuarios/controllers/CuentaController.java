@@ -40,7 +40,7 @@ public class CuentaController {
     }
 
     @GetMapping( path = "/{id}")
-    public ResponseEntity<?> getById(@PathVariable("id") long id){
+    public ResponseEntity<?> getById(@PathVariable("id") Long id){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(cuentaService.getById(id));
         }catch (Exception e){
@@ -56,4 +56,8 @@ public class CuentaController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. no se pudo eliminar el alumno con id  \"" + id + ". intente nuevamente.\"}");
         }
     }
+
+    //todo: método para agregar saldo.
+
+    //todo: método para inhabilitar cuenta.
 }

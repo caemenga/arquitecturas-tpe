@@ -1,7 +1,8 @@
-package org.app.viajes.services;
+package org.monopatin.services;
 
-import org.app.viajes.models.entities.Viaje;
-import org.app.viajes.repositories.ViajeRepository;
+
+import org.monopatin.entities.Viaje;
+import org.monopatin.repositories.ViajeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +27,7 @@ public class ViajeService {
         return viajeRepository.findById(id);
     }
 
-    public boolean deleteViaje(long id) throws Exception {
+    public boolean deleteViaje(Long id) throws Exception {
         try{
             if(viajeRepository.existsById(id)){
                 viajeRepository.deleteById(id);
