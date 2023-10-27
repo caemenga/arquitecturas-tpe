@@ -24,7 +24,6 @@ public class Mantenimiento implements Serializable {
     private Date finMantenimiento;
 
     public Mantenimiento(Long monopatinId, Date inicioMantenimiento, Date finMantenimiento) {
-        this.id = id;
         this.monopatinId = monopatinId;
         this.inicioMantenimiento = inicioMantenimiento;
         this.finMantenimiento = finMantenimiento;
