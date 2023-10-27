@@ -1,8 +1,8 @@
-package org.app.mantenimiento.controllers;
+package org.app.mantenimiento.Controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.app.mantenimiento.entities.Mantenimiento;
-import org.app.mantenimiento.services.MantenimientoService;
+import org.app.mantenimiento.Services.MantenimientoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

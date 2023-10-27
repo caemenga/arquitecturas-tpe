@@ -1,7 +1,7 @@
-package org.app.mantenimiento.services;
+package org.app.mantenimiento.Services;
 
 import org.app.mantenimiento.entities.Mantenimiento;
-import org.app.mantenimiento.repositories.MantenimientoRepository;
+import org.app.mantenimiento.Repositories.MantenimientoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
