@@ -20,7 +20,7 @@
         <module>microservicioUsuario</module>
         <module>microservicioAdministrador</module>
         <module>microservicioMantenimiento</module>
-        <module>microservicioParadas</module>
+        <module>microservicioParada</module>
     </modules>
 
     <properties>
