@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -23,15 +24,14 @@ public class Cuenta implements Serializable {
     private float saldo;
     @Column
     private boolean habilitada;
-    @Column
     @ManyToMany
     private List<Usuario> usuarios;
 
-    public Cuenta(Date fechaAlta, float saldo, boolean habilitada, List<Usuario> usuarios) {
+    public Cuenta(Date fechaAlta, float saldo) {
         this.fechaAlta = fechaAlta;
         this.saldo = saldo;
         this.habilitada = true;
-        this.usuarios = usuarios;
+        this.usuarios = new ArrayList<>();
     }
 
     public Cuenta() {

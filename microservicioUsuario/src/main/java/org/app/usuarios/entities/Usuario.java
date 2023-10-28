@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -24,7 +25,6 @@ public class Usuario implements Serializable {
     private long telefono;
     @Column
     private String email;
-    @Column
     @ManyToMany(mappedBy = "usuarios")
     private List<Cuenta> cuentas;
 
@@ -33,6 +33,7 @@ public class Usuario implements Serializable {
         this.apellido = apellido;
         this.telefono = telefono;
         this.email = email;
+        this.cuentas = new ArrayList<>();
     }
 
     public Usuario() {
