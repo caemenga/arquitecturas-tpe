@@ -1,7 +1,7 @@
-package org.monopatin.Service;
+package org.app.monopatin.services;
 
-import org.monopatin.entities.Monopatin;
-import org.monopatin.Repositories.MonopatinRepository;
+import org.app.monopatin.entities.Monopatin;
+import org.app.monopatin.repositories.MonopatinRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package org.monopatin.entities;
+package org.app.monopatin.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -28,8 +28,7 @@ public class Viaje {
     @Column
     private Time pausa;
 
-    public Viaje(Long id, int cuentaId, Monopatin monopatin, Date fechaHoraInicio, Date fechaHoraFin, double kilometros, Time pausa) {
-        this.id = id;
+    public Viaje(int cuentaId, Monopatin monopatin, Date fechaHoraInicio, Date fechaHoraFin, double kilometros, Time pausa) {
         this.cuentaId = cuentaId;
         this.monopatin = monopatin;
         this.fechaHoraInicio = fechaHoraInicio;

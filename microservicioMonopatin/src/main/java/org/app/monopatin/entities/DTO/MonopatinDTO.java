@@ -1,4 +1,4 @@
-package org.monopatin.entities.DTO;
+package org.app.monopatin.entities.DTO;
 
 public class MonopatinDTO {
     private Long id;

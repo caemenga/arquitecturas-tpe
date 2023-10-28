@@ -20,8 +20,8 @@ import java.util.List;
 @Component
 public class CargaDeDatos {
     private final MantenimientoService mantenimientoService;
-    @Autowired
 
+    @Autowired
     public CargaDeDatos(MantenimientoService mantenimientoService) {
         this.mantenimientoService = mantenimientoService;
     }

@@ -1,4 +1,4 @@
-package org.monopatin.entities;
+package org.app.monopatin.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -22,8 +22,7 @@ public class Monopatin {
     @Column
     private boolean enMantenimiento;
 
-    public Monopatin(Long id, Integer paradaEstacionamientoId, long latitud, long altitud) {
-        this.id = id;
+    public Monopatin(Integer paradaEstacionamientoId, long latitud, long altitud) {
         this.paradaEstacionamientoId = paradaEstacionamientoId;
         this.latitud = latitud;
         this.altitud = altitud;

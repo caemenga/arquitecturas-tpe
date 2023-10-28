@@ -1,7 +1,8 @@
-package org.monopatin.Controllers;
+package org.app.monopatin.controllers;
 
 import lombok.RequiredArgsConstructor;
-import org.monopatin.Service.MonopatinService;
+import org.app.monopatin.entities.Viaje;
+import org.app.monopatin.services.ViajeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,28 +10,28 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 @RestController
-@RequestMapping("/monopatines")
+@RequestMapping("/viajes")
 @RequiredArgsConstructor
-public class MonopatinController {
+public class ViajeController {
 
     @Autowired
-    private MonopatinService monopatinService;
+    private ViajeService viajeService;
     @Autowired
     private RestTemplate restTemplate;
 
     @GetMapping()
-    public ResponseEntity<?> getMonopatines(){
+    public ResponseEntity<?> getViajes(){
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(monopatinService.getMonopatines());
+            return ResponseEntity.status(HttpStatus.OK).body(viajeService.getViajes());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo ingresar, revise los campos e intente nuevamente.\"}");
         }
     }
 
     @PostMapping()
-    public ResponseEntity<?> addMonopatin(@RequestBody org.monopatin.entities.Monopatin m){
+    public ResponseEntity<?> addViaje(@RequestBody Viaje v){
         try{
-            return ResponseEntity.status(HttpStatus.OK).body(monopatinService.addMonopatin(m));
+            return ResponseEntity.status(HttpStatus.OK).body(viajeService.addViaje(v));
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo ingresar, revise los campos e intente nuevamente.\"}");
         }
@@ -39,17 +40,7 @@ public class MonopatinController {
     @GetMapping( path = "/{id}")
     public ResponseEntity<?> getById(@PathVariable("id") Long id){
         try{
-            return ResponseEntity.status(HttpStatus.OK).body(monopatinService.getById(id));
-        }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se encuentra el objeto buscado");
-        }
-    }
-
-    //monopatines/2/mantenimiento/true
-    @PutMapping( path = "/{id}/mantenimiento/{boolean}")
-    public ResponseEntity<?> setearMantenimiento(@PathVariable("id") Long id, @PathVariable("boolean") boolean bol){
-        try{
-            return ResponseEntity.status(HttpStatus.OK).body(monopatinService.setearMantenimiento(id, bol));
+            return ResponseEntity.status(HttpStatus.OK).body(viajeService.getById(id));
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se encuentra el objeto buscado");
         }
@@ -58,7 +49,7 @@ public class MonopatinController {
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<?> deleteByID(@PathVariable("id") Long id){
         try{
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(monopatinService.deleteMonopatin(id));
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(viajeService.deleteViaje(id));
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. no se pudo eliminar el alumno con id  \"" + id + ". intente nuevamente.\"}");
         }

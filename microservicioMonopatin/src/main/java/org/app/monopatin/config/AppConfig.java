@@ -1,4 +1,4 @@
-package org.app.mantenimiento.Config;
+package org.app.monopatin.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

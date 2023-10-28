@@ -1,8 +1,8 @@
-package org.monopatin.services;
+package org.app.monopatin.services;
 
 
-import org.monopatin.entities.Viaje;
-import org.monopatin.repositories.ViajeRepository;
+import org.app.monopatin.entities.Viaje;
+import org.app.monopatin.repositories.ViajeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
