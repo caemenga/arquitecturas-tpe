@@ -66,19 +66,26 @@ public class AdministradorService {
                     return ResponseEntity.ok("Monopatin agregado a mantenimiento con exito");
                 }
             }
-        } else {
-            return ResponseEntity.ok("Monopatin no encontrado");
         }
-        return ResponseEntity.ok("No se");
+        return ResponseEntity.ok("Monopatin no encontrado");
     }
 
 //    public Object finMantenimiento(long idMantenimiento) {
 //
 //    }
 //
-//    public Object ubicarMonopatinEnParada(long idMonopatin) {
+//    public Parada ubicarMonopatinEnParada(long idMonopatin) {
+//        HttpHeaders headers = new HttpHeaders();
+//        HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
+//        ResponseEntity<Monopatin> responseMonopatin = monopatinRestTemplate.exchange(
+//                "http://localhost:8082/monopatines/" + idMonopatin,
+//                HttpMethod.GET,
+//                requestEntity,
+//                new ParameterizedTypeReference<Monopatin>() {}
+//        );
+//        Monopatin monopatin = responseMonopatin.getBody();
 //    }
-//
+
     public ResponseEntity<?> addMonopatin(Monopatin monopatin) {
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
@@ -111,19 +118,44 @@ public class AdministradorService {
         }
     }
 
-//    public Object addParada(Parada parada) {
-//        HttpHeaders headers = new HttpHeaders();
-//        HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
-//        ResponseEntity<Parada> response = paradaRestTemplate.exchange(
-//                "http://localhost:8083/paradas",
-//                HttpMethod.POST,
-//                requestEntity,
-//                new ParameterizedTypeReference<Parada>() {}
-//        );
-//    }
-//
-//    public Object deleteParada(long idParada) {
-//    }
+    public Object addParada(Parada parada) {
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
+        ResponseEntity<Parada> response = paradaRestTemplate.exchange(
+                "http://localhost:8083/paradas/" + parada.getId(),
+                HttpMethod.GET,
+                requestEntity,
+                new ParameterizedTypeReference<Parada>() {}
+        );
+        Parada p = response.getBody();
+        if(response.getStatusCode().isError()){
+            ResponseEntity<Parada> responseParada = paradaRestTemplate.exchange(
+                    "http://localhost:8083/paradas",
+                    HttpMethod.POST,
+                    requestEntity,
+                    new ParameterizedTypeReference<Parada>() {}
+            );
+            if(responseParada.getStatusCode().is2xxSuccessful()){
+                return ResponseEntity.ok(responseParada.getBody());
+            }
+        }
+        return ResponseEntity.ok("No se ha podido crear la parada exitosamente");
+    }
+
+    public Object deleteParada(long idParada) {
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
+        ResponseEntity<Parada> responseParada = paradaRestTemplate.exchange(
+                "http://localhost:8083/paradas/" + idParada,
+                HttpMethod.DELETE,
+                requestEntity,
+                new ParameterizedTypeReference<Parada>() {}
+        );
+        if(responseParada.getStatusCode().is2xxSuccessful()){
+            return ResponseEntity.ok(responseParada.getBody());
+        }
+        return ResponseEntity.ok("No se ha podido eliminar la parada");
+    }
 //
 //    public ResponseEntity<?> definirPrecio(long tarifa){
 //

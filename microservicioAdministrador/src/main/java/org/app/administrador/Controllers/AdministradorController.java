@@ -39,16 +39,17 @@ public class AdministradorController {
 //        }
 //    }
 //
-//    //ubicar monopatin en parada
-//    @GetMapping("/monopatin/{idMonopatin}/ubicar")
-//    public ResponseEntity<?> ubicarMonopatinEnParada(@PathVariable("idMonopatin") long idMonopatin){
-//        try{
-//            return ResponseEntity.status(HttpStatus.OK).body(administradorService.ubicarMonopatinEnParada(idMonopatin));
-//        } catch (Exception e){
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo ingresar, revise los campos e intente nuevamente.\"}");
-//        }
-//    }
-//
+    //ubicar monopatin en parada
+    @GetMapping("/monopatin/{idMonopatin}/ubicar")
+    public ResponseEntity<?> ubicarMonopatinEnParada(@PathVariable("idMonopatin") long idMonopatin){
+        try{
+            return null;
+            //return ResponseEntity.status(HttpStatus.OK).body(administradorService.ubicarMonopatinEnParada(idMonopatin));
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo ingresar, revise los campos e intente nuevamente.\"}");
+        }
+    }
+
     //Agregar monopatin
     @PostMapping("/monopatin")
     public ResponseEntity<?> addMonopatin(@RequestBody Monopatin monopatin){
@@ -70,14 +71,14 @@ public class AdministradorController {
     }
 
     //Registrar parada
-//    @PostMapping("/parada")
-//    public ResponseEntity<?> addParada(@RequestBody Parada parada){
-//        try{
-//            return ResponseEntity.status(HttpStatus.OK).body(administradorService.addParada(parada));
-//        } catch (Exception e){
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo ingresar, revise los campos e intente nuevamente.\"}");
-//        }
-//    }
+    @PostMapping("/parada")
+    public ResponseEntity<?> addParada(@RequestBody Parada parada){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(administradorService.addParada(parada));
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo ingresar, revise los campos e intente nuevamente.\"}");
+        }
+    }
 //
 //    //quitar parada
 //    @DeleteMapping(path = "/parada/{id}")

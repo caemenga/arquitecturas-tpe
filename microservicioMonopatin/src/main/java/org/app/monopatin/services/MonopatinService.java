@@ -18,6 +18,9 @@ public class MonopatinService {
     }
 
     public Monopatin addMonopatin(Monopatin m) {
+        if(monopatinRepository.existsById(m.getId())){
+            return null;
+        }
         return monopatinRepository.save(m);
     }
 

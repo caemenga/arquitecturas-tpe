@@ -6,7 +6,7 @@ import java.io.Serializable;
 public class Monopatin implements Serializable {
     private Long id;
 
-    private Integer paradaEstacionamientoId;
+    private long paradaEstacionamientoId;
     private long latitud;
     private long altitud;
     private boolean enMantenimiento;
@@ -16,7 +16,7 @@ public class Monopatin implements Serializable {
         this.enMantenimiento = enMantenimiento;
     }
 
-    public Monopatin(Long id, Integer paradaEstacionamientoId, long latitud, long altitud, boolean enMantenimiento) {
+    public Monopatin(Long id, long paradaEstacionamientoId, long latitud, long altitud, boolean enMantenimiento) {
         this.id = id;
         this.paradaEstacionamientoId = paradaEstacionamientoId;
         this.latitud = latitud;
