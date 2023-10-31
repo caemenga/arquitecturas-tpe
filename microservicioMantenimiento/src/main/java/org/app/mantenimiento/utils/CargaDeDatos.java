@@ -6,6 +6,7 @@ import org.apache.commons.csv.CSVRecord;
 import org.app.mantenimiento.Controllers.MantenimientoController;
 import org.app.mantenimiento.Repositories.MantenimientoRepository;
 import org.app.mantenimiento.Services.MantenimientoService;
+import org.app.mantenimiento.entities.DTO.MantenimientoDTO;
 import org.app.mantenimiento.entities.Mantenimiento;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -30,7 +31,7 @@ public class CargaDeDatos {
         String mantenimientoCSV = "microservicioMantenimiento/src/main/java/org/app/mantenimiento/utils/mantenimiento2.csv";
 
         CSVParser parser = null;
-        List<Long> mantenimientos = new ArrayList<Long>();
+        List<MantenimientoDTO> mantenimientos = new ArrayList<MantenimientoDTO>();
         //SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
 
         try {
@@ -44,9 +45,9 @@ public class CargaDeDatos {
 //            java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 //            java.util.Date utilDate2 = formato.parse(row.get(2));
 //            java.sql.Date sqlDate2 = new java.sql.Date(utilDate2.getTime());
-            mantenimientos.add(Long.parseLong(row.get(0)));
+            mantenimientos.add(new MantenimientoDTO(Long.parseLong(row.get(0))));
         }
-        for(Long m : mantenimientos){
+        for(MantenimientoDTO m : mantenimientos){
             mantenimientoService.addMantenimiento(m);
         }
     }

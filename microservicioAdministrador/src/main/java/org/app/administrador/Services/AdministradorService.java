@@ -1,5 +1,6 @@
 package org.app.administrador.Services;
 
+import org.app.administrador.Entities.DTO.MantenimientoDTO;
 import org.app.administrador.Entities.DTO.MonopatinDTO;
 import org.app.administrador.Entities.Mantenimiento;
 import org.app.administrador.Entities.Monopatin;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
@@ -17,66 +19,71 @@ import java.util.List;
 
 @Service("administrador")
 public class AdministradorService {
-    
+
 //    @Autowired
 //    private AdministradorRepository administradorRepository;
-    @Autowired
-    private RestTemplate monopatinRestTemplate;
-
-    @Autowired
-    private RestTemplate mantenimientoClienteRest;
-
-    //@Autowired
-    //private RestTemplate paradaRestTemplate;
+//    private WebCli monopatinClient;
+//
+//    @Autowired
+//    private RestTemplate mantenimientoClienteRest;
+//
+//    //@Autowired
+//    //private RestTemplate paradaRestTemplate;
 
     public ResponseEntity<String> registrarMantenimiento(MonopatinDTO idMonopatin) throws Exception{
+        RestTemplate restMono = new RestTemplate();
+
         System.out.println(idMonopatin.toString());
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
+
         //traer monopatin
         String url = "http://localhost:8082/monopatines/" + idMonopatin.getId();
         System.out.println(url);
-//        Monopatin response = monopatinRestTemplate.getForObject(url,Monopatin.class);
-//        ResponseEntity<Monopatin> response = monopatinRestTemplate.getForEntity(url,Monopatin.class);
-        ResponseEntity<Monopatin> response = monopatinRestTemplate.exchange(
+
+        ResponseEntity<Monopatin> response = restMono.exchange(
                 url,
                 HttpMethod.GET,
                 requestEntity,
                 new ParameterizedTypeReference<Monopatin>(){}
         );
         headers.setContentType(MediaType.APPLICATION_JSON);
-        return ResponseEntity.ok(response.toString());
-
-        //System.out.println(response.toString());
 
         //si el monopatin es valido
-//        if(response.getStatusCode().is2xxSuccessful() && response.getBody() != null){
-//            Monopatin monopatin = response.getBody();
-//            HttpEntity<Long> requestMantenimiento = new HttpEntity<>(idMonopatin.getId(), headers);
-//            //si el monopatin no esta en mantenimiento
-//            if(!monopatin.isEnMantenimiento()){
-//                //crear fila y entidad en microserv mantenimiento
-//                ResponseEntity<Mantenimiento> resp = mantenimientoClienteRest.exchange(
-//                        "http://localhost:8085/mantenimiento/",
-//                        HttpMethod.POST,
-//                        requestMantenimiento,
-//                        new ParameterizedTypeReference<Mantenimiento>() {}
-//                );
-//                //si se creo correctamente
-//                if(resp.getStatusCode().is2xxSuccessful()) {
-//                    //setear monopatin en mantenimiento = true
-//                    ResponseEntity<Monopatin> resp2 = mantenimientoClienteRest.exchange(
-//                            //monopatines/2/mantenimiento/true
-//                            "http://localhost:8082/monopatines/" + idMonopatin +"/mantenimiento/" + true,
-//                            HttpMethod.PUT,
-//                            requestEntity,
-//                            new ParameterizedTypeReference<Monopatin>() {}
-//                    );
-//                    return ResponseEntity.ok("Monopatin agregado a mantenimiento con exito");
-//                }
-//            }
-//        }
-        //return ResponseEntity.ok("Monopatin no encontrado");
+        if(response.getStatusCode().is2xxSuccessful() && response.getBody() != null){
+            Monopatin monopatin = response.getBody();
+            System.out.println("mono: " + monopatin.toString());
+
+            MantenimientoDTO m = new MantenimientoDTO(idMonopatin.getIdMonopatin());
+            HttpEntity<MantenimientoDTO> requestMantenimiento = new HttpEntity<MantenimientoDTO>(m, headers);
+
+            //si el monopatin no esta en mantenimiento
+            if(!monopatin.isEnMantenimiento()) {
+                System.out.println("reqMaN: " + requestMantenimiento.getBody());
+                //crear fila y entidad en microserv mantenimiento
+                ResponseEntity<Mantenimiento> resp = restMono.exchange(
+                        "http://localhost:8085/mantenimiento",
+                        HttpMethod.POST,
+                        requestMantenimiento,
+                        Mantenimiento.class
+                );
+                //si se creo correctamente
+                if(resp.getStatusCode().is2xxSuccessful()) {
+                    System.out.println("Vamos!!!!!");
+
+                    //setear monopatin en mantenimiento = true
+                    ResponseEntity<Monopatin> resp2 = restMono.exchange(
+                            //monopatines/2/mantenimiento/true
+                            "http://localhost:8082/monopatines/" + idMonopatin.getId() +"/mantenimiento/" + true,
+                            HttpMethod.PUT,
+                            requestEntity,
+                            new ParameterizedTypeReference<Monopatin>() {}
+                    );
+                    return ResponseEntity.ok("Monopatin agregado a mantenimiento con exito");
+                }
+            }
+        }
+        return ResponseEntity.ok("agregado c/ exito");
     }
 
 //    public ResponseEntity<?> finMantenimiento(long idMantenimiento) {
@@ -120,15 +127,20 @@ public class AdministradorService {
 //        Monopatin monopatin = responseMonopatin.getBody();
 //    }
 
+
     public ResponseEntity<?> addMonopatin(Monopatin monopatin) {
+
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
-        ResponseEntity<Monopatin> response = monopatinRestTemplate.exchange(
+
+        RestTemplate r = new RestTemplate();
+        ResponseEntity<Monopatin> response = r.exchange(
                 "http://localhost:8082/monopatin",
                 HttpMethod.POST,
                 requestEntity,
                 new ParameterizedTypeReference<Monopatin>() {}
         );
+
         if(response.getStatusCode().is2xxSuccessful() && response.getBody() != null){
             return ResponseEntity.ok(response.getBody());
         } else {
@@ -136,21 +148,21 @@ public class AdministradorService {
         }
     }
 
-    public ResponseEntity<?> eliminarMonopatin(long idMonopatin) {
-        HttpHeaders headers = new HttpHeaders();
-        HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
-        ResponseEntity<Monopatin> response = monopatinRestTemplate.exchange(
-                "http://localhost:8082/monopatin",
-                HttpMethod.DELETE,
-                requestEntity,
-                new ParameterizedTypeReference<Monopatin>() {}
-        );
-        if(response.getStatusCode().is2xxSuccessful() && response.getBody() != null){
-            return ResponseEntity.ok(response.getBody());
-        } else {
-            return ResponseEntity.ok("No se ha podido eliminar el monopatin con exito");
-        }
-    }
+//    public ResponseEntity<?> eliminarMonopatin(long idMonopatin) {
+//        HttpHeaders headers = new HttpHeaders();
+//        HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
+//        ResponseEntity<Monopatin> response = monopatinRestTemplate.exchange(
+//                "http://localhost:8082/monopatin",
+//                HttpMethod.DELETE,
+//                requestEntity,
+//                new ParameterizedTypeReference<Monopatin>() {}
+//        );
+//        if(response.getStatusCode().is2xxSuccessful() && response.getBody() != null){
+//            return ResponseEntity.ok(response.getBody());
+//        } else {
+//            return ResponseEntity.ok("No se ha podido eliminar el monopatin con exito");
+//        }
+//    }
 
 //    public Object addParada(Parada parada) {
 //        HttpHeaders headers = new HttpHeaders();

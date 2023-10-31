@@ -1,13 +1,19 @@
 package org.app.administrador.Entities;
 
+import lombok.*;
+
 import java.io.Serializable;
 
-
+@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Monopatin implements Serializable {
     private Long id;
-    private long paradaEstacionamientoId;
-    private long latitud;
-    private long altitud;
+    private Long paradaEstacionamientoId;
+    private Long latitud;
+    private Long altitud;
     private boolean enMantenimiento;
 
     public Monopatin(Long id, boolean enMantenimiento) {
@@ -15,13 +21,6 @@ public class Monopatin implements Serializable {
         this.enMantenimiento = enMantenimiento;
     }
 
-    public Monopatin(Long id, long paradaEstacionamientoId, long latitud, long altitud, boolean enMantenimiento) {
-        this.id = id;
-        this.paradaEstacionamientoId = paradaEstacionamientoId;
-        this.latitud = latitud;
-        this.altitud = altitud;
-        this.enMantenimiento = enMantenimiento;
-    }
 
     public Long getId() {
         return id;

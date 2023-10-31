@@ -2,11 +2,9 @@ package org.app.monopatin.entities.DTO;
 
 public class MonopatinDTO {
     private Long id;
-    private boolean enMantenimiento;
 
-    public MonopatinDTO(Long id, boolean enMantenimiento) {
+    public MonopatinDTO(Long id) {
         this.id = id;
-        this.enMantenimiento = enMantenimiento;
     }
 
     public MonopatinDTO() {
@@ -18,11 +16,11 @@ public class MonopatinDTO {
     }
 
 
-    public boolean isEnMantenimiento() {
-        return enMantenimiento;
-    }
-
-    public void setEnMantenimiento(boolean enMantenimiento) {
-        this.enMantenimiento = enMantenimiento;
-    }
+//    public boolean isEnMantenimiento() {
+//        return enMantenimiento;
+//    }
+//
+//    public void setEnMantenimiento(boolean enMantenimiento) {
+//        this.enMantenimiento = enMantenimiento;
+//    }
 }

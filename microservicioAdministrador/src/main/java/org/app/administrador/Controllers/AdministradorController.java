@@ -25,7 +25,8 @@ public class AdministradorController {
         try{
             return ResponseEntity.status(HttpStatus.OK).body(administradorService.registrarMantenimiento(idMonopatin));
         } catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo ingresarrrrrrrr, revise los campos e intente nuevamente.\"}");
+
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getLocalizedMessage());
         }
     }
 
@@ -51,14 +52,14 @@ public class AdministradorController {
     }
 
     //Agregar monopatin
-//    @PostMapping("/monopatin")
-//    public ResponseEntity<?> addMonopatin(@RequestBody Monopatin monopatin){
-//        try{
-//            return ResponseEntity.status(HttpStatus.OK).body(administradorService.addMonopatin(monopatin));
-//        } catch (Exception e){
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo ingresar, revise los campos e intente nuevamente.\"}");
-//        }
-//    }
+    @PostMapping("/monopatines")
+    public ResponseEntity<?> addMonopatin(@RequestBody Monopatin monopatin){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(administradorService.addMonopatin(monopatin));
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo ingresar, revise los campos e intente nuevamente.\"}");
+        }
+    }
 //
     //quitar monopatin
 //    @DeleteMapping(path = "/monopatin/{id}")

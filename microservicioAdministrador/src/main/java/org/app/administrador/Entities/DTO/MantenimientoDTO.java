@@ -1,5 +1,4 @@
-package org.app.mantenimiento.entities.DTO;
-
+package org.app.administrador.Entities.DTO;
 
 import lombok.*;
 

@@ -47,7 +47,8 @@ public class MonopatinService {
             if (monopatinRepository.existsById(id)) {
                 Monopatin m = monopatinRepository.getById(id);
                 if (m.isEnMantenimiento() != bol) {
-                    return monopatinRepository.setearMantenimiento(id, bol);
+                    m.setEnMantenimiento(bol);
+                    return Optional.of(monopatinRepository.save(m));
                 }
             }
         } catch (Exception e) {
