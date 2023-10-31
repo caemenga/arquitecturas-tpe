@@ -27,11 +27,11 @@ public class CargaDeDatos {
     }
 
     public void cargarDatos() throws ParseException {
-        String mantenimientoCSV = "microservicioMantenimiento/src/main/java/org/app/mantenimiento/utils/mantenimiento.csv";
+        String mantenimientoCSV = "microservicioMantenimiento/src/main/java/org/app/mantenimiento/utils/mantenimiento2.csv";
 
         CSVParser parser = null;
-        List<Mantenimiento> mantenimientos = new ArrayList<Mantenimiento>();
-        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+        List<Long> mantenimientos = new ArrayList<Long>();
+        //SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
 
         try {
             parser = CSVFormat.DEFAULT.withHeader().parse(new FileReader(mantenimientoCSV));
@@ -40,13 +40,13 @@ public class CargaDeDatos {
         }
 
         for (CSVRecord row: parser) {
-            java.util.Date utilDate = formato.parse(row.get(1));
-            java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-            java.util.Date utilDate2 = formato.parse(row.get(2));
-            java.sql.Date sqlDate2 = new java.sql.Date(utilDate2.getTime());
-            mantenimientos.add(new Mantenimiento(Long.parseLong(row.get(0)), sqlDate, sqlDate2));
+//            java.util.Date utilDate = formato.parse(row.get(1));
+//            java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+//            java.util.Date utilDate2 = formato.parse(row.get(2));
+//            java.sql.Date sqlDate2 = new java.sql.Date(utilDate2.getTime());
+            mantenimientos.add(Long.parseLong(row.get(0)));
         }
-        for(Mantenimiento m : mantenimientos){
+        for(Long m : mantenimientos){
             mantenimientoService.addMantenimiento(m);
         }
     }

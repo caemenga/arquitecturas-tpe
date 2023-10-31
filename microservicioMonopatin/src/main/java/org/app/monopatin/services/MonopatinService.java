@@ -18,10 +18,11 @@ public class MonopatinService {
     }
 
     public Monopatin addMonopatin(Monopatin m) {
-        if(monopatinRepository.existsById(m.getId())){
-            return null;
-        }
-        return monopatinRepository.save(m);
+        //if(!monopatinRepository.existsById(m.getId())){
+            return monopatinRepository.save(m);
+            //return null;
+       // }
+        //return null;
     }
 
     public Optional<Monopatin> getById(Long id) {
@@ -42,14 +43,16 @@ public class MonopatinService {
     }
 
     public Optional<Monopatin> setearMantenimiento(Long id, boolean bol) throws Exception {
-        try{
-            if(monopatinRepository.existsById(id)){
-                return monopatinRepository.setearMantenimiento(id, bol);
-            } else{
-                throw new Exception();
+        try {
+            if (monopatinRepository.existsById(id)) {
+                Monopatin m = monopatinRepository.getById(id);
+                if (m.isEnMantenimiento() != bol) {
+                    return monopatinRepository.setearMantenimiento(id, bol);
+                }
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
+        return Optional.empty();
     }
 }

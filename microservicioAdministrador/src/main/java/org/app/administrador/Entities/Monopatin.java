@@ -5,7 +5,6 @@ import java.io.Serializable;
 
 public class Monopatin implements Serializable {
     private Long id;
-
     private long paradaEstacionamientoId;
     private long latitud;
     private long altitud;

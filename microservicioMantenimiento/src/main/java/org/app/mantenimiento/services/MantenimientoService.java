@@ -1,10 +1,12 @@
 package org.app.mantenimiento.Services;
 
+import org.app.mantenimiento.entities.DTO.MantenimientoDTO;
 import org.app.mantenimiento.entities.Mantenimiento;
 import org.app.mantenimiento.Repositories.MantenimientoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,7 +20,9 @@ public class MantenimientoService {
         return mantenimientoRepository.findAll();
     }
 
-    public Mantenimiento addMantenimiento(Mantenimiento m) {
+    public Mantenimiento addMantenimiento(Long idMonopatin) {
+        Mantenimiento m = new Mantenimiento(idMonopatin);
+        System.out.println(m);
         return mantenimientoRepository.save(m);
     }
 
@@ -37,5 +41,17 @@ public class MantenimientoService {
         }catch (Exception e){
             throw new Exception(e.getMessage());
         }
+    }
+
+    public Mantenimiento finMantenimiento(MantenimientoDTO idMantenimiento) {
+        Optional<Mantenimiento> m = mantenimientoRepository.findById(idMantenimiento.getIdMantenimiento());
+
+        if(m.isPresent()){
+            long currentTimeMillis = System.currentTimeMillis();
+            Date fecha = new Date(currentTimeMillis);
+            m.get().setFinMantenimiento(fecha);
+            return mantenimientoRepository.save(m.get());
+        }
+        return null;
     }
 }

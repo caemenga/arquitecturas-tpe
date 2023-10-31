@@ -23,12 +23,49 @@ public class Mantenimiento implements Serializable {
     @Column
     private Date finMantenimiento;
 
-    public Mantenimiento(Long monopatinId, Date inicioMantenimiento, Date finMantenimiento) {
+//    public Mantenimiento(Long monopatinId, Date inicioMantenimiento, Date finMantenimiento) {
+//        this.monopatinId = monopatinId;
+//        this.inicioMantenimiento = inicioMantenimiento;
+//        this.finMantenimiento = finMantenimiento;
+//    }
+
+    public Mantenimiento(Long monopatinId, Date inicioMantenimiento) {
         this.monopatinId = monopatinId;
         this.inicioMantenimiento = inicioMantenimiento;
-        this.finMantenimiento = finMantenimiento;
+        this.finMantenimiento = null;
+    }
+
+    public Mantenimiento(Long monopatinId) {
+        this.monopatinId = monopatinId;
+        this.inicioMantenimiento = this.obtenerFechaActual();
+        this.finMantenimiento = null;
     }
 
     public Mantenimiento() {
+    }
+
+    public Date obtenerFechaActual(){
+        // Obtén la fecha y hora actual como un valor en milisegundos
+        long currentTimeMillis = System.currentTimeMillis();
+
+        // Crea una instancia de java.sql.Date a partir de los milisegundos actuales
+        return new Date(currentTimeMillis);
+    }
+
+    public void setFinMantenimiento(){
+        long currentTimeMillis = System.currentTimeMillis();
+
+        // Crea una instancia de java.sql.Date a partir de los milisegundos actuales
+        this.finMantenimiento = new Date(currentTimeMillis);
+    }
+
+    @Override
+    public String toString() {
+        return "Mantenimiento{" +
+                "id=" + id +
+                ", monopatinId=" + monopatinId +
+                ", inicioMantenimiento=" + inicioMantenimiento +
+                ", finMantenimiento=" + finMantenimiento +
+                '}';
     }
 }

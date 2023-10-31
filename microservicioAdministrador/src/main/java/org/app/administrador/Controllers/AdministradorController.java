@@ -1,6 +1,7 @@
 package org.app.administrador.Controllers;
 
 import lombok.Data;
+import org.app.administrador.Entities.DTO.MonopatinDTO;
 import org.app.administrador.Entities.Monopatin;
 import org.app.administrador.Entities.Parada;
 import org.app.administrador.Services.AdministradorService;
@@ -16,16 +17,15 @@ import org.springframework.web.client.RestTemplate;
 public class AdministradorController {
     @Autowired
     private AdministradorService administradorService;
-    @Autowired
-    private RestTemplate restTemplate;
+
 
     //Registrar monopatin en mantenimiento
     @PostMapping("/mantenimiento/registrar")
-    public ResponseEntity<?> registrarMantenimiento(@RequestBody long idMonopatin){
+    public ResponseEntity<?> registrarMantenimiento(@RequestBody MonopatinDTO idMonopatin){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(administradorService.registrarMantenimiento(idMonopatin));
         } catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo ingresar, revise los campos e intente nuevamente.\"}");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo ingresarrrrrrrr, revise los campos e intente nuevamente.\"}");
         }
     }
 
@@ -51,34 +51,34 @@ public class AdministradorController {
     }
 
     //Agregar monopatin
-    @PostMapping("/monopatin")
-    public ResponseEntity<?> addMonopatin(@RequestBody Monopatin monopatin){
-        try{
-            return ResponseEntity.status(HttpStatus.OK).body(administradorService.addMonopatin(monopatin));
-        } catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo ingresar, revise los campos e intente nuevamente.\"}");
-        }
-    }
+//    @PostMapping("/monopatin")
+//    public ResponseEntity<?> addMonopatin(@RequestBody Monopatin monopatin){
+//        try{
+//            return ResponseEntity.status(HttpStatus.OK).body(administradorService.addMonopatin(monopatin));
+//        } catch (Exception e){
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo ingresar, revise los campos e intente nuevamente.\"}");
+//        }
+//    }
 //
     //quitar monopatin
-    @DeleteMapping(path = "/monopatin/{id}")
-    public ResponseEntity<?> eliminarMonopatin(@PathVariable("id") long idMonopatin){
-        try{
-            return ResponseEntity.status(HttpStatus.OK).body(administradorService.eliminarMonopatin(idMonopatin));
-        } catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo ingresar, revise los campos e intente nuevamente.\"}");
-        }
-    }
+//    @DeleteMapping(path = "/monopatin/{id}")
+//    public ResponseEntity<?> eliminarMonopatin(@PathVariable("id") long idMonopatin){
+//        try{
+//            return ResponseEntity.status(HttpStatus.OK).body(administradorService.eliminarMonopatin(idMonopatin));
+//        } catch (Exception e){
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo ingresar, revise los campos e intente nuevamente.\"}");
+//        }
+//    }
 
     //Registrar parada
-    @PostMapping("/parada")
-    public ResponseEntity<?> addParada(@RequestBody Parada parada){
-        try{
-            return ResponseEntity.status(HttpStatus.OK).body(administradorService.addParada(parada));
-        } catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo ingresar, revise los campos e intente nuevamente.\"}");
-        }
-    }
+//    @PostMapping("/parada")
+//    public ResponseEntity<?> addParada(@RequestBody Parada parada){
+//        try{
+//            return ResponseEntity.status(HttpStatus.OK).body(administradorService.addParada(parada));
+//        } catch (Exception e){
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo ingresar, revise los campos e intente nuevamente.\"}");
+//        }
+//    }
 //
 //    //quitar parada
 //    @DeleteMapping(path = "/parada/{id}")

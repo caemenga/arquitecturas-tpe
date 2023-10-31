@@ -1,6 +1,7 @@
 package org.app.mantenimiento.Controllers;
 
 import lombok.RequiredArgsConstructor;
+import org.app.mantenimiento.entities.DTO.MantenimientoDTO;
 import org.app.mantenimiento.entities.Mantenimiento;
 import org.app.mantenimiento.Services.MantenimientoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +30,18 @@ public class MantenimientoController {
     }
 
     @PostMapping()
-    public ResponseEntity<?> addMantenimiento(@RequestBody Mantenimiento m){
+    public ResponseEntity<?> addMantenimiento(@RequestBody Long idMonopatin){
         try{
-            return ResponseEntity.status(HttpStatus.OK).body(mantenimientoService.addMantenimiento(m));
+            return ResponseEntity.status(HttpStatus.OK).body(mantenimientoService.addMantenimiento(idMonopatin));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo ingresar, revise los campos e intente nuevamente.\"}");
+        }
+    }
+
+    @PutMapping()
+    public ResponseEntity<?> finMantenimiento(@RequestBody MantenimientoDTO idMantenimiento){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(mantenimientoService.finMantenimiento(idMantenimiento));
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo ingresar, revise los campos e intente nuevamente.\"}");
         }

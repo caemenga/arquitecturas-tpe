@@ -14,7 +14,7 @@ public class Monopatin {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column
-    private Integer paradaEstacionamientoId;
+    private Long paradaEstacionamientoId;
     @Column
     private long latitud;
     @Column
@@ -22,7 +22,7 @@ public class Monopatin {
     @Column
     private boolean enMantenimiento;
 
-    public Monopatin(Integer paradaEstacionamientoId, long latitud, long altitud) {
+    public Monopatin(Long paradaEstacionamientoId, long latitud, long altitud) {
         this.paradaEstacionamientoId = paradaEstacionamientoId;
         this.latitud = latitud;
         this.altitud = altitud;

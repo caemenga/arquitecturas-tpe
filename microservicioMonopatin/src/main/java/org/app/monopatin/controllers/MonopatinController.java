@@ -1,5 +1,6 @@
 package org.app.monopatin.controllers;
 
+import jakarta.annotation.Nullable;
 import lombok.RequiredArgsConstructor;
 import org.app.monopatin.entities.Monopatin;
 import org.app.monopatin.services.MonopatinService;

@@ -15,7 +15,7 @@ public class Viaje {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column
-    private int cuentaId;
+    private Long cuentaId;
     @ManyToOne
     @JoinColumn(name="idMonopatin")
     private Monopatin monopatin;
@@ -26,9 +26,9 @@ public class Viaje {
     @Column
     private double kilometros;
     @Column
-    private Time pausa;
+    private Long pausa;
 
-    public Viaje(int cuentaId, Monopatin monopatin, Date fechaHoraInicio, Date fechaHoraFin, double kilometros, Time pausa) {
+    public Viaje(Long cuentaId, Monopatin monopatin, Date fechaHoraInicio, Date fechaHoraFin, double kilometros, Long pausa) {
         this.cuentaId = cuentaId;
         this.monopatin = monopatin;
         this.fechaHoraInicio = fechaHoraInicio;
