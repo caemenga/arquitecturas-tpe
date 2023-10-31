@@ -30,7 +30,7 @@ public class MantenimientoController {
     }
 
     @PostMapping()
-    public ResponseEntity<?> addMantenimiento(@RequestBody Long idMonopatin){
+    public ResponseEntity<?> addMantenimiento(@RequestBody MantenimientoDTO idMonopatin){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(mantenimientoService.addMantenimiento(idMonopatin));
         }catch (Exception e){

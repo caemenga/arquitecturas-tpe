@@ -20,8 +20,8 @@ public class MantenimientoService {
         return mantenimientoRepository.findAll();
     }
 
-    public Mantenimiento addMantenimiento(Long idMonopatin) {
-        Mantenimiento m = new Mantenimiento(idMonopatin);
+    public Mantenimiento addMantenimiento(MantenimientoDTO idMonopatin) {
+        Mantenimiento m = new Mantenimiento(idMonopatin.getIdMantenimiento());
         System.out.println(m);
         return mantenimientoRepository.save(m);
     }
