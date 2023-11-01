@@ -4,6 +4,7 @@ package org.app.monopatin.services;
 import org.app.monopatin.entities.DTO.MonopatinViajeDTO;
 import org.app.monopatin.entities.DTO.ReporteKmsDTO;
 import org.app.monopatin.entities.DTO.ReporteKmsPausaDTO;
+import org.app.monopatin.entities.DTO.ReporteTotalFacturadoDTO;
 import org.app.monopatin.entities.Viaje;
 import org.app.monopatin.repositories.ViajeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,10 +69,8 @@ public class ViajeService {
         }
         return reporte;
     }
-    public List<ReporteTotalFacturadoDTO> getReporteTotalFacturado(Long mes1,Long mes2, Long anio) {
-        List<ReporteTotalFacturadoDTO> reporte = viajeRepository.getReporteTotalFacturado(mes1, mes2, anio);
-
-        return reporte;
+    public ReporteTotalFacturadoDTO getReporteTotalFacturado(Long mes1, Long mes2, Long anio) {
+        return viajeRepository.getReporteTotalFacturado(mes1, mes2, anio);
     }
 
 }

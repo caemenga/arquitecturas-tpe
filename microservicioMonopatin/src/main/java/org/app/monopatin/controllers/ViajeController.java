@@ -69,4 +69,14 @@ public class ViajeController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getLocalizedMessage());
         }
     }
+
+    //http://localhost:8082/viajes/reporte/valores
+    @GetMapping( path = "/reporte/valores")
+    public ResponseEntity<?> getReporteTotalFacturado(@RequestParam Long mes1, @RequestParam Long mes2, @RequestParam Long anio){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(viajeService.getReporteTotalFacturado(mes1,mes2,anio));
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo ingresar, revise los campos e intente nuevamente.\"}");
+        }
+    }
 }

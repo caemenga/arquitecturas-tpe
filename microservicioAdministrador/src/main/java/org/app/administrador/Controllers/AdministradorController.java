@@ -163,12 +163,14 @@ public class AdministradorController {
 //            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo ingresar, revise los campos e intente nuevamente.\"}");
 //        }
 //    }
+
+    //http://localhost:8080/administracion/viajes?mes1=1&mes2=12&anio=2023
     @GetMapping( path = "/viajes")
     public ResponseEntity<?> getReporteTotalFacturado(@RequestParam Long mes1,@RequestParam Long mes2,@RequestParam Long anio){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(administradorService.getReporteTotalFacturado(mes1,mes2,anio));
         } catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo ingresar, revise los campos e intente nuevamente.\"}");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getLocalizedMessage());
         }
     }
 

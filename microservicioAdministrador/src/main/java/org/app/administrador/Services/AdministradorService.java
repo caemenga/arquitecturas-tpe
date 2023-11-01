@@ -1,10 +1,7 @@
 package org.app.administrador.Services;
 
 import org.app.administrador.Entities.Cuenta;
-import org.app.administrador.Entities.DTO.CuentaDTO;
-import org.app.administrador.Entities.DTO.MantenimientoDTO;
-import org.app.administrador.Entities.DTO.MonopatinDTO;
-import org.app.administrador.Entities.DTO.MonopatinParadaDTO;
+import org.app.administrador.Entities.DTO.*;
 import org.app.administrador.Entities.Mantenimiento;
 import org.app.administrador.Entities.Monopatin;
 import org.app.administrador.Entities.Parada;
@@ -229,7 +226,7 @@ public class AdministradorService {
    public ResponseEntity<?> anularCuenta(Long idCuenta) {
        //Traer Cuenta
 
-        RestTemplate restCuenta = new RestTemplate();
+       RestTemplate restCuenta = new RestTemplate();
 
        HttpHeaders headers = new HttpHeaders();
        HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
@@ -261,7 +258,29 @@ public class AdministradorService {
        return ResponseEntity.ok("La cuenta no existe");
     }
 
-    public List<ReporteTotalFacturadoDTO> getReporteTotalFacturado(Long mes1, Long mes2, Long anio) {
+    public ResponseEntity<?> getReporteTotalFacturado(Long mes1, Long mes2, Long anio) {
+        RestTemplate rest = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
+
+        //?mes1=1&mes2=12&anio=2023
+        String url = "http://localhost:8082/viajes/reporte/valores?mes1="+mes1+"&mes2="+mes2+"&anio="+anio;
+
+        ResponseEntity<ReporteTotalFacturadoDTO> response = rest.exchange(
+                url,
+                HttpMethod.GET,
+                requestEntity,
+                new ParameterizedTypeReference<ReporteTotalFacturadoDTO>(){}
+        );
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        System.out.println(response.getBody().getValorViaje());
+
+        if(response.getStatusCode().is2xxSuccessful() && response.getBody() != null){
+            return ResponseEntity.ok(response.getBody());
+        } else {
+            return ResponseEntity.ok("No se ha conseguido el reporte de la facturación con éxito.");
+        }
     }
 //
 //    public List<Monopatin> reporteMonopatinesPorKM() {

@@ -3,6 +3,7 @@ package org.app.monopatin.repositories;
 import org.app.monopatin.entities.DTO.MonopatinViajeDTO;
 import org.app.monopatin.entities.DTO.ReporteKmsDTO;
 import org.app.monopatin.entities.DTO.ReporteKmsPausaDTO;
+import org.app.monopatin.entities.DTO.ReporteTotalFacturadoDTO;
 import org.app.monopatin.entities.Viaje;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -29,11 +30,10 @@ public interface ViajeRepository extends JpaRepository<Viaje, Long> {
             "HAVING COUNT(v) >= :cant")
     List<MonopatinViajeDTO> findAllByAnio(Long cant, Long anio);
 
-   @Query("SELECT SUM(v.valorViaje) " +
+   @Query("SELECT SUM(v.valorViaje) AS valorViaje " +
            "FROM Viaje v " +
-           "WHERE YEAR(v.fechaHoraFin) = :anio AND MONTH(v.fechaHoraFin)>=:mes1 AND MONTH(v.fechaHoraFin)<=:mes2" +
-           "")
-   List<ReporteTotalFacturadoDTO> getReporteTotalFacturado(Long mes1,Long mes2, Long anio);
+           "WHERE YEAR(v.fechaHoraFin) = :anio AND MONTH(v.fechaHoraFin)>=:mes1 AND MONTH(v.fechaHoraFin)<=:mes2")
+   ReporteTotalFacturadoDTO getReporteTotalFacturado(Long mes1, Long mes2, Long anio);
 
 //    @Query(value =
 //            "SELECT COUNT(id) as cantViajes, id_monopatin as idMonopatin " +

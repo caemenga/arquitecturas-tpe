@@ -1,6 +1,7 @@
 package org.app.monopatin.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 
@@ -10,6 +11,7 @@ import java.util.Date;
 @Entity
 @Data
 @Getter
+//@AllArgsConstructor
 public class Viaje {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,14 +29,28 @@ public class Viaje {
     private double kilometros;
     @Column
     private Long pausa;
+    @Column
+    private Long valorViaje;
 
-    public Viaje(Long cuentaId, Monopatin monopatin, Date fechaHoraInicio, Date fechaHoraFin, double kilometros, Long pausa) {
+    public Viaje(Long cuentaId, Monopatin monopatin, Date fechaHoraInicio, Date fechaHoraFin, double kilometros, Long pausa, Long valorViaje) {
         this.cuentaId = cuentaId;
         this.monopatin = monopatin;
         this.fechaHoraInicio = fechaHoraInicio;
         this.fechaHoraFin = fechaHoraFin;
         this.kilometros = kilometros;
         this.pausa = pausa;
+        this.valorViaje = valorViaje;
+    }
+
+    public Viaje(Long id, Long cuentaId, Monopatin monopatin, Date fechaHoraInicio, double kilometros, Long pausa, Long valorViaje) {
+        this.id = id;
+        this.cuentaId = cuentaId;
+        this.monopatin = monopatin;
+        this.fechaHoraInicio = fechaHoraInicio;
+        this.fechaHoraFin = null;
+        this.kilometros = kilometros;
+        this.pausa = pausa;
+        this.valorViaje = valorViaje;
     }
 
     public Viaje() {

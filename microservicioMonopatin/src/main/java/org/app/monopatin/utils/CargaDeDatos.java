@@ -84,7 +84,8 @@ public class CargaDeDatos {
                         sqlDate,
                         sqlDate2,
                         Double.parseDouble(row.get(4)),
-                        Long.parseLong(row.get(5) )));
+                        Long.parseLong(row.get(5)),
+                        Long.parseLong(row.get(6))));
             }
         }
 
