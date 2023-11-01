@@ -1,6 +1,7 @@
 package org.app.monopatin.services;
 
 
+import org.app.monopatin.entities.DTO.MonopatinViajeDTO;
 import org.app.monopatin.entities.Viaje;
 import org.app.monopatin.repositories.ViajeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ public class ViajeService {
     @Autowired
     private ViajeRepository viajeRepository;
 
+    @Autowired MonopatinService monopatinService;
+
     public List<Viaje> getViajes() {
         return viajeRepository.findAll();
     }
@@ -25,6 +28,10 @@ public class ViajeService {
 
     public Optional<Viaje> getById(Long id) {
         return viajeRepository.findById(id);
+    }
+
+    List<MonopatinViajeDTO> findAllByAnio(Long anio) {
+        return viajeRepository.findAllByAnio(anio);
     }
 
     public boolean deleteViaje(Long id) throws Exception {
