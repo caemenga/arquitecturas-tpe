@@ -65,6 +65,17 @@ public class MonopatinController {
         }
     }
 
+    @GetMapping("/reporte/operacion")
+    public ResponseEntity<?> reporteEnOperacion(){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(monopatinService.reporteEnOperacion());
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
+
+//    @GetMapping("/reporte/mantenimiento")
+
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<?> deleteByID(@PathVariable("id") Long id){
         try{

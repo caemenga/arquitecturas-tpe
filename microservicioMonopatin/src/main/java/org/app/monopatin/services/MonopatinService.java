@@ -1,6 +1,10 @@
 package org.app.monopatin.services;
 
+
+import org.app.monopatin.entities.DTO.ReporteMonopatin;
+
 import org.app.monopatin.entities.DTO.MonopatinViajeDTO;
+
 import org.app.monopatin.entities.Monopatin;
 import org.app.monopatin.repositories.MonopatinRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,6 +65,14 @@ public class MonopatinService {
         return Optional.empty();
     }
 
+
+    public Optional<ReporteMonopatin> reporteEnOperacion() throws Exception {
+        try{
+            return monopatinRepository.getReporteEnOperacion();
+        } catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+
     public List<Monopatin> getMonopatinesPorXViajes(Long cant, Long anio) {
         List<Monopatin> listaMonopatines = new ArrayList<>();
         List<MonopatinViajeDTO> aRetornar = viajeService.findAllByAnio(anio);
@@ -70,6 +82,5 @@ public class MonopatinService {
             }
         }
         return listaMonopatines;
-
     }
 }

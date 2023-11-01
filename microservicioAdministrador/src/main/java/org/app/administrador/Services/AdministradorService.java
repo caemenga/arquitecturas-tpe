@@ -1,5 +1,7 @@
 package org.app.administrador.Services;
 
+import org.app.administrador.Entities.Cuenta;
+import org.app.administrador.Entities.DTO.CuentaDTO;
 import org.app.administrador.Entities.DTO.MantenimientoDTO;
 import org.app.administrador.Entities.DTO.MonopatinDTO;
 import org.app.administrador.Entities.Mantenimiento;
@@ -207,8 +209,40 @@ public class AdministradorService {
 //
 //    }
 //
-//    public Object anularCuenta(long idCuenta) {
-//    }
+   public ResponseEntity<?> anularCuenta(Long idCuenta) {
+       //Traer Cuenta
+
+        RestTemplate restCuenta = new RestTemplate();
+
+       HttpHeaders headers = new HttpHeaders();
+       HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
+
+       String url = "http://localhost:8081/cuentas/" + idCuenta;
+       System.out.println(url);
+
+       ResponseEntity<Cuenta> response = restCuenta.exchange(
+               url,
+               HttpMethod.GET,
+               requestEntity,
+               new ParameterizedTypeReference<Cuenta>(){}
+       );
+       headers.setContentType(MediaType.APPLICATION_JSON);
+       //si la cuenta existe
+
+
+       if(response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
+           ResponseEntity<Cuenta> response2 = restCuenta.exchange(
+
+                   "http://localhost:8081/cuentas/anular/" + idCuenta,
+                   HttpMethod.PUT,
+                   requestEntity,
+                   new ParameterizedTypeReference<Cuenta>() {
+                   }
+           );
+           return ResponseEntity.ok("Monopatin agregado a mantenimiento con exito");
+       }
+       return ResponseEntity.ok("La cuenta no existe");
+    }
 //
 //    public List<Monopatin> reporteMonopatinesPorKM() {
 //    }

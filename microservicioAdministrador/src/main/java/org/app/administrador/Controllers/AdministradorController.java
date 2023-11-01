@@ -1,6 +1,7 @@
 package org.app.administrador.Controllers;
 
 import lombok.Data;
+import org.app.administrador.Entities.DTO.*;
 import org.app.administrador.Entities.DTO.MonopatinDTO;
 import org.app.administrador.Entities.Monopatin;
 import org.app.administrador.Entities.Parada;
@@ -103,15 +104,15 @@ public class AdministradorController {
 //
 //    //definir tarifa extra para reinicio por pausa extensa
 //
-//    //anular cuenta
-//    @PutMapping(path = "/cuenta/anular/{id}")
-//    public ResponseEntity<?> anularCuenta(@PathVariable long idCuenta){
-//        try{
-//            return ResponseEntity.status(HttpStatus.OK).body(administradorService.anularCuenta(idCuenta));
-//        } catch (Exception e){
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo ingresar, revise los campos e intente nuevamente.\"}");
-//        }
-//    }
+   // anular cuenta
+    @PutMapping( path = "/anular/cuenta/{id})")
+    public ResponseEntity<?> anularCuenta(@PathVariable("id") Long idCuenta){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(administradorService.anularCuenta(idCuenta));
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo ingresar, revise los campos e intente nuevamente.\"}");
+        }
+    }
 //
 //    //generar reporte de uso de monopatines por KM
 //    @GetMapping( path = "/monopatines/km")

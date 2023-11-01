@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CuentaDTO {
-    private Long id;
+   // private Long id;
     private float saldoAagregar;
 
     public void setSaldoAagregar(float saldoAagregar) {
@@ -19,11 +19,5 @@ public class CuentaDTO {
         return saldoAagregar;
     }
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 }
