@@ -2,6 +2,7 @@ package org.app.administrador.Services;
 
 import org.app.administrador.Entities.DTO.MantenimientoDTO;
 import org.app.administrador.Entities.DTO.MonopatinDTO;
+import org.app.administrador.Entities.DTO.MonopatinParadaDTO;
 import org.app.administrador.Entities.Mantenimiento;
 import org.app.administrador.Entities.Monopatin;
 import org.app.administrador.Entities.Parada;
@@ -85,6 +86,22 @@ public class AdministradorService {
         }
         return ResponseEntity.ok("agregado c/ exito");
     }
+
+//    public List<Monopatin> reporteMonopatinesPorKM() {
+//
+//    }
+
+//    public Parada ubicarMonopatinEnParada(MonopatinParadaDTO monopatinParadaId) {
+//        HttpHeaders headers = new HttpHeaders();
+//        HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
+//        ResponseEntity<Monopatin> responseMonopatin = monopatinRestTemplate.exchange(
+//                "http://localhost:8082/monopatines/" + idMonopatin,
+//                HttpMethod.GET,
+//                requestEntity,
+//                new ParameterizedTypeReference<Monopatin>() {}
+//        );
+//        Monopatin monopatin = responseMonopatin.getBody();
+//    }
 
 //    public ResponseEntity<?> finMantenimiento(long idMantenimiento) {
 //        HttpHeaders headers = new HttpHeaders();
