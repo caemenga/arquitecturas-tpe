@@ -9,7 +9,7 @@ import org.app.monopatin.entities.Monopatin;
 //@NoArgsConstructor
 public interface MonopatinViajeDTO {
 
-    Long getCantViajes();
+    Long getTotalViajes();
     Long getIdMonopatin();
 
 //    public MonopatinViajeDTO(Long cantViajes, Long idmonopatin){

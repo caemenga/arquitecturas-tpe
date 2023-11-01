@@ -31,12 +31,12 @@ public class ViajeService {
         return viajeRepository.findById(id);
     }
 
-    public List<MonopatinViajeDTO> findAllByAnio(Integer cant, Long anio) {
-        List<MonopatinViajeDTO> l = viajeRepository.findAllByAnio(anio);
-//        for(MonopatinViajeDTO m : l){
-//            System.out.println("aaaaaaaaaaaaaaaaa");
-//            System.out.println(m.toString());
-//        }
+    public List<MonopatinViajeDTO> findAllByAnio(Long cant, Long anio) {
+        List<MonopatinViajeDTO> l = viajeRepository.findAllByAnio(cant, anio);
+        for(MonopatinViajeDTO m : l){
+            System.out.println("aaaaaaaaaaaaaaaaa");
+            System.out.println(m.toString());
+        }
         return l;
     }
 

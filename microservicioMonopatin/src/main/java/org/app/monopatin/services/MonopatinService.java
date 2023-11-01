@@ -74,7 +74,7 @@ public class MonopatinService {
         }
     }
 
-    public List<MonopatinViajeDTO> getMonopatinesPorXViajes(Integer cant, Long anio) {
+    public List<MonopatinViajeDTO> getMonopatinesPorXViajes(Long cant, Long anio) {
         //List<Monopatin> listaMonopatines = new ArrayList<>();
         return viajeService.findAllByAnio(cant, anio);
 
