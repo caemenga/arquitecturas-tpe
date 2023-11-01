@@ -6,6 +6,7 @@ import org.app.administrador.Entities.DTO.MonopatinDTO;
 import org.app.administrador.Entities.DTO.MonopatinParadaDTO;
 import org.app.administrador.Entities.Monopatin;
 import org.app.administrador.Entities.Parada;
+import org.app.administrador.Entities.Tarifa;
 import org.app.administrador.Services.AdministradorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -112,15 +113,15 @@ public class AdministradorController {
 //        }
 //    }
 //
-//    //definir precio
-//    @PostMapping(path = "/tarifa/{tarifa}")
-//    public ResponseEntity<?> definirPrecio(@RequestBody long tarifa, long tarifaExtra){
-//        try{
-//            return ResponseEntity.status(HttpStatus.OK).body(administradorService.definirPrecio(tarifa));
-//        } catch (Exception e){
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo ingresar, revise los campos e intente nuevamente.\"}");
-//        }
-//    }
+    //definir precio
+    @PostMapping(path = "/tarifa")
+    public ResponseEntity<?> definirPrecio(@RequestBody Tarifa t){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(administradorService.definirPrecio(t));
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo ingresar, revise los campos e intente nuevamente.\"}");
+        }
+    }
 //
 //    //definir tarifa extra para reinicio por pausa extensa
 //
