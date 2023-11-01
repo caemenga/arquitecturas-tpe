@@ -3,6 +3,7 @@ package org.app.administrador.Controllers;
 import lombok.Data;
 import org.app.administrador.Entities.DTO.*;
 import org.app.administrador.Entities.DTO.MonopatinDTO;
+import org.app.administrador.Entities.DTO.MonopatinParadaDTO;
 import org.app.administrador.Entities.Monopatin;
 import org.app.administrador.Entities.Parada;
 import org.app.administrador.Services.AdministradorService;
@@ -31,6 +32,15 @@ public class AdministradorController {
         }
     }
 
+//    @GetMapping( path = "/monopatines/km")
+//    public ResponseEntity<?> reporteMonopatinesPorKM(){
+//        try{
+//            return ResponseEntity.status(HttpStatus.OK).body(administradorService.reporteMonopatinesPorKM());
+//        } catch (Exception e){
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo ingresar, revise los campos e intente nuevamente.\"}");
+//        }
+//    }
+
     //Registrar fin de mantenimiento
 //    @PostMapping("/mantenimiento/fin")
 //    public ResponseEntity<?> finMantenimiento(@RequestBody long idMantenimiento){
@@ -42,15 +52,25 @@ public class AdministradorController {
 //    }
 //
     //ubicar monopatin en parada
-    @GetMapping("/monopatin/{idMonopatin}/ubicar")
-    public ResponseEntity<?> ubicarMonopatinEnParada(@PathVariable("idMonopatin") long idMonopatin){
-        try{
-            return null;
-            //return ResponseEntity.status(HttpStatus.OK).body(administradorService.ubicarMonopatinEnParada(idMonopatin));
-        } catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo ingresar, revise los campos e intente nuevamente.\"}");
-        }
-    }
+    //@GetMapping("/monopatin/{idMonopatin}/ubicar")
+    //public ResponseEntity<?> ubicarMonopatinEnParada(@PathVariable("idMonopatin") long idMonopatin){
+    //    try{
+    //        return null;
+    //        //return ResponseEntity.status(HttpStatus.OK).body(administradorService.ubicarMonopatinEnParada(idMonopatin));
+    //    } catch (Exception e){
+    //        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo ingresar, revise los campos e intente nuevamente.\"}");
+    //    }
+    //}
+
+//    @PostMapping("/monopatin/ubicar")
+//    public ResponseEntity<?> ubicarMonopatinEnParada(@RequestBody MonopatinParadaDTO monopatinParadaId){
+//        try{
+//            //return null;
+//            return ResponseEntity.status(HttpStatus.OK).body(administradorService.ubicarMonopatinEnParada(monopatinParadaId));
+//        } catch (Exception e){
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo ingresar, revise los campos e intente nuevamente.\"}");
+//        }
+//    }
 
     //Agregar monopatin
     @PostMapping("/monopatines")

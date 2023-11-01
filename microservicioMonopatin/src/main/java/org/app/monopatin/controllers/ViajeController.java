@@ -54,4 +54,17 @@ public class ViajeController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. no se pudo eliminar el alumno con id  \"" + id + ". intente nuevamente.\"}");
         }
     }
+
+    @GetMapping( path = "/reporte/kms")
+    public ResponseEntity<?> getReporteKms(@RequestParam(required = false ) Boolean pausa) {
+        try {
+            if (pausa) {
+                return ResponseEntity.status(HttpStatus.OK).body(viajeService.getReporteKmsPausa());
+            } else {
+                return ResponseEntity.status(HttpStatus.OK).body(viajeService.getReporteKms());
+            }
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getLocalizedMessage());
+        }
+    }
 }
