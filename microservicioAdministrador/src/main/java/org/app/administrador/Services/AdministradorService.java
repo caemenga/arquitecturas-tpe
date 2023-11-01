@@ -260,6 +260,9 @@ public class AdministradorService {
        }
        return ResponseEntity.ok("La cuenta no existe");
     }
+
+    public List<ReporteTotalFacturadoDTO> getReporteTotalFacturado(Long mes1, Long mes2, Long anio) {
+    }
 //
 //    public List<Monopatin> reporteMonopatinesPorKM() {
 //    }
