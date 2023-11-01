@@ -47,9 +47,6 @@ public class CuentaService {
         if(c.isPresent()){
             if(c.get().isHabilitada()) {
                 c.get().setHabilitada(false);
-            }else{
-                c.get().setHabilitada(true);
-            }
             return cuentaRepository.save(c.get());
         }
         return null;
