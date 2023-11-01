@@ -10,11 +10,17 @@ import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
-@Repository
+@Repository("ViajeRepository")
 public interface ViajeRepository extends JpaRepository<Viaje, Long> {
-    @Query("SELECT new org.app.monopatin.entities.DTO.MonopatinViajeDTO(count(v), v.monopatin) " +
-            "FROM Viaje v " +
-            "WHERE v.fechaHoraFin = :anio " +
-            "GROUP BY v.monopatin")
-    List<MonopatinViajeDTO> findAllByAnio(Long anio);
+//    @Query("SELECT count(v.id), v.monopatin.id " +
+//            "FROM Viaje v " +
+//            "WHERE EXTRACT(year FROM v.fechaHoraFin) = :anio " +
+//            "GROUP BY v.monopatin.id " +
+//            "HAVING count(v.id)>=1 ")
+    @Query(value =
+            "SELECT COUNT(id) as cantViajes, id_monopatin as idMonopatin " +
+            "FROM microservicioMonopatin.viaje WHERE YEAR(fecha_hora_fin) = 2023 " +
+            "GROUP BY id_monopatin " +
+            "HAVING cantViajes >= 1", nativeQuery = true)
+    public abstract List<MonopatinViajeDTO> findAllByAnio(Long anio);
 }

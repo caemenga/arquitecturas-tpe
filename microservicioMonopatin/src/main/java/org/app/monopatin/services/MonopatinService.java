@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Service("monopatines")
+@Service("monopatineService")
 public class MonopatinService {
     @Autowired
     private MonopatinRepository monopatinRepository;
@@ -67,20 +67,22 @@ public class MonopatinService {
 
 
     public Optional<ReporteMonopatin> reporteEnOperacion() throws Exception {
-        try{
+        try {
             return monopatinRepository.getReporteEnOperacion();
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
+    }
 
-    public List<Monopatin> getMonopatinesPorXViajes(Long cant, Long anio) {
-        List<Monopatin> listaMonopatines = new ArrayList<>();
-        List<MonopatinViajeDTO> aRetornar = viajeService.findAllByAnio(anio);
-        for (MonopatinViajeDTO mvDTO: aRetornar){
-            if(mvDTO.getCantViajes()>cant){
-                listaMonopatines.add(mvDTO.getMonopatin());
-            }
-        }
-        return listaMonopatines;
+    public List<MonopatinViajeDTO> getMonopatinesPorXViajes(Integer cant, Long anio) {
+        //List<Monopatin> listaMonopatines = new ArrayList<>();
+        return viajeService.findAllByAnio(cant, anio);
+
+//        for (MonopatinViajeDTO mvDTO: aRetornar){
+//            if(mvDTO.getCantViajes()>cant){
+//                listaMonopatines.add(mvDTO.getMonopatin());
+//            }
+//        }
+        //return aRetornar;
     }
 }

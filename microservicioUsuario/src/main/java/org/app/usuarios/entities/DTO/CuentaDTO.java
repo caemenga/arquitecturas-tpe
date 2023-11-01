@@ -8,14 +8,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CuentaDTO {
-   // private Long id;
-    private float saldoAagregar;
+    private Long id;
+    private double saldoAagregar;
 
-    public void setSaldoAagregar(float saldoAagregar) {
+    public void setSaldoAagregar(double saldoAagregar) {
         this.saldoAagregar = saldoAagregar;
     }
 
-    public float getSaldoAagregar() {
+    public double getSaldoAagregar() {
         return saldoAagregar;
     }
 

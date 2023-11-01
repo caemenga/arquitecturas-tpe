@@ -21,13 +21,13 @@ public class Cuenta implements Serializable {
     @Column
     private Date fechaAlta;
     @Column
-    private float saldo;
+    private double saldo;
     @Column
     private boolean habilitada;
     @ManyToMany
     private List<Usuario> usuarios;
 
-    public Cuenta(Date fechaAlta, float saldo) {
+    public Cuenta(Date fechaAlta, double saldo) {
         this.fechaAlta = fechaAlta;
         this.saldo = saldo;
         this.habilitada = true;

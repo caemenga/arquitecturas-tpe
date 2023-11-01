@@ -7,16 +7,15 @@ import org.app.monopatin.repositories.ViajeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Service("viajes")
+@Service("viajeService")
 public class ViajeService {
 
     @Autowired
     private ViajeRepository viajeRepository;
-
-    @Autowired MonopatinService monopatinService;
 
     public List<Viaje> getViajes() {
         return viajeRepository.findAll();
@@ -30,8 +29,13 @@ public class ViajeService {
         return viajeRepository.findById(id);
     }
 
-    List<MonopatinViajeDTO> findAllByAnio(Long anio) {
-        return viajeRepository.findAllByAnio(anio);
+    public List<MonopatinViajeDTO> findAllByAnio(Integer cant, Long anio) {
+        List<MonopatinViajeDTO> l = viajeRepository.findAllByAnio(anio);
+//        for(MonopatinViajeDTO m : l){
+//            System.out.println("aaaaaaaaaaaaaaaaa");
+//            System.out.println(m.toString());
+//        }
+        return l;
     }
 
     public boolean deleteViaje(Long id) throws Exception {

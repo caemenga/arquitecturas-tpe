@@ -56,9 +56,9 @@ public class CuentaService {
         Optional<Cuenta> c = cuentaRepository.findById(saldo.getId());
 
         if(c.isPresent()){
-          //  float saldoAagregar = c.get().getSaldo() + saldo.getSaldoAagregar();
-           // c.get().setSaldo(saldoAagregar);
-            cuentaRepository.save(c.get());
+            double saldoAagregar = c.get().getSaldo() + saldo.getSaldoAagregar();
+            c.get().setSaldo(saldoAagregar);
+            return cuentaRepository.save(c.get());
         }
         return null;
     }

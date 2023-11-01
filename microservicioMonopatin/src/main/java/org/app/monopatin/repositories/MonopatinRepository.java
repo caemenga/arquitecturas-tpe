@@ -15,13 +15,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
-@Repository
+@Repository("MonopatinRepository")
 public interface MonopatinRepository extends JpaRepository<Monopatin, Long> {
-
-
-//    @Query("SELECT new org.app.monopatin.entities.DTO.MonopatinDTO(m.id, m.enMantenimiento)" + " FROM Monopatin m WHERE m.id = :id")
-//    public abstract Optional<MonopatinDTO> getById(long id);
-
 
    // @Query("SELECT new org.app.monopatin.entities.DTO.MonopatinDTO(m.id, m.enMantenimiento)" + " FROM Monopatin m WHERE m.id = :id")
    // public abstract Optional<MonopatinDTO> getById(long id);

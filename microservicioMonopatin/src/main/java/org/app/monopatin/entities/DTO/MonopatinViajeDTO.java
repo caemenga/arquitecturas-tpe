@@ -1,14 +1,19 @@
 package org.app.monopatin.entities.DTO;
 
-import lombok.Getter;
+import lombok.*;
 import org.app.monopatin.entities.Monopatin;
-@Getter
-public class MonopatinViajeDTO {
 
-    private Long cantViajes;
-    private Monopatin monopatin;
-    public MonopatinViajeDTO(Long cantViajes, Monopatin m){
-        this.cantViajes=cantViajes;
-        this.monopatin=m;
-    }
+//@Data
+//@Getter
+//@Setter
+//@NoArgsConstructor
+public interface MonopatinViajeDTO {
+
+    Long getCantViajes();
+    Long getIdMonopatin();
+
+//    public MonopatinViajeDTO(Long cantViajes, Long idmonopatin){
+//        this.cantViajes=cantViajes;
+//        this.idMonopatin=idmonopatin;
+//    }
 }
