@@ -1,5 +1,6 @@
 package org.app.monopatin.services;
 
+import org.app.monopatin.entities.DTO.ReporteMonopatin;
 import org.app.monopatin.entities.Monopatin;
 import org.app.monopatin.repositories.MonopatinRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,5 +56,13 @@ public class MonopatinService {
             throw new Exception(e.getMessage());
         }
         return Optional.empty();
+    }
+
+    public Optional<ReporteMonopatin> reporteEnOperacion() throws Exception {
+        try{
+            return monopatinRepository.getReporteEnOperacion();
+        } catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
     }
 }
