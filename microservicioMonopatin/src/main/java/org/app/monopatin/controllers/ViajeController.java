@@ -55,8 +55,10 @@ public class ViajeController {
         }
     }
 
+    //http://localhost:8082/viajes/reporte/kms?pausa=false
+    //http://localhost:8082/viajes/reporte/kms?pausa=true
     @GetMapping( path = "/reporte/kms")
-    public ResponseEntity<?> getReporteKms(@RequestParam(required = false ) Boolean pausa) {
+    public ResponseEntity<?> getReporteKms(@RequestParam Boolean pausa) {
         try {
             if (pausa) {
                 return ResponseEntity.status(HttpStatus.OK).body(viajeService.getReporteKmsPausa());
