@@ -1,6 +1,7 @@
 package org.app.usuarios.services;
 
 import org.app.usuarios.entities.Cuenta;
+import org.app.usuarios.entities.DTO.CuentaDTO;
 import org.app.usuarios.entities.Usuario;
 import org.app.usuarios.repositories.CuentaRepository;
 import org.app.usuarios.repositories.UsuarioRepository;
@@ -39,5 +40,29 @@ public class CuentaService {
         }catch (Exception e){
             throw new Exception(e.getMessage());
         }
+    }
+
+    public Cuenta inhabilitarCuenta(CuentaDTO id){
+       Optional<Cuenta> c = cuentaRepository.findById(id.getId());
+        if(c.isPresent()){
+            if(c.get().isHabilitada()) {
+                c.get().setHabilitada(false);
+            }else{
+                c.get().setHabilitada(true);
+            }
+            return cuentaRepository.save(c.get());
+        }
+        return null;
+    }
+
+    public Cuenta agregarSaldo(CuentaDTO saldo){
+        Optional<Cuenta> c = cuentaRepository.findById(saldo.getId());
+
+        if(c.isPresent()){
+            float saldoAagregar = c.get().getSaldo() + saldo.getSaldoAagregar();
+            c.get().setSaldo(saldoAagregar);
+            cuentaRepository.save(c.get());
+        }
+        return null;
     }
 }

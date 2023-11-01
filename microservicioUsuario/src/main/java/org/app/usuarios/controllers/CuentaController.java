@@ -2,6 +2,7 @@ package org.app.usuarios.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.app.usuarios.entities.Cuenta;
+import org.app.usuarios.entities.DTO.CuentaDTO;
 import org.app.usuarios.entities.Usuario;
 import org.app.usuarios.services.CuentaService;
 import org.app.usuarios.services.UsuarioService;
@@ -10,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/cuentas")
@@ -57,7 +60,28 @@ public class CuentaController {
         }
     }
 
-    //todo: método para agregar saldo.
+
 
     //todo: método para inhabilitar cuenta.
+
+    @PutMapping()
+    public ResponseEntity<?> inhabilitarCuenta(@RequestBody CuentaDTO id){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(cuentaService.inhabilitarCuenta(id));
+        }catch(Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No existe la cuenta con la id: " + id +"\"}");
+        }
+    }
+
+    //todo: método para agregar saldo.
+
+    @PutMapping()
+    public ResponseEntity<?> agregarSaldo(@RequestBody CuentaDTO saldo){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(cuentaService.agregarSaldo(saldo));
+        }catch(Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No existe la cuenta con la id: " + saldo +"\"}");
+        }
+    }
+
 }
