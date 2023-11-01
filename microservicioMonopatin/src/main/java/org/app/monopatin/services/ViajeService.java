@@ -68,4 +68,10 @@ public class ViajeService {
         }
         return reporte;
     }
+    public List<ReporteTotalFacturadoDTO> getReporteTotalFacturado(Long mes1,Long mes2, Long anio) {
+        List<ReporteTotalFacturadoDTO> reporte = viajeRepository.getReporteTotalFacturado(mes1, mes2, anio);
+
+        return reporte;
+    }
+
 }
