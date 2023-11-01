@@ -42,8 +42,8 @@ public class CuentaService {
         }
     }
 
-    public Cuenta inhabilitarCuenta(CuentaDTO id) {
-        Optional<Cuenta> c = cuentaRepository.findById(id.getId());
+    public Cuenta inhabilitarCuenta(Long id) {
+        Optional<Cuenta> c = cuentaRepository.findById(id);
         if (c.isPresent()) {
             if (c.get().isHabilitada()) {
                 c.get().setHabilitada(false);
@@ -56,8 +56,8 @@ public class CuentaService {
         Optional<Cuenta> c = cuentaRepository.findById(saldo.getId());
 
         if(c.isPresent()){
-            float saldoAagregar = c.get().getSaldo() + saldo.getSaldoAagregar();
-            c.get().setSaldo(saldoAagregar);
+          //  float saldoAagregar = c.get().getSaldo() + saldo.getSaldoAagregar();
+           // c.get().setSaldo(saldoAagregar);
             cuentaRepository.save(c.get());
         }
         return null;

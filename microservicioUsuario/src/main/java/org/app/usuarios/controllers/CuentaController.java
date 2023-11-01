@@ -64,8 +64,8 @@ public class CuentaController {
 
     //todo: método para inhabilitar cuenta.
 
-    @PutMapping()
-    public ResponseEntity<?> inhabilitarCuenta(@RequestBody CuentaDTO id){
+    @PutMapping(path = "/anular/{id}")
+    public ResponseEntity<?> inhabilitarCuenta(@PathVariable Long id){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(cuentaService.inhabilitarCuenta(id));
         }catch(Exception e){
