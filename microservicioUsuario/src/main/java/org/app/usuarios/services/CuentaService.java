@@ -42,16 +42,16 @@ public class CuentaService {
         }
     }
 
-    public Cuenta inhabilitarCuenta(CuentaDTO id){
-       Optional<Cuenta> c = cuentaRepository.findById(id.getId());
-        if(c.isPresent()){
-            if(c.get().isHabilitada()) {
+    public Cuenta inhabilitarCuenta(CuentaDTO id) {
+        Optional<Cuenta> c = cuentaRepository.findById(id.getId());
+        if (c.isPresent()) {
+            if (c.get().isHabilitada()) {
                 c.get().setHabilitada(false);
-            return cuentaRepository.save(c.get());
+                return cuentaRepository.save(c.get());
+            }
         }
         return null;
     }
-
     public Cuenta agregarSaldo(CuentaDTO saldo){
         Optional<Cuenta> c = cuentaRepository.findById(saldo.getId());
 
