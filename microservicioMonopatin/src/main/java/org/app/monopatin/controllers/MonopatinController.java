@@ -28,6 +28,14 @@ public class MonopatinController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo ingresar, revise los campos e intente nuevamente.\"}");
         }
     }
+    @GetMapping()
+    public ResponseEntity<?> getMonopatinesPorXViajes(Long cantViajes, Long anio){
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(monopatinService.getMonopatinesPorXViajes(cantViajes,anio));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo ingresar, revise los campos e intente nuevamente.\"}");
+        }
+    }
 
     @PostMapping()
     public ResponseEntity<?> addMonopatin(@RequestBody Monopatin m){
