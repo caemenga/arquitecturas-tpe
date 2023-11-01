@@ -3,9 +3,12 @@ package org.app.monopatin.utils;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
+import org.app.monopatin.controllers.ViajeController;
 import org.app.monopatin.entities.Monopatin;
+import org.app.monopatin.entities.Tarifa;
 import org.app.monopatin.entities.Viaje;
 import org.app.monopatin.services.MonopatinService;
+import org.app.monopatin.services.TarifaService;
 import org.app.monopatin.services.ViajeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -24,10 +27,13 @@ public class CargaDeDatos {
     private final MonopatinService monopatinService;
     private final ViajeService viajeService;
 
+    private final TarifaService tarifaService;
+
     @Autowired
-    public CargaDeDatos(MonopatinService monopatinService, ViajeService viajeService) {
+    public CargaDeDatos(MonopatinService monopatinService, ViajeService viajeService, TarifaService tarifaService) {
         this.monopatinService = monopatinService;
         this.viajeService = viajeService;
+        this.tarifaService = tarifaService;
     }
 
     public void cargarDatos()throws ParseException {
@@ -76,8 +82,10 @@ public class CargaDeDatos {
             java.sql.Date sqlDate2 = new java.sql.Date(utilDate2.getTime());
 
             Optional<Monopatin> m = monopatinService.getById(Long.parseLong(row.get(1)));
-            if(m.isPresent()){
+            Optional<Tarifa> t = tarifaService.getById(Long.parseLong(row.get(6)));
+             if(m.isPresent() && t.isPresent()){
                 Monopatin m2 = m.get();
+                Tarifa t2 = t.get();
                     viajes.add(new Viaje(
                         Long.parseLong(row.get(0)),
                         m2,
@@ -85,7 +93,7 @@ public class CargaDeDatos {
                         sqlDate2,
                         Double.parseDouble(row.get(4)),
                         Long.parseLong(row.get(5)),
-                        Long.parseLong(row.get(6))));
+                        t2));
             }
         }
 

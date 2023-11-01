@@ -1,4 +1,4 @@
-cuentaId,idMonopatin,fechaHoraInicio,fechaHoraFin,kilometros,pausa,valorViaje
+cuentaId,idMonopatin,fechaHoraInicio,fechaHoraFin,kilometros,pausa,idTarifa
 1,1,2023-10-10 10:00:00,2023-10-10 11:00:00,15,10,2
 2,2,2023-10-11 09:00:00,2023-10-11 11:00:00,30,20,3
 3,3,2023-10-12 08:00:00,2023-10-12 12:00:00,25,5,5

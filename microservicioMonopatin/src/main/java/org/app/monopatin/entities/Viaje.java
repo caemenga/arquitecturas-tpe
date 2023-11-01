@@ -30,19 +30,20 @@ public class Viaje {
     @Column
     private Long pausa;
     @Column
-    private Long valorViaje;
+    @JoinColumn(name="idTarifa")
+    private Tarifa idTarifa;
 
-    public Viaje(Long cuentaId, Monopatin monopatin, Date fechaHoraInicio, Date fechaHoraFin, double kilometros, Long pausa, Long valorViaje) {
+    public Viaje(Long cuentaId, Monopatin monopatin, Date fechaHoraInicio, Date fechaHoraFin, double kilometros, Long pausa, Tarifa idTarifa) {
         this.cuentaId = cuentaId;
         this.monopatin = monopatin;
         this.fechaHoraInicio = fechaHoraInicio;
         this.fechaHoraFin = fechaHoraFin;
         this.kilometros = kilometros;
         this.pausa = pausa;
-        this.valorViaje = valorViaje;
+        this.idTarifa = idTarifa;
     }
 
-    public Viaje(Long id, Long cuentaId, Monopatin monopatin, Date fechaHoraInicio, double kilometros, Long pausa, Long valorViaje) {
+    public Viaje(Long id, Long cuentaId, Monopatin monopatin, Date fechaHoraInicio, double kilometros, Long pausa, Tarifa idTarifa) {
         this.id = id;
         this.cuentaId = cuentaId;
         this.monopatin = monopatin;
@@ -50,7 +51,7 @@ public class Viaje {
         this.fechaHoraFin = null;
         this.kilometros = kilometros;
         this.pausa = pausa;
-        this.valorViaje = valorViaje;
+        this.idTarifa = idTarifa;
     }
 
     public Viaje() {
