@@ -1,10 +1,7 @@
 package org.app.administrador.Services;
 
-import org.app.administrador.Entities.Cuenta;
+import org.app.administrador.Entities.*;
 import org.app.administrador.Entities.DTO.*;
-import org.app.administrador.Entities.Mantenimiento;
-import org.app.administrador.Entities.Monopatin;
-import org.app.administrador.Entities.Parada;
 import org.app.administrador.Repositories.AdministradorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -291,4 +288,43 @@ public class AdministradorService {
 //
 //    public List<Monopatin> reporteMonopatinesSinPausas() {
 //    }
+
+    public ResponseEntity<?> definirPrecio(Tarifa t){
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
+
+        RestTemplate rUltimaTarifa = new RestTemplate();
+        //traigo la ultima tarifa
+        ResponseEntity<Tarifa> responseUltima = rUltimaTarifa.exchange(
+                "http://localhost:8082/tarifas/ultima",
+                HttpMethod.GET,
+                requestEntity,
+                new ParameterizedTypeReference<Tarifa>() {}
+        );
+        //Si existe la tarifa
+        if(responseUltima.getStatusCode().is2xxSuccessful() && responseUltima.getBody() != null){
+            Tarifa ultimaTarifa = responseUltima.getBody();
+            //pregunto si las fechas son validas
+            if(t.getFecha_creacion().after(ultimaTarifa.getFecha_caducacion())){
+                HttpEntity<Tarifa> requestTarifa = new HttpEntity<>(t, headers);
+                RestTemplate r = new RestTemplate();
+
+
+
+                ResponseEntity<Tarifa> response = r.exchange(
+                        "http://localhost:8082/tarifas",
+                        HttpMethod.POST,
+                        requestTarifa,
+                        new ParameterizedTypeReference<Tarifa>() {}
+                );
+                if(response.getStatusCode().is2xxSuccessful() && response.getBody() != null){
+                    return ResponseEntity.ok(response.getBody());
+                } else {
+                    return ResponseEntity.ok("No se ha podido crear la tarifa con exito");
+                }
+            }
+            return ResponseEntity.ok("La fecha de inicio de la tarifa no es valida");
+        }
+         return ResponseEntity.ok("No se ha podido crear la tarifa con exito");
+    }
 }

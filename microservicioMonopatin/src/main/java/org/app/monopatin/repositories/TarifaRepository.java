@@ -8,8 +8,15 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository("tarifa")
 public interface TarifaRepository extends JpaRepository<Tarifa, Long>{
 
-
+    @Query(value ="SELECT t " +
+            "FROM tarifa t " +
+            "ORDER BY t.fecha_caducacion DESC " +
+            "LIMIT 1"
+    )
+    Optional<Tarifa> getUltimaTarifa();
 }

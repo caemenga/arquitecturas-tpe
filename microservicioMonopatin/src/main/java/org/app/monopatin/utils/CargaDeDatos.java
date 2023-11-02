@@ -39,6 +39,7 @@ public class CargaDeDatos {
     public void cargarDatos()throws ParseException {
         this.cargarDatosMonopatin();
         this.cargarDatosViaje();
+        this.cargarDatosTarifa();
     }
 
     public void cargarDatosMonopatin() throws ParseException {
@@ -102,4 +103,41 @@ public class CargaDeDatos {
             viajeService.addViaje(m);
         }
     }
+    public void cargarDatosTarifa()throws ParseException {
+        String monopatinCSV = "microservicioMonopatin/src/main/java/org/app/monopatin/utils/tarifa.csv";
+
+        CSVParser parser = null;
+        List<Tarifa> tarifas = new ArrayList<Tarifa>();
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+
+        try {
+            parser = CSVFormat.DEFAULT.withHeader().parse(new FileReader(monopatinCSV));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        for (CSVRecord row: parser) {
+            java.util.Date utilDate = formato.parse(row.get(0));
+            java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+            java.util.Date utilDate2 = formato.parse(row.get(3));
+            java.sql.Date sqlDate2 = new java.sql.Date(utilDate2.getTime());
+
+
+            Optional<Tarifa> t = tarifaService.getById(Long.parseLong(row.get(6)));
+            if(t.isPresent()){
+
+                tarifas.add(new Tarifa(
+                        sqlDate,
+                        Double.parseDouble(row.get(1)),
+                        Double.parseDouble(row.get(2)),
+                        sqlDate2));
+
+            }
+        }
+
+        for(Tarifa t : tarifas){
+            tarifaService.addTarifa(t);
+        }
+    }
+
 }
