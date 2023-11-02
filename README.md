@@ -51,8 +51,11 @@ http://localhost:8081/cuentas (GET)
 //http://localhost:8080/administracion/monopatines/viajes?cant=1&anio=2023
 //http://localhost:8080/administracion/monopatines/viajes?cant=2&anio=2023
 
-3.D
-//TODO
+3.D METODO GET:
+http://localhost:8080/administracion/viajes?mes1=1&mes2=12&anio=2023
+Para chequear que se hizo correctamente:
+http://localhost:8080/administracion/viajes?mes3=1&mes5=12&anio=2023 
+Debe dar $150
 
 3.E METODO GET:
 http://localhost:8080/administracion/monopatines/reporte/en-operacion
@@ -67,7 +70,7 @@ http://localhost:8080/administracion/tarifa
 "fecha_caducacion": "2024-03-12T10:00:00Z"
 }
 Para chequear que se hizo correctamente:
-
+http://localhost:8082/tarifas/ultima
 
 3.G METODO GET:
 http://localhost:8081/usuarios/monopatinesCercanos/latitud/37/longitud/284.55

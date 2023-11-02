@@ -1,11 +1,11 @@
 package org.app.monopatin.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 
-import java.sql.Time;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -32,6 +32,8 @@ public class Viaje {
     @ManyToOne
     @JoinColumn(name="idTarifa")
     private Tarifa idTarifa;
+    @Column
+    private Double valorViaje;
 
     public Viaje(Long cuentaId, Monopatin monopatin, Date fechaHoraInicio, Date fechaHoraFin, double kilometros, Long pausa, Tarifa idTarifa) {
         this.cuentaId = cuentaId;
@@ -41,6 +43,7 @@ public class Viaje {
         this.kilometros = kilometros;
         this.pausa = pausa;
         this.idTarifa = idTarifa;
+        this.valorViaje = setValorViaje();
     }
 
     public Viaje(Long id, Long cuentaId, Monopatin monopatin, Date fechaHoraInicio, double kilometros, Long pausa, Tarifa idTarifa) {
@@ -52,8 +55,23 @@ public class Viaje {
         this.kilometros = kilometros;
         this.pausa = pausa;
         this.idTarifa = idTarifa;
+        this.valorViaje = null;
     }
 
     public Viaje() {
+    }
+
+    public double setValorViaje(){
+        if(this.pausa>15){
+            return (idTarifa.getTarifa()*((double) getFechaHoraFin().getTime() /(60 * 1000) - (double) getFechaHoraInicio().getTime() /(60 * 1000)) * idTarifa.getPorc_recargo());
+        } else {
+
+            return idTarifa.getTarifa()*((double) getFechaHoraFin().getTime() /(60 * 1000) - (double) getFechaHoraInicio().getTime() /(60 * 1000));
+        }
+    }
+
+    public void setFechaHoraFin(Date fechaHoraFin) {
+        this.fechaHoraFin = fechaHoraFin;
+        this.setValorViaje();
     }
 }
