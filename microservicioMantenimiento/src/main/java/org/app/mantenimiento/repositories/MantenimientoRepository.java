@@ -1,4 +1,4 @@
-package org.app.mantenimiento.Repositories;
+package org.app.mantenimiento.repositories;
 
 import org.app.mantenimiento.entities.Mantenimiento;
 import org.springframework.data.jpa.repository.JpaRepository;

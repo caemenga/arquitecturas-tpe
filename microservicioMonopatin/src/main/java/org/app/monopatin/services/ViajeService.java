@@ -56,6 +56,7 @@ public class ViajeService {
 
     public List<ReporteKmsDTO> getReporteKms() {
         List<ReporteKmsDTO> reporte = viajeRepository.getReporteKms();
+        System.out.println("Hola");
         for (ReporteKmsDTO r : reporte) {
             System.out.println("Reporte: " + r.getIdMonopatin() + " | " + r.getKmsTotales());
         }

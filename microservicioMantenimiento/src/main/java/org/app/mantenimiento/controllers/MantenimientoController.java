@@ -1,9 +1,9 @@
-package org.app.mantenimiento.Controllers;
+package org.app.mantenimiento.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.app.mantenimiento.entities.DTO.MantenimientoDTO;
 import org.app.mantenimiento.entities.Mantenimiento;
-import org.app.mantenimiento.Services.MantenimientoService;
+import org.app.mantenimiento.services.MantenimientoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -62,6 +62,17 @@ public class MantenimientoController {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(mantenimientoService.deleteMantenimiento(id));
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. no se pudo eliminar el alumno con id  \"" + id + ". intente nuevamente.\"}");
+        }
+    }
+
+    //http://localhost:8085/mantenimiento/reporte/monopatines?pausa=true
+    //http://localhost:8085/mantenimiento/reporte/monopatines?pausa=false
+    @GetMapping( path = "/reporte/monopatines")
+    public ResponseEntity<?> getReporteKms(@RequestParam Boolean pausa) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(mantenimientoService.getReporteKms(pausa));
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getLocalizedMessage());
         }
     }
 }

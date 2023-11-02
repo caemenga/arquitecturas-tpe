@@ -1,10 +1,15 @@
-package org.app.mantenimiento.Services;
+package org.app.mantenimiento.services;
 
 import org.app.mantenimiento.entities.DTO.MantenimientoDTO;
+import org.app.mantenimiento.entities.DTO.ReporteKmsDTO;
+import org.app.mantenimiento.entities.DTO.ReporteKmsPausaDTO;
 import org.app.mantenimiento.entities.Mantenimiento;
-import org.app.mantenimiento.Repositories.MantenimientoRepository;
+import org.app.mantenimiento.repositories.MantenimientoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.sql.Date;
 import java.util.List;
@@ -53,5 +58,43 @@ public class MantenimientoService {
             return mantenimientoRepository.save(m.get());
         }
         return null;
+    }
+
+    public ResponseEntity<?> getReporteKms(Boolean pausa) {
+        RestTemplate rest = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
+
+        String url = "http://localhost:8082/viajes/reporte/kms?pausa="+pausa;
+
+        if (pausa) {
+            ResponseEntity<ReporteKmsPausaDTO> response = rest.exchange(
+                    url,
+                    HttpMethod.GET,
+                    requestEntity,
+                    new ParameterizedTypeReference<>(){}
+            );
+            headers.setContentType(MediaType.APPLICATION_JSON);
+
+            if(response.getStatusCode().is2xxSuccessful() && response.getBody() != null){
+                return ResponseEntity.ok(response.getBody());
+            } else {
+                return ResponseEntity.ok("No hay reporte de monopatines.");
+            }
+        } else {
+            ResponseEntity<ReporteKmsDTO> response = rest.exchange(
+                    url,
+                    HttpMethod.GET,
+                    requestEntity,
+                    new ParameterizedTypeReference<>(){}
+            );
+            headers.setContentType(MediaType.APPLICATION_JSON);
+
+            if(response.getStatusCode().is2xxSuccessful() && response.getBody() != null){
+                return ResponseEntity.ok(response.getBody());
+            } else {
+                return ResponseEntity.ok("No hay reporte de monopatines.");
+            }
+        }
     }
 }
