@@ -1,6 +1,8 @@
 package org.app.usuarios.services;
 
-import org.app.usuarios.entities.Cuenta;
+
+import org.app.usuarios.*;
+
 import org.app.usuarios.entities.Monopatin;
 import org.app.usuarios.entities.Parada;
 import org.app.usuarios.entities.Usuario;
@@ -21,6 +23,8 @@ public class UsuarioService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+
 
     public List<Usuario> getUsuarios() {
         return usuarioRepository.findAll();
@@ -81,4 +85,5 @@ public class UsuarioService {
         }
         return ResponseEntity.ok("no se encontraron paradas cercanas");
     }
+
 }
