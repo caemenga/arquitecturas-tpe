@@ -14,8 +14,8 @@ import java.util.Optional;
 public interface TarifaRepository extends JpaRepository<Tarifa, Long>{
 
     @Query(value ="SELECT t " +
-            "FROM tarifa t " +
-            "ORDER BY t.fecha_caducacion DESC " +
+            "FROM Tarifa t " +
+            "ORDER BY t.fechaCaducacion DESC " +
             "LIMIT 1"
     )
     Optional<Tarifa> getUltimaTarifa();
