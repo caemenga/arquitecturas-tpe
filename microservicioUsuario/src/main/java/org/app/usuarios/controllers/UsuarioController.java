@@ -3,6 +3,7 @@ package org.app.usuarios.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.app.usuarios.entities.Usuario;
+import org.app.usuarios.services.CuentaService;
 import org.app.usuarios.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,8 @@ public class UsuarioController {
 
     @Autowired
     private UsuarioService usuarioService;
+    @Autowired
+    private CuentaService cuentaService;
     @Autowired
     private RestTemplate restTemplate;
 
@@ -53,6 +56,15 @@ public class UsuarioController {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(usuarioService.deleteUsuario(id));
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. no se pudo eliminar el alumno con id  \"" + id + ". intente nuevamente.\"}");
+        }
+    }
+    @PutMapping(path = "/cuenta/{id}/agregar/{saldo}")
+    public ResponseEntity<?> cargarSaldo(@PathVariable("id") Long id, @PathVariable("saldo") Double saldo){
+
+        try{
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(cuentaService.agregarSaldo(id, saldo));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. no se pudo cargar saldo en la cuenta  \"" + id + ". intente nuevamente.\"}");
         }
     }
 

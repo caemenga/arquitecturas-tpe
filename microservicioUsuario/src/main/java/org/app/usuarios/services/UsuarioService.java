@@ -1,6 +1,8 @@
 package org.app.usuarios.services;
 
+import org.app.usuarios.entities.Cuenta;
 import org.app.usuarios.entities.Usuario;
+import org.app.usuarios.repositories.CuentaRepository;
 import org.app.usuarios.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,8 @@ public class UsuarioService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+
 
     public List<Usuario> getUsuarios() {
         return usuarioRepository.findAll();
@@ -38,4 +42,6 @@ public class UsuarioService {
             throw new Exception(e.getMessage());
         }
     }
+
+
 }

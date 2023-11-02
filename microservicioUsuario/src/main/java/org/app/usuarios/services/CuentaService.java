@@ -52,11 +52,11 @@ public class CuentaService {
         }
         return null;
     }
-    public Cuenta agregarSaldo(CuentaDTO saldo){
-        Optional<Cuenta> c = cuentaRepository.findById(saldo.getId());
+    public Cuenta agregarSaldo( Long id, Double saldo){
+        Optional<Cuenta> c = cuentaRepository.findById(id);
 
         if(c.isPresent()){
-            double saldoAagregar = c.get().getSaldo() + saldo.getSaldoAagregar();
+            double saldoAagregar = c.get().getSaldo() + saldo;
             c.get().setSaldo(saldoAagregar);
             return cuentaRepository.save(c.get());
         }
