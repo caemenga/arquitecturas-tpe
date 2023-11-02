@@ -75,10 +75,10 @@ public class CuentaController {
 
     //todo: método para agregar saldo.
 
-    @PutMapping()
-    public ResponseEntity<?> agregarSaldo(@RequestBody CuentaDTO saldo){
+    @PutMapping(path = "/{id}/agregar/{saldo}")
+    public ResponseEntity<?> agregarSaldo(@PathVariable("id") Long id , @PathVariable("saldo") Double saldo){
         try{
-            return ResponseEntity.status(HttpStatus.OK).body(cuentaService.agregarSaldo(saldo));
+            return ResponseEntity.status(HttpStatus.OK).body(cuentaService.agregarSaldo(saldo,id));
         }catch(Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No existe la cuenta con la id: " + saldo +"\"}");
         }

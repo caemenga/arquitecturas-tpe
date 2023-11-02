@@ -1,8 +1,10 @@
 package org.app.usuarios.services;
 
-import org.app.usuarios.entities.Monopatin;
-import org.app.usuarios.entities.Parada;
+
+import org.app.usuarios.*;
+
 import org.app.usuarios.entities.Usuario;
+import org.app.usuarios.repositories.CuentaRepository;
 import org.app.usuarios.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
@@ -19,6 +21,8 @@ public class UsuarioService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+
 
     public List<Usuario> getUsuarios() {
         return usuarioRepository.findAll();
@@ -79,4 +83,5 @@ public class UsuarioService {
         }
         return ResponseEntity.ok("no se encontraron paradas cercanas");
     }
+
 }
