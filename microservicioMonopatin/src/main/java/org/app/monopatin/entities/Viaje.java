@@ -29,7 +29,7 @@ public class Viaje {
     private double kilometros;
     @Column
     private Long pausa;
-    @Column
+    @ManyToOne
     @JoinColumn(name="idTarifa")
     private Tarifa idTarifa;
 

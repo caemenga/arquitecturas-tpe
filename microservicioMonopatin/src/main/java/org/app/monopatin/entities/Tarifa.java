@@ -1,15 +1,14 @@
 package org.app.monopatin.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.annotation.Id;
 
 import java.sql.Date;
 import java.time.LocalDateTime;
 
+@Data
 @Entity
 @Getter
 @Setter
@@ -17,9 +16,13 @@ public class Tarifa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column
     private Date fecha_creacion;
+    @Column
     private Double tarifa;
+    @Column
     private Double porc_recargo;
+    @Column
     private Date fecha_caducacion;
 
     public Tarifa() {
@@ -43,5 +46,13 @@ public class Tarifa {
 
         // Crea una instancia de java.sql.Date a partir de los milisegundos actuales
         return new Date(currentTimeMillis);
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
     }
 }

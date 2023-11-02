@@ -1,4 +1,4 @@
-package org.app.parada.entities;
+package org.app.usuarios.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -22,7 +22,6 @@ public class Parada {
         this.latitud = latitud;
         this.longitud = longitud;
     }
-
     public Parada() {
     }
 }
