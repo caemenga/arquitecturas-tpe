@@ -294,7 +294,7 @@ public class AdministradorService {
         HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
 
         RestTemplate rUltimaTarifa = new RestTemplate();
-        //traifo la ultima tarifa
+        //traigo la ultima tarifa
         ResponseEntity<Tarifa> responseUltima = rUltimaTarifa.exchange(
                 "http://localhost:8082/tarifas/ultima",
                 HttpMethod.GET,
