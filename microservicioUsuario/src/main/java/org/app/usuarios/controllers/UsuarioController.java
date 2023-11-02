@@ -2,6 +2,7 @@ package org.app.usuarios.controllers;
 
 
 import lombok.RequiredArgsConstructor;
+import org.app.usuarios.entities.DTO.UbicacionDTO;
 import org.app.usuarios.entities.Usuario;
 import org.app.usuarios.services.CuentaService;
 import org.app.usuarios.services.UsuarioService;
@@ -49,6 +50,18 @@ public class UsuarioController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se encuentra el objeto buscado");
         }
     }
+
+
+    //localhost:8081/usuarios/monopatinesCercanos/latitud/47.99/longitud/237.4
+    @GetMapping( path = "/monopatinesCercanos/latitud/{latitud}/longitud/{longitud}")
+    public ResponseEntity<?> getMonopatinesCercanos(@PathVariable("latitud") double latitud, @PathVariable("longitud") double longitud){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(usuarioService.getMonopatinesCercanos(latitud,longitud));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se encuentra el objeto buscado");
+        }
+    }
+
 
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<?> deleteByID(@PathVariable("id") Long id){

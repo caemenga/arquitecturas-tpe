@@ -39,7 +39,7 @@ public class CargaDeDatos {
         }
 
         for (CSVRecord row: parser) {
-            paradas.add(new Parada(Long.parseLong(row.get(0)), Long.parseLong(row.get(1))));
+            paradas.add(new Parada(Double.parseDouble(row.get(0)), Double.parseDouble(row.get(1))));
         }
         for(Parada p : paradas){
             paradaService.addParada(p);

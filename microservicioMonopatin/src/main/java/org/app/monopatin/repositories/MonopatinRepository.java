@@ -32,4 +32,7 @@ public interface MonopatinRepository extends JpaRepository<Monopatin, Long> {
             nativeQuery = true)
     public abstract Optional<ReporteMonopatin> getReporteEnOperacion();
 
+
+    @Query("SELECT m FROM Monopatin m WHERE m.paradaEstacionamientoId = :id AND m.enMantenimiento = false")
+    public abstract List<Monopatin> getMonopatinesPorParada(Long id);
 }

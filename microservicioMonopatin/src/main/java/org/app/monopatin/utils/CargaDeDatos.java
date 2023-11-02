@@ -55,7 +55,7 @@ public class CargaDeDatos {
         }
 
         for (CSVRecord row: parser) {
-            monopatines.add(new Monopatin(Long.parseLong(row.get(0)), Long.parseLong(row.get(1)), Long.parseLong(row.get(2))));
+            monopatines.add(new Monopatin(Long.parseLong(row.get(0)), Double.parseDouble(row.get(1)), Double.parseDouble(row.get(2))));
         }
 
         for(Monopatin m : monopatines){
