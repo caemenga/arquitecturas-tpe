@@ -66,15 +66,17 @@ public class MantenimientoService {
         HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
 
         String url = "http://localhost:8082/viajes/reporte/kms?pausa="+pausa;
+        System.out.println(url);
 
         if (pausa) {
-            ResponseEntity<ReporteKmsPausaDTO> response = rest.exchange(
+            ResponseEntity<List<ReporteKmsPausaDTO>> response = rest.exchange(
                     url,
                     HttpMethod.GET,
                     requestEntity,
                     new ParameterizedTypeReference<>(){}
             );
             headers.setContentType(MediaType.APPLICATION_JSON);
+            System.out.println(response.getBody());
 
             if(response.getStatusCode().is2xxSuccessful() && response.getBody() != null){
                 return ResponseEntity.ok(response.getBody());
@@ -82,13 +84,14 @@ public class MantenimientoService {
                 return ResponseEntity.ok("No hay reporte de monopatines.");
             }
         } else {
-            ResponseEntity<ReporteKmsDTO> response = rest.exchange(
+            ResponseEntity<List<ReporteKmsDTO>> response = rest.exchange(
                     url,
                     HttpMethod.GET,
                     requestEntity,
                     new ParameterizedTypeReference<>(){}
             );
             headers.setContentType(MediaType.APPLICATION_JSON);
+            System.out.println(response.getBody());
 
             if(response.getStatusCode().is2xxSuccessful() && response.getBody() != null){
                 return ResponseEntity.ok(response.getBody());

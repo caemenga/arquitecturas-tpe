@@ -37,9 +37,9 @@ public class CargaDeDatos {
     }
 
     public void cargarDatos()throws ParseException {
+        this.cargarDatosTarifa();
         this.cargarDatosMonopatin();
         this.cargarDatosViaje();
-        this.cargarDatosTarifa();
     }
 
     public void cargarDatosMonopatin() throws ParseException {
@@ -122,22 +122,17 @@ public class CargaDeDatos {
             java.util.Date utilDate2 = formato.parse(row.get(3));
             java.sql.Date sqlDate2 = new java.sql.Date(utilDate2.getTime());
 
+            //Optional<Tarifa> t = tarifaService.getById(Long.parseLong(row.get(6)));
 
-            Optional<Tarifa> t = tarifaService.getById(Long.parseLong(row.get(6)));
-            if(t.isPresent()){
-
-                tarifas.add(new Tarifa(
-                        sqlDate,
-                        Double.parseDouble(row.get(1)),
-                        Double.parseDouble(row.get(2)),
-                        sqlDate2));
-
-            }
+            tarifas.add(new Tarifa(
+                    sqlDate,
+                    Double.parseDouble(row.get(1)),
+                    Double.parseDouble(row.get(2)),
+                    sqlDate2));
         }
 
         for(Tarifa t : tarifas){
             tarifaService.addTarifa(t);
         }
     }
-
 }

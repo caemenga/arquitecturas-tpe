@@ -72,7 +72,7 @@ public class MantenimientoController {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(mantenimientoService.getReporteKms(pausa));
         } catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getLocalizedMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 }

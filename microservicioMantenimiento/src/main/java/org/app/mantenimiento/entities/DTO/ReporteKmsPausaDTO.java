@@ -1,7 +1,14 @@
 package org.app.mantenimiento.entities.DTO;
 
-public interface ReporteKmsPausaDTO {
-    Integer getIdMonopatin();
-    Double getKmsTotales();
-    Integer getTiempoPausa();
+import lombok.*;
+
+@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+public class ReporteKmsPausaDTO {
+    private Integer idMonopatin;
+    private Double kmsTotales;
+    private Integer tiempoPausa;
 }

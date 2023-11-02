@@ -30,9 +30,8 @@ public interface ViajeRepository extends JpaRepository<Viaje, Long> {
             "HAVING COUNT(v) >= :cant")
     List<MonopatinViajeDTO> findAllByAnio(Long cant, Long anio);
 
-
     //TODO
-   @Query("SELECT SUM(v.idTarifa.tarifa) AS valorViaje " +
+   @Query("SELECT SUM(v.idTarifa.id) AS valorViaje " +
            "FROM Viaje v " +
            "WHERE YEAR(v.fechaHoraFin) = :anio AND MONTH(v.fechaHoraFin)>=:mes1 AND MONTH(v.fechaHoraFin)<=:mes2")
    ReporteTotalFacturadoDTO getReporteTotalFacturado(Long mes1, Long mes2, Long anio);
