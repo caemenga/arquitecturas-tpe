@@ -66,6 +66,15 @@ public class MonopatinController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se encuentra el objeto buscado");
         }
     }
+    //http://localhost:8082/monopatines/parada/" + p.getId(),
+    @GetMapping("/parada/{id}")
+    public ResponseEntity<?> getMonopatinesPorParada(@PathVariable("id") Long id){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(monopatinService.getMonopatinesPorParada(id));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
 
     @GetMapping("/reporte/operacion")
     public ResponseEntity<?> reporteEnOperacion(){

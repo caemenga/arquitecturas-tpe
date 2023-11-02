@@ -55,6 +55,11 @@ public class MonopatinService {
             if (monopatinRepository.existsById(id)) {
                 Monopatin m = monopatinRepository.getById(id);
                 if (m.isEnMantenimiento() != bol) {
+
+                    if(!m.isEnMantenimiento()){
+                        m.setParadaEstacionamientoId(null);
+                    }
+
                     m.setEnMantenimiento(bol);
                     return Optional.of(monopatinRepository.save(m));
                 }
@@ -84,5 +89,9 @@ public class MonopatinService {
 //            }
 //        }
         //return aRetornar;
+    }
+
+    public List<Monopatin> getMonopatinesPorParada(Long id) {
+        return monopatinRepository.getMonopatinesPorParada(id);
     }
 }

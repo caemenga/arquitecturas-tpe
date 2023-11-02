@@ -79,9 +79,5 @@ public class ViajeController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo ingresar, revise los campos e intente nuevamente.\"}");
         }
     }
-//
-//    @PutMapping(path = "/cambiar/tarifa")
-//    public ResponseEntity<?> cambiarTarifa(@RequestBody ){
-//
-//    }
+
 }

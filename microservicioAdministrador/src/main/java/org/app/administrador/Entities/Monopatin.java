@@ -12,8 +12,8 @@ import java.io.Serializable;
 public class Monopatin implements Serializable {
     private Long id;
     private Long paradaEstacionamientoId;
-    private Long latitud;
-    private Long altitud;
+    private double latitud;
+    private double longitud;
     private boolean enMantenimiento;
 
     public Monopatin(Long id, boolean enMantenimiento) {

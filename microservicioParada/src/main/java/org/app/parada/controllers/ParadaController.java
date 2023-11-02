@@ -28,6 +28,19 @@ public class ParadaController {
         }
     }
 
+
+    //http://localhost:8083/paradas/cercana?latitud=30.1&longitud=270.5
+    //MATCH CON PARADA ID = 2
+    @GetMapping("/cercana")
+    public ResponseEntity<?> getParadaCercana(@RequestParam double latitud, @RequestParam double longitud){
+        System.out.println("a: " + latitud + " l: " + longitud);
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(paradaService.getParadaCercana(latitud, longitud));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo ingresar, revise los campos e intente nuevamente.\"}");
+        }
+    }
+
     @PostMapping()
     public ResponseEntity<?> addParada(@RequestBody Parada p){
         try{
