@@ -76,6 +76,7 @@ public class MonopatinController {
         }
     }
 
+    //http://localhost:8082/monopatines/reporte/operacion
     @GetMapping("/reporte/operacion")
     public ResponseEntity<?> reporteEnOperacion(){
         try{

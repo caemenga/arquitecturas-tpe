@@ -6,13 +6,9 @@ import lombok.Setter;
 
 import java.sql.Date;
 
-@Entity
 @Getter
 @Setter
 public class Tarifa {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     private Date fecha_creacion;
     private Double tarifa;
     private Double porc_recargo;
@@ -22,15 +18,15 @@ public class Tarifa {
     }
 
     public Tarifa(Double tarifa, Double porc_recargo) {
-        this.fecha_creacion = setFechaCreacion();
         this.tarifa = tarifa;
         this.porc_recargo = porc_recargo;
+        this.fecha_creacion = setFechaCreacion();
         this.fecha_caducacion = null;
     }
     public Tarifa(Double tarifa, Double porc_recargo, Date fecha_creacion, Date fecha_caducacion) {
-        this.fecha_creacion = fecha_creacion;
         this.tarifa = tarifa;
         this.porc_recargo = porc_recargo;
+        this.fecha_creacion = fecha_creacion;
         this.fecha_caducacion = fecha_caducacion;
     }
 

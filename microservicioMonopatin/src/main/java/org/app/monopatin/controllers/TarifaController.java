@@ -19,9 +19,8 @@ public class TarifaController {
     @Autowired
     private TarifaService tarifaService;
 
-
     @PostMapping()
-    public ResponseEntity<?> postTarifa(@RequestBody Tarifa tarifa){
+    public ResponseEntity<?> addTarifa(@RequestBody Tarifa tarifa){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(tarifaService.addTarifa(tarifa));
         }catch (Exception e){

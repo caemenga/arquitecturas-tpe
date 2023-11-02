@@ -17,29 +17,28 @@ public class Tarifa {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column
-
-    private Date fechaCreacion;
+    private Date fecha_creacion;
     @Column
-    private Double valor;
+    private Double tarifa;
     @Column
-    private Double porcRecargo;
+    private Double porc_recargo;
     @Column
-    private Date fechaCaducacion;
+    private Date fecha_caducacion;
 
     public Tarifa() {
     }
 
     public Tarifa(Double tarifa, Double porc_recargo) {
-        this.fechaCreacion = setFechaCreacion();
-        this.valor = tarifa;
-        this.porcRecargo = porc_recargo;
-        this.fechaCaducacion = null;
+        this.fecha_creacion = setFechaCreacion();
+        this.tarifa = tarifa;
+        this.porc_recargo = porc_recargo;
+        this.fecha_caducacion = null;
     }
     public Tarifa(Date fecha_creacion,Double tarifa, Double porc_recargo,  Date fecha_caducacion) {
-        this.fechaCreacion = fecha_creacion;
-        this.valor = tarifa;
-        this.porcRecargo = porc_recargo;
-        this.fechaCaducacion = fecha_caducacion;
+        this.fecha_creacion = fecha_creacion;
+        this.tarifa = tarifa;
+        this.porc_recargo = porc_recargo;
+        this.fecha_caducacion = fecha_caducacion;
     }
 
     public Date setFechaCreacion(){

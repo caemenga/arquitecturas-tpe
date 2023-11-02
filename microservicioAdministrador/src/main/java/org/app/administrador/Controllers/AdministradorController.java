@@ -113,20 +113,30 @@ public class AdministradorController {
 //        }
 //    }
 //
+
+
     //definir precio
+//    http://localhost:8080/administracion/tarifa
+//    {
+//        "tarifa": 10,
+//        "porc_recargo": 0.3,
+//        "fecha_creacion": "2024-02-12T10:00:00Z",
+//        "fecha_caducacion": "2024-03-12T10:00:00Z"
+//    }
     @PostMapping(path = "/tarifa")
     public ResponseEntity<?> definirPrecio(@RequestBody Tarifa t){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(administradorService.definirPrecio(t));
         } catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo ingresar, revise los campos e intente nuevamente.\"}");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 //
 //    //definir tarifa extra para reinicio por pausa extensa
 //
-   // anular cuenta
-    @PutMapping( path = "/anular/cuenta/{id})")
+    // anular cuenta
+    //http://localhost:8085/administracion/cuenta/anular/2
+    @PutMapping( path = "/cuenta/anular/{id}")
     public ResponseEntity<?> anularCuenta(@PathVariable("id") Long idCuenta){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(administradorService.anularCuenta(idCuenta));
@@ -135,15 +145,16 @@ public class AdministradorController {
         }
     }
 //
-//    //generar reporte de uso de monopatines por KM
-//    @GetMapping( path = "/monopatines/km")
-//    public ResponseEntity<?> reporteMonopatinesPorKM(){
-//        try{
-//            return ResponseEntity.status(HttpStatus.OK).body(administradorService.reporteMonopatinesPorKM());
-//        } catch (Exception e){
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo ingresar, revise los campos e intente nuevamente.\"}");
-//        }
-//    }
+    //generar reporte de uso de monopatines por KM
+    //http://localhost:8080/administracion/monopatines/viajes?cant=1&anio=2023
+@GetMapping("/monopatines/viajes")
+    public ResponseEntity<?> getMonopatinesPorXViajes(@RequestParam Long cant, @RequestParam Long anio){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(administradorService.getMonopatinesPorXViajes(cant, anio));
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo ingresar, revise los campos e intente nuevamente.\"}");
+        }
+    }
 //
 //    //Generar reporte de uso de monopatines por tiempo con pausas
 //    @GetMapping( path = "/monopatines/conPausas")
@@ -175,4 +186,13 @@ public class AdministradorController {
         }
     }
 
+    //http://localhost:8082/administracion/monopatines/reporte/en-operacion
+    @GetMapping( path = "/monopatines/reporte/en-operacion")
+    public ResponseEntity<?> getReporteEnOperacion(){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(administradorService.getReporteEnOperacion());
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getLocalizedMessage());
+        }
+    }
 }

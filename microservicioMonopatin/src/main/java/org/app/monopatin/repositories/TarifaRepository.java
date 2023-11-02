@@ -15,7 +15,7 @@ public interface TarifaRepository extends JpaRepository<Tarifa, Long>{
 
     @Query(value ="SELECT t " +
             "FROM Tarifa t " +
-            "ORDER BY t.fechaCaducacion DESC " +
+            "ORDER BY t.fecha_caducacion DESC " +
             "LIMIT 1"
     )
     Optional<Tarifa> getUltimaTarifa();

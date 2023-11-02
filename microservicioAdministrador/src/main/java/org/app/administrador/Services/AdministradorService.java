@@ -250,7 +250,7 @@ public class AdministradorService {
                    new ParameterizedTypeReference<Cuenta>() {
                    }
            );
-           return ResponseEntity.ok("Monopatin agregado a mantenimiento con exito");
+           return ResponseEntity.ok("Cuenta id: " + idCuenta + " anulada exitosamente");
        }
        return ResponseEntity.ok("La cuenta no existe");
     }
@@ -309,8 +309,6 @@ public class AdministradorService {
                 HttpEntity<Tarifa> requestTarifa = new HttpEntity<>(t, headers);
                 RestTemplate r = new RestTemplate();
 
-
-
                 ResponseEntity<Tarifa> response = r.exchange(
                         "http://localhost:8082/tarifas",
                         HttpMethod.POST,
@@ -326,5 +324,47 @@ public class AdministradorService {
             return ResponseEntity.ok("La fecha de inicio de la tarifa no es valida");
         }
          return ResponseEntity.ok("No se ha podido crear la tarifa con exito");
+    }
+
+    public ResponseEntity<?> getMonopatinesPorXViajes(Long cant, Long anio) {
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
+
+        RestTemplate r = new RestTemplate();
+
+        ResponseEntity<List<MonopatinViajeDTO>> response = r.exchange(
+                "http://localhost:8082/monopatines/viajes?cant=" + cant + "&anio=" + anio,
+                HttpMethod.GET,
+                requestEntity,
+                new ParameterizedTypeReference<>() {}
+        );
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        if(response.getStatusCode().is2xxSuccessful() && response.getBody() != null){
+            return ResponseEntity.ok(response.getBody());
+        } else {
+            return ResponseEntity.ok("No hay reporte de monopatines.");
+        }
+    }
+
+    public Object getReporteEnOperacion() {
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
+
+        RestTemplate r = new RestTemplate();
+
+        ResponseEntity<ReporteOperacion> response = r.exchange(
+                "http://localhost:8082/monopatines/reporte/operacion",
+                HttpMethod.GET,
+                requestEntity,
+                new ParameterizedTypeReference<>() {}
+        );
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        if(response.getStatusCode().is2xxSuccessful() && response.getBody() != null){
+            return ResponseEntity.ok(response.getBody());
+        } else {
+            return ResponseEntity.ok("No hay reporte de monopatines.");
+        }
     }
 }
