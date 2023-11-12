@@ -60,8 +60,6 @@ public class CuentaController {
         }
     }
 
-
-
     //todo: método para inhabilitar cuenta.
 
     @PutMapping(path = "/anular/{id}")

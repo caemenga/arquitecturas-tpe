@@ -31,16 +31,8 @@ public interface ViajeRepository extends JpaRepository<Viaje, Long> {
     List<MonopatinViajeDTO> findAllByAnio(Long cant, Long anio);
 
     //TODO
-   @Query("SELECT SUM(v.idTarifa.id) AS valorViaje " +
+   @Query("SELECT SUM(v.valorViaje) AS valorViaje " +
            "FROM Viaje v " +
            "WHERE YEAR(v.fechaHoraFin) = :anio AND MONTH(v.fechaHoraFin)>=:mes1 AND MONTH(v.fechaHoraFin)<=:mes2")
    ReporteTotalFacturadoDTO getReporteTotalFacturado(Long mes1, Long mes2, Long anio);
-
-//    @Query(value =
-//            "SELECT COUNT(id) as cantViajes, id_monopatin as idMonopatin " +
-//                    "FROM microservicioMonopatin.viaje WHERE YEAR(fecha_hora_fin) = 2023 " +
-//                    "GROUP BY id_monopatin " +
-//                    "HAVING cantViajes >= 1", nativeQuery = true)
-
-
 }

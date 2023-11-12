@@ -255,6 +255,7 @@ public class AdministradorService {
        return ResponseEntity.ok("La cuenta no existe");
     }
 
+
     public ResponseEntity<?> getReporteTotalFacturado(Long mes1, Long mes2, Long anio) {
         RestTemplate rest = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();

@@ -68,7 +68,7 @@ public class CargaDeDatos {
 
         CSVParser parser = null;
         List<Viaje> viajes = new ArrayList<Viaje>();
-        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         try {
             parser = CSVFormat.DEFAULT.withHeader().parse(new FileReader(monopatinCSV));
