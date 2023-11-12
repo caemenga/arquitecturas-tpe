@@ -47,7 +47,7 @@ public class CargaDeDatos {
         }
 
         for (CSVRecord row: parserUsuarios) {
-            usuarios.add(new Usuario(row.get(0), row.get(1), Long.parseLong(row.get(2)), row.get(3)));
+            usuarios.add(new Usuario(row.get(0), row.get(1), Long.parseLong(row.get(2)), row.get(3), row.get(4)));
         }
         for(Usuario u : usuarios){
             usuarioService.addUsuario(u);

@@ -3,6 +3,7 @@ package org.app.usuarios.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.app.usuarios.entities.DTO.UbicacionDTO;
+import org.app.usuarios.entities.DTO.UsuarioDTO;
 import org.app.usuarios.entities.Usuario;
 import org.app.usuarios.services.CuentaService;
 import org.app.usuarios.services.UsuarioService;
@@ -11,6 +12,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+import org.app.usuarios.utils.security.JWTToken;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/usuarios")
@@ -62,7 +66,6 @@ public class UsuarioController {
         }
     }
 
-
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<?> deleteByID(@PathVariable("id") Long id){
         try{
@@ -71,6 +74,7 @@ public class UsuarioController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. no se pudo eliminar el alumno con id  \"" + id + ". intente nuevamente.\"}");
         }
     }
+
     @PutMapping(path = "/cuenta/{id}/agregar/{saldo}")
     public ResponseEntity<?> cargarSaldo(@PathVariable("id") Long id, @PathVariable("saldo") Double saldo){
 
@@ -81,5 +85,17 @@ public class UsuarioController {
         }
     }
 
+    //el ejemplo (demoJWT.zip) pone que el login es con POST pero no entiendo dónde se supone que tenemos
+    //que guardar la info del login.
+    @PostMapping("/login")
+    public UsuarioDTO login (@RequestParam String username, @RequestParam Long id) {
+        Optional<Usuario> user = usuarioService.getById(id);
 
+        if (user.isPresent()) {
+            String token = JWTToken.getJWTToken(user.get().getRol());
+            return new UsuarioDTO(username, user.get().getRol(), token);
+        } else {
+            return null;
+        }
+    }
 }

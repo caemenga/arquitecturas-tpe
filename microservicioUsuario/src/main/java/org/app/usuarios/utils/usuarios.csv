@@ -1,5 +1,5 @@
-nombre,apellido,telefono,email
-tano,mengarelli,4443798,cae@hotmail.com
-belen,gayral,44444444,belen@hotmail.com
-echi,martinez,55555555,echi@hotmail.com
-agus,menchon,4545454545,agus@hotmail.com
+nombre,apellido,telefono,email,rol
+tano,mengarelli,4443798,cae@hotmail.com,admin
+belen,gayral,44444444,belen@hotmail.com,mantenimiento
+echi,martinez,55555555,echi@hotmail.com,cliente
+agus,menchon,4545454545,agus@hotmail.com,cliente
