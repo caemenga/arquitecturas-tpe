@@ -10,6 +10,7 @@
         <module name="microservicioMonopatin" />
         <module name="microservicioMantenimiento" />
         <module name="api-gateway" />
+        <module name="microservicioAuthentication" />
         <module name="microservicioSeguridad" />
         <module name="microservicioAdministrador" />
         <module name="microservicioUsuario" />
@@ -26,6 +27,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="api-gateway" options="-parameters" />
       <module name="microservicioAdministrador" options="-parameters" />
+      <module name="microservicioAuthentication" options="-parameters" />
       <module name="microservicioMantenimiento" options="-parameters" />
       <module name="microservicioMonopatin" options="-parameters" />
       <module name="microservicioParada" options="-parameters" />
