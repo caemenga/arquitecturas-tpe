@@ -7,24 +7,29 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="microservicioAdministrador" />
-        <module name="microservicioUsuario" />
         <module name="microservicioMonopatin" />
         <module name="microservicioMantenimiento" />
+        <module name="api-gateway" />
+        <module name="microservicioSeguridad" />
+        <module name="microservicioAdministrador" />
+        <module name="microservicioUsuario" />
         <module name="microservicioParada" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="microservicioParadas" target="17" />
+      <module name="microservicioSeguridad" target="17" />
       <module name="microservicioViaje" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="api-gateway" options="-parameters" />
       <module name="microservicioAdministrador" options="-parameters" />
       <module name="microservicioMantenimiento" options="-parameters" />
       <module name="microservicioMonopatin" options="-parameters" />
       <module name="microservicioParada" options="-parameters" />
+      <module name="microservicioSeguridad" options="-parameters" />
       <module name="microservicioUsuario" options="-parameters" />
       <module name="microservicioViaje" options="-parameters" />
     </option>
