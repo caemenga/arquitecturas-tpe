@@ -16,8 +16,8 @@ public class ParadaController {
 
     @Autowired
     private ParadaService paradaService;
-    @Autowired
-    private RestTemplate restTemplate;
+//    @Autowired
+//    private RestTemplate restTemplate;
 
     @GetMapping()
     public ResponseEntity<?> getParadas(){
@@ -51,7 +51,7 @@ public class ParadaController {
     }
 
     @GetMapping( path = "/{id}")
-    public ResponseEntity<?> getById(@PathVariable("id") Long id){
+    public ResponseEntity<?> getById(@PathVariable("id") String id){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(paradaService.getById(id));
         }catch (Exception e){
@@ -60,7 +60,7 @@ public class ParadaController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<?> deleteByID(@PathVariable("id") Long id){
+    public ResponseEntity<?> deleteByID(@PathVariable("id") String id){
         try{
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(paradaService.deleteParada(id));
         }catch (Exception e){

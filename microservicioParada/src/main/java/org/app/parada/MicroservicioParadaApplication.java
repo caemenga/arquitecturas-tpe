@@ -5,12 +5,13 @@ import org.app.parada.utils.CargaDeDatos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
 
-@SpringBootApplication
+@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
 public class MicroservicioParadaApplication {
 
     @Autowired

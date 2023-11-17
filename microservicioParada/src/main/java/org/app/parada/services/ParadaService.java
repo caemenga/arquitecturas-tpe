@@ -15,7 +15,6 @@ public class ParadaService {
     @Autowired
     private ParadaRepository paradaRepository;
 
-
     public List<Parada> getParadas() {
         return paradaRepository.findAll();
     }
@@ -24,11 +23,11 @@ public class ParadaService {
         return paradaRepository.save(p);
     }
 
-    public Optional<Parada> getById(Long id) {
+    public Optional<Parada> getById(String id) {
         return paradaRepository.findById(id);
     }
 
-    public boolean deleteParada (Long id) throws Exception {
+    public boolean deleteParada (String id) throws Exception {
         try{
             if(paradaRepository.existsById(id)){
                 paradaRepository.deleteById(id);

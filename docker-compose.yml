@@ -48,12 +48,14 @@ services:
       MYSQL_ROOT_PASSWORD: admin
 
   paradas:
-    image: mysql
+    container_name: paradas
+    image: mongo
     ports:
-      - "3311:3306"
-    command: --default-authentication-plugin=mysql_native_password
+      - "27017:27017"
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: admin
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: admin
+      MONGO_INITDB_DATABASE: paradas
 
 ## docker run -d --name mysqlUsuarios -e MYSQL_ROOT_PASSWORD=admin -p 3307:3306 mysql

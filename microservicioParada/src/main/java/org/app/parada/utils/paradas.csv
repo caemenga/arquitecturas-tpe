@@ -1,4 +1,4 @@
-latitud,longitud
-50,180
-30,270
-40,290
+id,latitud,longitud
+1,50,180
+2,30,270
+3,40,290
