@@ -1,10 +1,10 @@
-package org.app.administrador.Config;
+package org.app.mantenimiento.config;
 
 import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import org.app.administrador.security.JwtFilter;
+import org.app.mantenimiento.security.JwtFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -15,7 +15,6 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @EnableWebSecurity
 @EnableMethodSecurity
@@ -40,7 +39,7 @@ public class HttpConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 // MANEJAMOS LOS PERMISOS A LOS ENDPOINTS.
-                .authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
+                .authorizeHttpRequests(auth -> auth
                         .anyRequest().permitAll()
                 )
                 .anonymous(AbstractHttpConfigurer::disable)

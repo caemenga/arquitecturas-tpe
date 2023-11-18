@@ -1,10 +1,11 @@
-package org.app.administrador.Config;
+package org.app.monopatin.config;
 
 import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import org.app.administrador.security.JwtFilter;
+import org.app.monopatin.security.AuthorityConstant;
+import org.app.monopatin.security.JwtFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -40,10 +41,11 @@ public class HttpConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 // MANEJAMOS LOS PERMISOS A LOS ENDPOINTS.
-                .authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
-                        .anyRequest().permitAll()
-                )
-                .anonymous(AbstractHttpConfigurer::disable)
+                .authorizeRequests()
+                .requestMatchers("monopatines").hasAuthority(AuthorityConstant.ADMIN)
+
+                        .anyRequest().authenticated();
+        http.anonymous(AbstractHttpConfigurer::disable)
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         http
                 .httpBasic(Customizer.withDefaults());

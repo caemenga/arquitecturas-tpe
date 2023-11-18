@@ -9,6 +9,7 @@
     </option>
     <option name="ignoredFiles">
       <set>
+        <option value="$PROJECT_DIR$/microservicioAuthentication/pom.xml" />
         <option value="$PROJECT_DIR$/microservicioViaje/pom.xml" />
       </set>
     </option>
