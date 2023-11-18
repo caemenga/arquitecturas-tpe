@@ -28,7 +28,7 @@ public class Cuenta implements Serializable {
     private boolean habilitada = true;
 
     @JsonIgnore
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "cuentas")
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "cuentas")
     private Set<Usuario> usuarios;
 
     public Cuenta(Date fechaAlta, double saldo) {

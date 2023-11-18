@@ -1,0 +1,5 @@
+usuario_id, autoridad_id
+1,ADMIN
+2,USUARIO
+3,USUARIO
+4,MANTENIMIENTO

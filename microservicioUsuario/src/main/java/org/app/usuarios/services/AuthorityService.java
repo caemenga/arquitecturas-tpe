@@ -14,7 +14,6 @@ public class AuthorityService {
     @Autowired
     private AuthorityRepository authorityRepository;
 
-
     public Authority add(Authority a) {
         return authorityRepository.save(a);
     }

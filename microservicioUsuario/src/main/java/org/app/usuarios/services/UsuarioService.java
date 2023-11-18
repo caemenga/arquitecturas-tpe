@@ -4,10 +4,7 @@ package org.app.usuarios.services;
 import lombok.RequiredArgsConstructor;
 import org.app.usuarios.*;
 
-import org.app.usuarios.entities.Authority;
-import org.app.usuarios.entities.Monopatin;
-import org.app.usuarios.entities.Parada;
-import org.app.usuarios.entities.Usuario;
+import org.app.usuarios.entities.*;
 import org.app.usuarios.repositories.AuthorityRepository;
 import org.app.usuarios.repositories.CuentaRepository;
 import org.app.usuarios.repositories.UsuarioRepository;
@@ -25,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,20 +48,25 @@ public class UsuarioService {
         throw new UserException(EnumUserException.already_exist,
                 String.format("Ya existe un usuario con email %s", request.getEmail()));
         final var accounts = this.cuentaRepository.findAllById(request.getCuentas());
-        if (accounts.isEmpty())
-            throw new UserException(EnumUserException.invalid_account,
-                    String.format("No se encontro ninguna cuenta con id %s", request.getCuentas().toString()));
-        final var authorities = request.getAuthorities()
-                .stream()
-                .map(string -> this.autoridadRepository.findById(string)
-                        .orElseThrow(() -> new NotFoundException("autoridad", string)))
-                .toList();
-        if (authorities.isEmpty())
-            throw new UserException(EnumUserException.invalid_authorities,
-                    String.format("No se encontro ninguna autoridad con id %s", request.getAuthorities().toString()));
+//        if (accounts.isEmpty())
+//            throw new UserException(EnumUserException.invalid_account,
+//                    String.format("No se encontro ninguna cuenta con id %s", request.getCuentas().toString()));
+       final var authorities = this.autoridadRepository.findAllById(request.getRoles());
+//                .stream()
+//                .map(string -> this.autoridadRepository.findById(string)
+//                        .orElseThrow(() -> new NotFoundException("autoridad", string)))
+//                .toList();
+//        if (authorities.isEmpty())
+//            throw new UserException(EnumUserException.invalid_authorities,
+//                    String.format("No se encontro ninguna autoridad con id %s", request.getRoles().toString()));
         final var user = new Usuario(request);
-        user.setCuentas(accounts);
-        user.setAutoridades(authorities);
+        for(Cuenta c : accounts){
+            user.addCuenta(c);
+        }
+        for(Authority a : authorities){
+            user.addAuthorities(a);
+        }
+        //user.setAutoridades(a);
         final var encryptedPassword = passwordEncoder.encode(request.getPassword());
         user.setPassword(encryptedPassword);
         final var createdUser = this.usuarioRepository.save(user);
@@ -122,8 +125,14 @@ public class UsuarioService {
         return ResponseEntity.ok("no se encontraron paradas cercanas");
     }
 
-    public ResponseEntity<?> addRol(Authority a){
-        usuarioRepository.addRol()
+//    public ResponseEntity<?> addRol(Authority a){
+//        usuarioRepository.addRol(a)
+//    }
+
+    public ResponseEntity<?> addCuenta(Usuario user){
+        this.usuarioRepository.save(user);
+        return ResponseEntity.ok(user);
     }
 
 }
+

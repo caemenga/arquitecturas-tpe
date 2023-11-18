@@ -21,6 +21,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -94,6 +95,7 @@ public class UserResource {
     @PostMapping("/register")
     //@PreAuthorize( "hasAuthority( \"" + AuthorityConstant.ADMIN + "\" )" )
     public ResponseEntity<?> register(@Valid @RequestBody UserRequestDTO request ){
+        System.out.println(request.toString());
         final var newUser = this.userService.createUser( request );
         if (newUser != null){
             return ResponseEntity.ok(newUser);

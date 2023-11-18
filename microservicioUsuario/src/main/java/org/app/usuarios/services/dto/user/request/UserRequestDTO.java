@@ -6,6 +6,7 @@ import org.app.usuarios.entities.Authority;
 import org.app.usuarios.entities.Cuenta;
 import org.app.usuarios.entities.Usuario;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,15 +16,15 @@ import java.util.Set;
 @JsonIgnoreProperties( ignoreUnknown = true )
 @Getter
 @Setter
-public class UserRequestDTO {
+public class UserRequestDTO implements Serializable {
 
     private String nombre;
     private String apellido;
     private String email;
     private long telefono;
     private String password;
-    private Set<Cuenta> cuentas;
-    private Set<Authority> roles;
+    private Set<Long> cuentas; //[1,2,3]
+    private Set<String> roles; //[admin, user]
 
     public UserRequestDTO(String nombre, String apellido, String email, long telefono, String password) {
         this.nombre = nombre;
@@ -34,16 +35,34 @@ public class UserRequestDTO {
         this.cuentas = new HashSet<>();
         this.roles = new HashSet<>();
     }
-    public void setCuentas(Collection<Cuenta> cuentas) {
-        this.cuentas = new HashSet<>(cuentas);
-    }
 
-    public void setAutoridades(Collection<Authority> autoridades) {
-        this.roles = new HashSet<>(autoridades);
+
+//    {
+//        "nombre": "tudaiaaaa213123213a",
+//        "apellido": "sistemas",
+//        "email": "asdad123@tudai.com",
+//        "telefono": 2494000000,
+//        "password": "hola12345",
+//        "cuentas": [1],
+//        "roles": ["ADMIN"]
+//    }
+    public UserRequestDTO(String nombre, String apellido, String email, long telefono, String password, Set<Long> c, Set<String> rol) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.email = email;
+        this.telefono = telefono;
+        this.password = password;
+        this.cuentas = new HashSet<>(c);
+        this.roles = new HashSet<>(rol);
     }
+//    public void setCuentas(Set<Cuenta> cuentas) {
+//        this.cuentas = new HashSet<>(cuentas);
+//    }
+//
+//    public void setAutoridades(Set<Authority> autoridades) {
+//        this.roles = new HashSet<>(autoridades);
+//    }
 }
-
-
 
 //{
 //    "nobmre": agustin,

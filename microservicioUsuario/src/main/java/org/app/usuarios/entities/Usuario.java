@@ -28,7 +28,7 @@ public class Usuario implements Serializable {
     @Column
     private String email;
 
-    @ManyToMany()
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "usuario_cuenta", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "cuenta_id"))
     private Set<Cuenta> cuentas;
 
@@ -42,21 +42,28 @@ public class Usuario implements Serializable {
         this.telefono = telefono;
         this.email = email;
         this.password = password;
+        this.cuentas = new HashSet<>();
+        this.autoridades = new HashSet<>();
     }
 
     public Usuario(UserRequestDTO request) {
         this.nombre = request.getNombre();
         this.apellido = request.getApellido();
         this.email = request.getEmail();
+        this.cuentas = new HashSet<>();
+        this.autoridades = new HashSet<>();
     }
 
-//
-    public void setCuentas(Collection<Cuenta> cuentas) {
-        this.cuentas = new HashSet<>(cuentas);
+    public Usuario() {
+
+    }
+
+    public void addCuenta(Cuenta c) {
+        this.cuentas.add(c);
     }
 //
-    public void setAutoridades(Collection<Authority> autoridades) {
-        this.autoridades = new HashSet<>(autoridades);
+    public void addAuthorities(Authority rol) {
+        this.autoridades.add(rol);
     }
 
 }
