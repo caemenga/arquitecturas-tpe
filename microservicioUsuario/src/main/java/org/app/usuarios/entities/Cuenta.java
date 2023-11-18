@@ -1,5 +1,6 @@
 package org.app.usuarios.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
@@ -9,6 +10,7 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -23,15 +25,15 @@ public class Cuenta implements Serializable {
     @Column
     private double saldo;
     @Column
-    private boolean habilitada;
-    @ManyToMany
-    private List<Usuario> usuarios;
+    private boolean habilitada = true;
+
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "cuentas")
+    private Set<Usuario> usuarios;
 
     public Cuenta(Date fechaAlta, double saldo) {
         this.fechaAlta = fechaAlta;
         this.saldo = saldo;
-        this.habilitada = true;
-        this.usuarios = new ArrayList<>();
     }
 
     public Cuenta() {

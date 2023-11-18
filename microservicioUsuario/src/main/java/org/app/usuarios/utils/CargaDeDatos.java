@@ -7,6 +7,7 @@ import org.app.usuarios.entities.Cuenta;
 import org.app.usuarios.entities.Usuario;
 import org.app.usuarios.services.CuentaService;
 import org.app.usuarios.services.UsuarioService;
+import org.app.usuarios.services.dto.user.request.UserRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -35,7 +36,7 @@ public class CargaDeDatos {
 
         CSVParser parserUsuarios = null;
         CSVParser parserCuentas = null;
-        List<Usuario> usuarios = new ArrayList<Usuario>();
+        List<UserRequestDTO> usuarios = new ArrayList<UserRequestDTO>();
         List<Cuenta> cuentas = new ArrayList<Cuenta>();
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -47,10 +48,12 @@ public class CargaDeDatos {
         }
 
         for (CSVRecord row: parserUsuarios) {
-            usuarios.add(new Usuario(row.get(0), row.get(1), Long.parseLong(row.get(2)), row.get(3)));
+            // nombre , apellido, email, telefono, pass, rol
+            //usuarios.add(new UserRequestDTO(row.get(0), row.get(1), row.get(2), Long.parseLong(row.get(3)), row.get(4), row.get(5)));
         }
-        for(Usuario u : usuarios){
-            usuarioService.addUsuario(u);
+        for(UserRequestDTO u : usuarios){
+            usuarioService.createUser(u);
+//            System.out.println(u.toString());
         }
 
         for (CSVRecord row: parserCuentas) {

@@ -13,6 +13,7 @@ public class UserRequestDTO {
     private String nombre;
     private String apellido;
     private String email;
+    private long telefono;
     private String password;
     private Set<Long> cuentas;
     private Set<String> authorities;

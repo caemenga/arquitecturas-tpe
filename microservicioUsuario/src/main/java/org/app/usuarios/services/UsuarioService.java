@@ -1,16 +1,25 @@
 package org.app.usuarios.services;
 
 
+import lombok.RequiredArgsConstructor;
 import org.app.usuarios.*;
 
 import org.app.usuarios.entities.Monopatin;
 import org.app.usuarios.entities.Parada;
 import org.app.usuarios.entities.Usuario;
+import org.app.usuarios.repositories.AuthorityRepository;
 import org.app.usuarios.repositories.CuentaRepository;
 import org.app.usuarios.repositories.UsuarioRepository;
+import org.app.usuarios.security.jwt.exception.EnumJWTException;
+import org.app.usuarios.security.jwt.exception.UserException;
+import org.app.usuarios.services.dto.user.request.UserRequestDTO;
+import org.app.usuarios.services.dto.user.response.UserResponseDTO;
+import org.app.usuarios.services.user.EnumUserException;
+import org.app.usuarios.services.user.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -19,19 +28,45 @@ import java.util.List;
 import java.util.Optional;
 
 @Service("usuarios")
+@RequiredArgsConstructor
 public class UsuarioService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
-
-
+    @Autowired
+    private CuentaRepository cuentaRepository;
+    @Autowired
+    private AuthorityRepository autoridadRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public List<Usuario> getUsuarios() {
         return usuarioRepository.findAll();
     }
 
-    public Usuario addUsuario(Usuario u) {
-        return usuarioRepository.save(u);
+    public UserResponseDTO createUser(UserRequestDTO request ) {
+        Optional<Usuario> u = this.usuarioRepository.findByEmailIgnoreCase(request.getEmail());
+        if (u.isPresent())
+        throw new UserException(EnumUserException.already_exist,
+                String.format("Ya existe un usuario con email %s", request.getEmail()));
+        final var accounts = this.cuentaRepository.findAllById(request.getCuentas());
+        if (accounts.isEmpty())
+            throw new UserException(EnumUserException.invalid_account,
+                    String.format("No se encontro ninguna cuenta con id %s", request.getCuentas().toString()));
+        final var authorities = request.getAuthorities()
+                .stream()
+                .map(string -> this.autoridadRepository.findById(string)
+                        .orElseThrow(() -> new NotFoundException("autoridad", string)))
+                .toList();
+        if (authorities.isEmpty())
+            throw new UserException(EnumUserException.invalid_authorities,
+                    String.format("No se encontro ninguna autoridad con id %s", request.getAuthorities().toString()));
+        final var user = new Usuario(request);
+        user.setCuentas(accounts);
+        user.setAutoridades(authorities);
+        final var encryptedPassword = passwordEncoder.encode(request.getPassword());
+        user.setPassword(encryptedPassword);
+        final var createdUser = this.usuarioRepository.save(user);
+        return new UserResponseDTO(createdUser);
     }
 
     public Optional<Usuario> getById(Long id) {

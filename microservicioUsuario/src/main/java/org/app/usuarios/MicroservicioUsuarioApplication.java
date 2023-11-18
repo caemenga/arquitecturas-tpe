@@ -5,6 +5,7 @@ import org.app.usuarios.utils.CargaDeDatos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -19,8 +20,8 @@ public class MicroservicioUsuarioApplication {
         SpringApplication.run(MicroservicioUsuarioApplication.class, args);
     }
 
-    @PostConstruct
-    public void init() throws IOException, ParseException {
-        carga.cargarDatos();
-    }
+//    @PostConstruct
+//    public void init() throws IOException, ParseException {
+//        carga.cargarDatos();
+//    }
 }

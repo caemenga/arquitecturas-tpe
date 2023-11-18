@@ -4,11 +4,13 @@ package org.app.usuarios.controllers;
 import lombok.RequiredArgsConstructor;
 import org.app.usuarios.entities.DTO.UbicacionDTO;
 import org.app.usuarios.entities.Usuario;
+import org.app.usuarios.services.AuthorityConstant;
 import org.app.usuarios.services.CuentaService;
 import org.app.usuarios.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -33,16 +35,18 @@ public class UsuarioController {
         }
     }
 
-    @PostMapping()
-    public ResponseEntity<?> addUsuario(@RequestBody Usuario u){
-        try{
-            return ResponseEntity.status(HttpStatus.OK).body(usuarioService.addUsuario(u));
-        }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo ingresar, revise los campos e intente nuevamente.\"}");
-        }
-    }
+//    @PostMapping()
+//    //@PreAuthorize( "hasAuthority( \"" + AuthorityConstant.ADMIN + "\" )" )
+//    public ResponseEntity<?> addUsuario(@RequestBody Usuario u){
+//        try{
+//            return ResponseEntity.status(HttpStatus.OK).body(usuarioService.createUser(u));
+//        }catch (Exception e){
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo ingresar, revise los campos e intente nuevamente.\"}");
+//        }
+//    }
 
     @GetMapping( path = "/{id}")
+    @PreAuthorize( "hasAuthority( \"" + AuthorityConstant.ADMIN + "\" )" )
     public ResponseEntity<?> getById(@PathVariable("id") Long id){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(usuarioService.getById(id));

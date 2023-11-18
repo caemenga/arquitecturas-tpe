@@ -38,13 +38,9 @@ public class User implements Serializable {
     )
     private Set<Account> cuentas;
 
-    @ManyToMany( fetch = FetchType.LAZY, cascade = CascadeType.PERSIST )
-    @JoinTable(
-            name = "rel_user__authority",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "authority_id")
-    )
-    private Set<Authority> authorities;
+    @ManyToOne
+    @JoinColumn(name = "name")
+    private Authority rol;
 
     public User(UserRequestDTO request) {
         this.nombre = request.getNombre();
@@ -56,7 +52,10 @@ public class User implements Serializable {
         this.cuentas = new HashSet<>( cuentas );
     }
 
-    public void setAuthorities( Collection<Authority> authorities ){
-        this.authorities = new HashSet<>( authorities );
+    public void setRol ( Authority rol ){
+        this.rol = rol;
+    }
+
+    public Collection<Object> getAuthorities() {
     }
 }
