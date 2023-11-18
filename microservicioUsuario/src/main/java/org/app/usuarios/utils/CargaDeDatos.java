@@ -3,9 +3,12 @@ package org.app.usuarios.utils;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
+import org.app.usuarios.entities.Authority;
 import org.app.usuarios.entities.Cuenta;
 import org.app.usuarios.entities.Usuario;
+import org.app.usuarios.services.AuthorityService;
 import org.app.usuarios.services.CuentaService;
+import org.app.usuarios.services.RolService;
 import org.app.usuarios.services.UsuarioService;
 import org.app.usuarios.services.dto.user.request.UserRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,36 +27,35 @@ public class CargaDeDatos {
     private final UsuarioService usuarioService;
     private final CuentaService cuentaService;
 
+    private final AuthorityService authorityService;
+
     @Autowired
-    public CargaDeDatos(UsuarioService usuarioService, CuentaService cuentaService) {
+    public CargaDeDatos(UsuarioService usuarioService, CuentaService cuentaService, AuthorityService rolService) {
         this.usuarioService = usuarioService;
         this.cuentaService = cuentaService;
+        this.authorityService = rolService;
     }
 
     public void cargarDatos() throws ParseException {
         String usuariosCSV = "microservicioUsuario/src/main/java/org/app/usuarios/utils/usuarios.csv";
         String cuentasCSV = "microservicioUsuario/src/main/java/org/app/usuarios/utils/cuentas.csv";
+        String rolCSV = "microservicioUsuario/src/main/java/org/app/usuarios/utils/rol.csv";
 
         CSVParser parserUsuarios = null;
         CSVParser parserCuentas = null;
+        CSVParser parserRoles = null;
         List<UserRequestDTO> usuarios = new ArrayList<UserRequestDTO>();
         List<Cuenta> cuentas = new ArrayList<Cuenta>();
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+        List<Authority> roles = new ArrayList<Authority>();
 
         try {
             parserUsuarios = CSVFormat.DEFAULT.withHeader().parse(new FileReader(usuariosCSV));
             parserCuentas = CSVFormat.DEFAULT.withHeader().parse(new FileReader(cuentasCSV));
+            parserRoles= CSVFormat.DEFAULT.withHeader().parse(new FileReader(rolCSV));
+
         } catch (IOException e) {
             e.printStackTrace();
-        }
-
-        for (CSVRecord row: parserUsuarios) {
-            // nombre , apellido, email, telefono, pass, rol
-            //usuarios.add(new UserRequestDTO(row.get(0), row.get(1), row.get(2), Long.parseLong(row.get(3)), row.get(4), row.get(5)));
-        }
-        for(UserRequestDTO u : usuarios){
-            usuarioService.createUser(u);
-//            System.out.println(u.toString());
         }
 
         for (CSVRecord row: parserCuentas) {
@@ -64,5 +66,28 @@ public class CargaDeDatos {
         for(Cuenta c : cuentas){
             cuentaService.addCuenta(c);
         }
+
+        for (CSVRecord row: parserRoles){
+            roles.add(new Authority(row.get(0)));
+            authorityService.add(new Authority(row.get(0)));
+        }
+
+
+        for (CSVRecord row: parserUsuarios) {
+            Authority rol = new Authority(row.get(4));
+            UserRequestDTO userRequestDTO = new UserRequestDTO(row.get(0), row.get(1), row.get(2), Long.parseLong(row.get(3)));
+            userRequestDTO.setAutoridades(rol);
+
+            Usuario user = new Usuario(row.get(0), row.get(1), row.get(2), Long.parseLong(row.get(3)));
+            usuarios.add(new UserRequestDTO(row.get(0), row.get(1), row.get(2), Long.parseLong(row.get(3)));
+        }
+        for(UserRequestDTO u : usuarios){
+            usuarioService.createUser(u);
+
+//            System.out.println(u.toString());
+        }
+
+
+
     }
 }

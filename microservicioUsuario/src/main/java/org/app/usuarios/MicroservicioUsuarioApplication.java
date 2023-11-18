@@ -20,8 +20,8 @@ public class MicroservicioUsuarioApplication {
         SpringApplication.run(MicroservicioUsuarioApplication.class, args);
     }
 
-//    @PostConstruct
-//    public void init() throws IOException, ParseException {
-//        carga.cargarDatos();
-//    }
+    @PostConstruct
+    public void init() throws IOException, ParseException {
+        carga.cargarDatos();
+    }
 }

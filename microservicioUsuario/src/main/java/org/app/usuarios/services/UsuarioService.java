@@ -4,6 +4,7 @@ package org.app.usuarios.services;
 import lombok.RequiredArgsConstructor;
 import org.app.usuarios.*;
 
+import org.app.usuarios.entities.Authority;
 import org.app.usuarios.entities.Monopatin;
 import org.app.usuarios.entities.Parada;
 import org.app.usuarios.entities.Usuario;
@@ -119,6 +120,10 @@ public class UsuarioService {
             return ResponseEntity.ok("no se encontraron monopatines en la parada cercana");
         }
         return ResponseEntity.ok("no se encontraron paradas cercanas");
+    }
+
+    public ResponseEntity<?> addRol(Authority a){
+        usuarioRepository.addRol()
     }
 
 }

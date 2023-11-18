@@ -1,4 +1,4 @@
-nombre,apellido,email,telefono,password,rol
+nombre,apellido,email,telefono,password,rol,cuentas
 tano,mengarelli,cae@hotmail.com,4443798,hola123,ADMIN
 belen,gayral,belen@hotmail.com,44444444,hola123,USER
 echi,martinez,echi@hotmail.com,55555555,hola123,MANTENIMIENTO
