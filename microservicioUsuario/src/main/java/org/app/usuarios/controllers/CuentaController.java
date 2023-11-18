@@ -4,11 +4,13 @@ import lombok.RequiredArgsConstructor;
 import org.app.usuarios.entities.Cuenta;
 import org.app.usuarios.entities.DTO.CuentaDTO;
 import org.app.usuarios.entities.Usuario;
+import org.app.usuarios.services.AuthorityConstant;
 import org.app.usuarios.services.CuentaService;
 import org.app.usuarios.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -25,6 +27,7 @@ public class CuentaController {
     private RestTemplate restTemplate;
 
     @GetMapping()
+    @PreAuthorize( "hasAuthority( \"" + AuthorityConstant.ADMIN + "\" )" )
     public ResponseEntity<?> getCuentas(){
         try {
             return ResponseEntity.status(HttpStatus.OK).body(cuentaService.getCuentas());
@@ -34,6 +37,7 @@ public class CuentaController {
     }
 
     @PostMapping()
+    @PreAuthorize( "hasAuthority( \"" + AuthorityConstant.ADMIN + "\" )" )
     public ResponseEntity<?> addCuenta(@RequestBody Cuenta c){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(cuentaService.addCuenta(c));
@@ -43,6 +47,7 @@ public class CuentaController {
     }
 
     @GetMapping( path = "/{id}")
+    @PreAuthorize( "hasAuthority( \"" + AuthorityConstant.ADMIN + "\" )" )
     public ResponseEntity<?> getById(@PathVariable("id") Long id){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(cuentaService.getById(id));
@@ -52,6 +57,7 @@ public class CuentaController {
     }
 
     @DeleteMapping(path = "/{id}")
+    @PreAuthorize( "hasAuthority( \"" + AuthorityConstant.ADMIN + "\" )" )
     public ResponseEntity<?> deleteByID(@PathVariable("id") Long id){
         try{
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(cuentaService.deleteCuenta(id));
@@ -63,6 +69,7 @@ public class CuentaController {
     //todo: método para inhabilitar cuenta.
 
     @PutMapping(path = "/anular/{id}")
+    @PreAuthorize( "hasAuthority( \"" + AuthorityConstant.USER + "\" )" )
     public ResponseEntity<?> inhabilitarCuenta(@PathVariable Long id){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(cuentaService.inhabilitarCuenta(id));
@@ -74,6 +81,7 @@ public class CuentaController {
     //todo: método para agregar saldo.
 
     @PutMapping(path = "/{id}/agregar/{saldo}")
+    @PreAuthorize( "hasAuthority( \"" + AuthorityConstant.USER + "\" )" )
     public ResponseEntity<?> agregarSaldo(@PathVariable("id") Long id , @PathVariable("saldo") Double saldo){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(cuentaService.agregarSaldo(id, saldo));

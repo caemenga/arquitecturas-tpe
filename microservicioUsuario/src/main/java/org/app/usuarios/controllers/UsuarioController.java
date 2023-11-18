@@ -35,16 +35,6 @@ public class UsuarioController {
         }
     }
 
-//    @PostMapping()
-//    //@PreAuthorize( "hasAuthority( \"" + AuthorityConstant.ADMIN + "\" )" )
-//    public ResponseEntity<?> addUsuario(@RequestBody Usuario u){
-//        try{
-//            return ResponseEntity.status(HttpStatus.OK).body(usuarioService.createUser(u));
-//        }catch (Exception e){
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo ingresar, revise los campos e intente nuevamente.\"}");
-//        }
-//    }
-
     @GetMapping( path = "/{id}")
     @PreAuthorize( "hasAuthority( \"" + AuthorityConstant.ADMIN + "\" )" )
     public ResponseEntity<?> getById(@PathVariable("id") Long id){
@@ -57,6 +47,7 @@ public class UsuarioController {
 
 
     //localhost:8081/usuarios/monopatinesCercanos/latitud/47.99/longitud/237.4
+    @PreAuthorize( "hasAuthority( \"" + AuthorityConstant.USER + "\" )" )
     @GetMapping( path = "/monopatinesCercanos/latitud/{latitud}/longitud/{longitud}")
     public ResponseEntity<?> getMonopatinesCercanos(@PathVariable("latitud") double latitud, @PathVariable("longitud") double longitud){
         try{
@@ -68,6 +59,7 @@ public class UsuarioController {
 
 
     @DeleteMapping(path = "/{id}")
+    @PreAuthorize( "hasAuthority( \"" + AuthorityConstant.ADMIN + "\" )" )
     public ResponseEntity<?> deleteByID(@PathVariable("id") Long id){
         try{
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(usuarioService.deleteUsuario(id));
@@ -76,10 +68,11 @@ public class UsuarioController {
         }
     }
     @PutMapping(path = "/cuenta/{id}/agregar/{saldo}")
+    @PreAuthorize( "hasAuthority( \"" + AuthorityConstant.USER + "\")")
     public ResponseEntity<?> cargarSaldo(@PathVariable("id") Long id, @PathVariable("saldo") Double saldo){
 
         try{
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(cuentaService.agregarSaldo(id, saldo));
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(cuentaService.agregarSaldo(id, saldo));
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. no se pudo cargar saldo en la cuenta  \"" + id + ". intente nuevamente.\"}");
         }

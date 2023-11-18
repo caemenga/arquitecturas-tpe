@@ -1,5 +1,6 @@
 usuario_id, autoridad_id
 1,ADMIN
-2,USUARIO
-3,USUARIO
+2,USER
+3,USER
 4,MANTENIMIENTO
+1,USER
