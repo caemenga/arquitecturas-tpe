@@ -20,7 +20,7 @@ public class MicroservicioMonopatinApplication {
         SpringApplication.run(MicroservicioMonopatinApplication.class, args);
     }
     @PostConstruct
-    public void init() throws IOException, ParseException {
+    public void init() throws Exception {
         carga.cargarDatos();
     }
 }

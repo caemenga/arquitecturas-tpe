@@ -1,10 +1,13 @@
 package org.app.parada.config;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.app.parada.security.JwtFilter;
+import org.app.parada.services.HttpService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -21,10 +24,14 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 public class HttpConfig {
 
+    @Autowired
+    private HttpService http;
     private final JwtParser jwtParser;
-    private final String secret = "TklDTyBGQUxPUEVSTyBZIExVQ0EgU0UgTEEgUkVDT05UUkEgTUVHQSBBUkNISSBSRSBDT01FIFBPUlFVRSBFUyBQVVRBWk8=";
+
+    private Dotenv env = Dotenv.load();
 
     public HttpConfig() {
+        String secret = env.get("SECRET_KEY");
         final var keyBytes = Decoders.BASE64.decode(secret);
         final var key = Keys.hmacShaKeyFor(keyBytes);
         jwtParser = Jwts.parserBuilder().setSigningKey(key).build();

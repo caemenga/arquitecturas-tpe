@@ -16,7 +16,7 @@ import java.sql.Date;
 @Getter
 @Setter
 
-public class Mantenimiento implements Serializable {
+public class Mantenimiento extends Entity implements Serializable {
     private Long id;
     private Long monopatinId;
     private Date inicioMantenimiento;

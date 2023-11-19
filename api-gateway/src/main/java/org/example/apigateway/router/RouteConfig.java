@@ -30,11 +30,11 @@ public class RouteConfig {
                         .filters( f -> f.filters(
                         authFilter.apply(new AuthenticationFilter.Config())))
                         .uri("http://localhost:8082"))
-                .route("tarifa", r -> r.path("/tarifas/**" )
+                .route("tarifas", r -> r.path("/tarifas/**" )
                         .filters( f -> f.filters(
                                 authFilter.apply(new AuthenticationFilter.Config())))
                         .uri("http://localhost:8082"))
-                .route("viaje", r -> r.path( "/viajes/**" )
+                .route("viajes", r -> r.path( "/viajes/**" )
                         .filters( f -> f.filters(
                                 authFilter.apply(new AuthenticationFilter.Config())))
                         .uri("http://localhost:8082"))
@@ -50,7 +50,7 @@ public class RouteConfig {
                                 authFilter.apply(new AuthenticationFilter.Config())))
                         .uri("http://localhost:8086"))
                 //PARADA
-                .route("parada", r -> r.path("/paradas/**")
+                .route("paradaS", r -> r.path("/paradas/**")
                         .filters( f -> f.filters(
                                 authFilter.apply(new AuthenticationFilter.Config())))
                         .uri("http://localhost:8083"))

@@ -20,6 +20,8 @@ public class MantenimientoService {
 
     @Autowired
     private MantenimientoRepository mantenimientoRepository;
+    @Autowired
+    private HttpService http;
 
     public List<Mantenimiento> getMantenimientos() {
         return mantenimientoRepository.findAll();
@@ -36,14 +38,14 @@ public class MantenimientoService {
     }
 
     public boolean deleteMantenimiento(Long id) throws Exception {
-        try{
-            if(mantenimientoRepository.existsById(id)){
+        try {
+            if (mantenimientoRepository.existsById(id)) {
                 mantenimientoRepository.deleteById(id);
                 return true;
-            }else{
+            } else {
                 throw new Exception();
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
     }
@@ -51,7 +53,7 @@ public class MantenimientoService {
     public Mantenimiento finMantenimiento(MantenimientoDTO idMantenimiento) {
         Optional<Mantenimiento> m = mantenimientoRepository.findById(idMantenimiento.getIdMantenimiento());
 
-        if(m.isPresent()){
+        if (m.isPresent()) {
             long currentTimeMillis = System.currentTimeMillis();
             Date fecha = new Date(currentTimeMillis);
             m.get().setFinMantenimiento(fecha);
@@ -60,44 +62,47 @@ public class MantenimientoService {
         return null;
     }
 
-    public ResponseEntity<?> getReporteKms(Boolean pausa) {
-        RestTemplate rest = new RestTemplate();
-        HttpHeaders headers = new HttpHeaders();
-        HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
+    public ResponseEntity<?> getReporteKms(String token, Boolean pausa) {
 
-        String url = "http://localhost:8082/viajes/reporte/kms?pausa="+pausa;
-        System.out.println(url);
+        String url = "/viajes/reporte/kms?pausa=" + pausa;
+        ResponseEntity<?> response = this.http.getRequest(token, url);
+//        RestTemplate rest = new RestTemplate();
+//        HttpHeaders headers = new HttpHeaders();
+//        HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
+//
+//        System.out.println(url);
 
-        if (pausa) {
-            ResponseEntity<List<ReporteKmsPausaDTO>> response = rest.exchange(
-                    url,
-                    HttpMethod.GET,
-                    requestEntity,
-                    new ParameterizedTypeReference<>(){}
-            );
-            headers.setContentType(MediaType.APPLICATION_JSON);
-            System.out.println(response.getBody());
+//        if (pausa) {
+//            ResponseEntity<List<ReporteKmsPausaDTO>> response = rest.exchange(
+//                    url,
+//                    HttpMethod.GET,
+//                    requestEntity,
+//                    new ParameterizedTypeReference<>(){}
+//            );
+//            headers.setContentType(MediaType.APPLICATION_JSON);
+//            System.out.println(response.getBody());
 
-            if(response.getStatusCode().is2xxSuccessful() && response.getBody() != null){
-                return ResponseEntity.ok(response.getBody());
-            } else {
-                return ResponseEntity.ok("No hay reporte de monopatines.");
-            }
+        if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
+            return ResponseEntity.ok(response.getBody());
         } else {
-            ResponseEntity<List<ReporteKmsDTO>> response = rest.exchange(
-                    url,
-                    HttpMethod.GET,
-                    requestEntity,
-                    new ParameterizedTypeReference<>(){}
-            );
-            headers.setContentType(MediaType.APPLICATION_JSON);
-            System.out.println(response.getBody());
-
-            if(response.getStatusCode().is2xxSuccessful() && response.getBody() != null){
-                return ResponseEntity.ok(response.getBody());
-            } else {
-                return ResponseEntity.ok("No hay reporte de monopatines.");
-            }
+            return ResponseEntity.ok("No hay reporte de monopatines.");
         }
+//        } else {
+//            ResponseEntity<List<ReporteKmsDTO>> response = rest.exchange(
+//                    url,
+//                    HttpMethod.GET,
+//                    requestEntity,
+//                    new ParameterizedTypeReference<>(){}
+//            );
+//            headers.setContentType(MediaType.APPLICATION_JSON);
+//            System.out.println(response.getBody());
+//
+//            if(response.getStatusCode().is2xxSuccessful() && response.getBody() != null){
+//                return ResponseEntity.ok(response.getBody());
+//            } else {
+//                return ResponseEntity.ok("No hay reporte de monopatines.");
+//            }
+//        }
+//    }
     }
 }

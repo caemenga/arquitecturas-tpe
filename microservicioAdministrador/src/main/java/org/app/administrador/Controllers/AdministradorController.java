@@ -55,6 +55,8 @@ public class AdministradorController {
 //        "fecha_caducacion": "2024-03-12T10:00:00Z"
 //    }
     @PostMapping(path = "/tarifa")
+    // aca dio ERROR!!!!!
+    // REVISAR IMPLEMENTACION CON HTTPSERVICE
     @PreAuthorize( "hasAuthority( \"" + AuthorityConstant.ADMIN + "\" )" )
     public ResponseEntity<?> definirPrecio(@RequestHeader("Authorization") String token, @RequestBody Tarifa t){
         try{
@@ -78,8 +80,8 @@ public class AdministradorController {
 //
     //generar reporte de uso de monopatines por KM
     //http://localhost:8080/administracion/monopatines/viajes?cant=1&anio=2023
-@GetMapping("/monopatines/viajes")
-@PreAuthorize( "hasAuthority( \"" + AuthorityConstant.ADMIN + "\" )" )
+    @GetMapping("/monopatines/viajes")
+    @PreAuthorize( "hasAuthority( \"" + AuthorityConstant.ADMIN + "\" )" )
     public ResponseEntity<?> getMonopatinesPorXViajes(@RequestHeader("Authorization") String token, @RequestParam Long cant, @RequestParam Long anio){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(administradorService.getMonopatinesPorXViajes(this.getToken(token), cant, anio));

@@ -49,9 +49,10 @@ public class UsuarioController {
     //localhost:8081/usuarios/monopatinesCercanos/latitud/47.99/longitud/237.4
     @PreAuthorize( "hasAuthority( \"" + AuthorityConstant.USER + "\" )" )
     @GetMapping( path = "/monopatinesCercanos/latitud/{latitud}/longitud/{longitud}")
-    public ResponseEntity<?> getMonopatinesCercanos(@PathVariable("latitud") double latitud, @PathVariable("longitud") double longitud){
+    public ResponseEntity<?> getMonopatinesCercanos(@RequestHeader("Authorization") String token, @PathVariable("latitud") double latitud, @PathVariable("longitud") double longitud){
         try{
-            return ResponseEntity.status(HttpStatus.OK).body(usuarioService.getMonopatinesCercanos(latitud,longitud));
+            String _token = token.split(" ")[1];
+            return ResponseEntity.status(HttpStatus.OK).body(usuarioService.getMonopatinesCercanos(_token, latitud,longitud));
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se encuentra el objeto buscado");
         }

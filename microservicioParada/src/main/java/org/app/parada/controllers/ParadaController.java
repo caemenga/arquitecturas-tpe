@@ -16,8 +16,6 @@ public class ParadaController {
 
     @Autowired
     private ParadaService paradaService;
-//    @Autowired
-//    private RestTemplate restTemplate;
 
     @GetMapping()
     public ResponseEntity<?> getParadas(){

@@ -32,13 +32,16 @@ public class ViajeService {
         return viajeRepository.findById(id);
     }
 
-    public List<MonopatinViajeDTO> findAllByAnio(Long cant, Long anio) {
-        List<MonopatinViajeDTO> l = viajeRepository.findAllByAnio(cant, anio);
-        for(MonopatinViajeDTO m : l){
-            System.out.println("aaaaaaaaaaaaaaaaa");
-            System.out.println(m.toString());
+    public List<MonopatinViajeDTO> findAllByAnio(Long cant, Long anio) throws Exception {
+        try{
+            List<MonopatinViajeDTO> l = viajeRepository.findAllByAnio(cant, anio);
+            for(MonopatinViajeDTO m : l){
+                System.out.println(m.toString());
+            }
+            return l;
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
         }
-        return l;
     }
 
     public boolean deleteViaje(Long id) throws Exception {
@@ -70,8 +73,12 @@ public class ViajeService {
         }
         return reporte;
     }
-    public ReporteTotalFacturadoDTO getReporteTotalFacturado(Long mes1, Long mes2, Long anio) {
-        return viajeRepository.getReporteTotalFacturado(mes1, mes2, anio);
+    public ReporteTotalFacturadoDTO getReporteTotalFacturado(Long mes1, Long mes2, Long anio) throws Exception {
+        try{
+            return viajeRepository.getReporteTotalFacturado(mes1, mes2, anio);
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
     }
 
 }

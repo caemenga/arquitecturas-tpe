@@ -9,7 +9,7 @@ import lombok.Setter;
 @Data
 @Getter
 @Setter
-public class Parada {
+public class Parada{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

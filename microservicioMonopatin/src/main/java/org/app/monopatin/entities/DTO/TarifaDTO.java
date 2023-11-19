@@ -1,6 +1,7 @@
 package org.app.monopatin.entities.DTO;
 import lombok.*;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 @Data
@@ -8,7 +9,7 @@ import java.sql.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class TarifaDTO {
+public class TarifaDTO implements Serializable {
     private Date fecha_creacion;
     private Double tarifa;
     private Double porc_recargo;

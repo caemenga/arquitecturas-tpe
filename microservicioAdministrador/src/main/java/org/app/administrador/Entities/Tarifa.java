@@ -4,11 +4,13 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.sql.Date;
 
 @Getter
 @Setter
-public class Tarifa {
+public class Tarifa extends Entity implements Serializable{
     private Date fecha_creacion;
     private Double tarifa;
     private Double porc_recargo;

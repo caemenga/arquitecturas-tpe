@@ -81,7 +81,7 @@ public class CuentaController {
     //todo: método para agregar saldo.
 
     @PutMapping(path = "/{id}/agregar/{saldo}")
-    @PreAuthorize( "hasAuthority( \"" + AuthorityConstant.USER + "\" )" )
+    @PreAuthorize( "hasAuthority( \"" + AuthorityConstant.USER + "\"  + AuthorityConstant.ADMIN)  " )
     public ResponseEntity<?> agregarSaldo(@PathVariable("id") Long id , @PathVariable("saldo") Double saldo){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(cuentaService.agregarSaldo(id, saldo));

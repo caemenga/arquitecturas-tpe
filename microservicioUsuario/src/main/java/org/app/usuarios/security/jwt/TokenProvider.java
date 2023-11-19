@@ -1,5 +1,6 @@
 package org.app.usuarios.security.jwt;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -23,13 +24,17 @@ public class TokenProvider {
     private final Logger log = LoggerFactory.getLogger(TokenProvider.class);
 
     public static final String AUTHORITIES_KEY = "auth";
-    private final String secret = "QJeKx+s7XIv1WbBlj7vJ9CD3Ozj1rB3qjlNZY9ofWKJSaBNBo5r1q9Rru/OWlYb+UHV1n4/LJl1OBYYZZ7rhJEnn5peyHCd+eLJfRdArE37pc+QDIsJlabQtR7tYRa+SnvGRyL01uZsK33+gezV+/GPXBnPTj8fOojDUzJiPAvE=";
+    private final String secret;
     private final Key key;
     private final JwtParser jwtParser;
 
     private final long tokenValidityInMilliseconds = 28800 * 1000; // valido por 8hs.
 
+    private Dotenv env = Dotenv.load();
+
+
     public TokenProvider() {
+        this.secret = env.get("SECRET_KEY");
         byte[] keyBytes = Decoders.BASE64.decode(secret);
         key = Keys.hmacShaKeyFor( keyBytes );
         jwtParser = Jwts.parserBuilder().setSigningKey(key).build();

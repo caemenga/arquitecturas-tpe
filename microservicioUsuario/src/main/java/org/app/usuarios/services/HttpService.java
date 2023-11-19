@@ -1,6 +1,7 @@
 package org.app.usuarios.services;
 
 import io.github.cdimascio.dotenv.Dotenv;
+import org.app.usuarios.entities.Parada;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,7 @@ public class HttpService {
     }
 
     //GET
-    public ResponseEntity<?> getRequest(String token, String url){
+    public ResponseEntity<?> getRequest(String token, String url, String type){
         //cargamos los headers junto con el token
         HttpHeaders headers = new HttpHeaders();
         headers.setBearerAuth(token);
