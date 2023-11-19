@@ -39,8 +39,12 @@ public class UserResource {
      */
     @GetMapping("/validate")
     public ResponseEntity<ValidateTokenDTO> validateGet() {
+
         final var user = SecurityContextHolder.getContext().getAuthentication();
+        System.out.println(user.toString());
+
         final var authorities = user.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList();
+
         return ResponseEntity.ok(
                 ValidateTokenDTO.builder()
                         .username( user.getName() )
@@ -48,7 +52,9 @@ public class UserResource {
                         .isAuthenticated( true )
                         .build()
         );
+
     }
+
     @Data
     @Builder
     public static class ValidateTokenDTO {

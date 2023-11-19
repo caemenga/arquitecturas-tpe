@@ -51,6 +51,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(new AntPathRequestMatcher("/api/login")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/api/register")).permitAll()
+                        //.requestMatchers(new AntPathRequestMatcher("/api/validate")).permitAll()
                         .anyRequest().authenticated()
                 )
                 .anonymous(AbstractHttpConfigurer::disable)

@@ -24,7 +24,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class HttpConfig {
 
     private final JwtParser jwtParser;
-    private final String secret = "TklDTyBGQUxPUEVSTyBZIExVQ0EgU0UgTEEgUkVDT05UUkEgTUVHQSBBUkNISSBSRSBDT01FIFBPUlFVRSBFUyBQVVRBWk8=";
+    private final String secret = "QJeKx+s7XIv1WbBlj7vJ9CD3Ozj1rB3qjlNZY9ofWKJSaBNBo5r1q9Rru/OWlYb+UHV1n4/LJl1OBYYZZ7rhJEnn5peyHCd+eLJfRdArE37pc+QDIsJlabQtR7tYRa+SnvGRyL01uZsK33+gezV+/GPXBnPTj8fOojDUzJiPAvE=";
 
     public HttpConfig() {
         final var keyBytes = Decoders.BASE64.decode(secret);

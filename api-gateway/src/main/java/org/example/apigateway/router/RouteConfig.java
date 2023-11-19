@@ -13,17 +13,18 @@ public class RouteConfig {
     public RouteLocator routes( RouteLocatorBuilder builder, AuthenticationFilter authFilter) {
         return builder.routes()
                 //AUTH
-                .route("auth", r -> r.path("/api/login")
+
+                .route("auth", r -> r.path("/api/**")
                         .filters( f ->
                             f.filter(authFilter.apply(new AuthenticationFilter.Config()))
                         )
                         .uri("http://localhost:8081"))
                 //REGISTER
-                .route("auth", r -> r.path("/api/register")
-                        .filters( f ->
-                                f.filter(authFilter.apply(new AuthenticationFilter.Config()))
-                        )
-                        .uri("http://localhost:8081"))
+//                .route("auth", r -> r.path("/api/register")
+//                        .filters( f ->
+//                                f.filter(authFilter.apply(new AuthenticationFilter.Config()))
+//                        )
+//                        .uri("http://localhost:8081"))
                 //MONOPATINES
                 .route("monopatin", r -> r.path("/monopatines/**" )
                         .filters( f -> f.filters(
