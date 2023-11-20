@@ -39,8 +39,12 @@ public class UserResource {
      */
     @GetMapping("/validate")
     public ResponseEntity<ValidateTokenDTO> validateGet() {
+
         final var user = SecurityContextHolder.getContext().getAuthentication();
+        System.out.println(user.toString());
+
         final var authorities = user.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList();
+
         return ResponseEntity.ok(
                 ValidateTokenDTO.builder()
                         .username( user.getName() )
@@ -48,7 +52,9 @@ public class UserResource {
                         .isAuthenticated( true )
                         .build()
         );
+
     }
+
     @Data
     @Builder
     public static class ValidateTokenDTO {
@@ -64,24 +70,21 @@ public class UserResource {
 //    }
     @PostMapping("/login")
     public ResponseEntity<JWTToken> authenticate( @Valid @RequestBody AuthRequestDTO request ) {
-        System.out.println("creando login con " + request.toString());
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken( request.getEmail(), request.getPassword() );
 
-        System.out.println("auth " + authenticationToken.toString());
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        System.out.println("paso 2");
         final var jwt = tokenProvider.createToken (authentication );
 
-        System.out.println("paso 3");
         System.out.println(jwt);
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add( JWTFilter.AUTHORIZATION_HEADER, "Bearer " + jwt );
 
-        System.out.println("paso 4");
         return new ResponseEntity<>(new JWTToken(jwt), httpHeaders, HttpStatus.OK);
     }
+
+
 
 //        UserRequestDTO
 //{

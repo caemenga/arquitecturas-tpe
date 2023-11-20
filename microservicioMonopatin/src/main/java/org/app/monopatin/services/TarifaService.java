@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service("tarifaService")
@@ -14,18 +15,32 @@ public class TarifaService {
     @Autowired
     private TarifaRepository tarifaRepository;
 
-    public Optional<Tarifa> getById(Long id){
-
+    public Optional<Tarifa> getById(Long id) throws Exception {
+        try{
             return tarifaRepository.findById(id);
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
         }
-
-    public Tarifa addTarifa(Tarifa tarifa) {
-        return tarifaRepository.save(tarifa);
     }
 
-    public Optional<Tarifa> getUltimaTarifa() {
+    public Tarifa addTarifa(Tarifa tarifa) throws Exception {
+        try{
+            return tarifaRepository.save(tarifa);
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
 
-        return tarifaRepository.getUltimaTarifa();
+    public Optional<Tarifa> getUltimaTarifa() throws Exception {
+        try{
+            return tarifaRepository.getUltimaTarifa();
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
+
+    public List<Tarifa> getTarifas() {
+        return this.tarifaRepository.findAll();
     }
 }
 

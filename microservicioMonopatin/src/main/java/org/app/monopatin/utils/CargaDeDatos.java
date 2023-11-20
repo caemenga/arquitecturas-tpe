@@ -36,13 +36,13 @@ public class CargaDeDatos {
         this.tarifaService = tarifaService;
     }
 
-    public void cargarDatos()throws ParseException {
+    public void cargarDatos() throws Exception {
         this.cargarDatosTarifa();
         this.cargarDatosMonopatin();
         this.cargarDatosViaje();
     }
 
-    public void cargarDatosMonopatin() throws ParseException {
+    public void cargarDatosMonopatin() throws Exception {
         String monopatinCSV = "microservicioMonopatin/src/main/java/org/app/monopatin/utils/monopatin.csv";
 
         CSVParser parser = null;
@@ -63,7 +63,7 @@ public class CargaDeDatos {
         }
     }
 
-    public void cargarDatosViaje() throws ParseException {
+    public void cargarDatosViaje() throws Exception {
         String monopatinCSV = "microservicioMonopatin/src/main/java/org/app/monopatin/utils/viaje.csv";
 
         CSVParser parser = null;
@@ -103,7 +103,7 @@ public class CargaDeDatos {
             viajeService.addViaje(m);
         }
     }
-    public void cargarDatosTarifa()throws ParseException {
+    public void cargarDatosTarifa() throws Exception {
         String monopatinCSV = "microservicioMonopatin/src/main/java/org/app/monopatin/utils/tarifa.csv";
 
         CSVParser parser = null;

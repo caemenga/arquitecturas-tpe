@@ -17,7 +17,7 @@ import java.util.function.Predicate;
 public class AuthenticationFilter extends AbstractGatewayFilterFactory<AuthenticationFilter.Config> {
 
     private static final String _AuthHeader = "Authorization";
-    List<String> excludedUrls = List.of( "api/authenticate" , "api/register");
+    List<String> excludedUrls = List.of( "api/login" , "api/register", "api/validate");
     private final WebClient.Builder webClientBuilder;
 
 

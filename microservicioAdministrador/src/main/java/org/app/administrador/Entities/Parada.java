@@ -1,6 +1,6 @@
 package org.app.administrador.Entities;
 
-public class Parada {
+public class Parada extends Entity{
     private long id;
     private long altitud;
     private long longitud;

@@ -36,6 +36,8 @@ public class UsuarioService {
     private CuentaRepository cuentaRepository;
     @Autowired
     private AuthorityRepository autoridadRepository;
+    @Autowired
+    private HttpService http;
     private final PasswordEncoder passwordEncoder;
 
     public List<Usuario> getUsuarios() {
@@ -90,7 +92,11 @@ public class UsuarioService {
         }
     }
 
-    public ResponseEntity<?> getMonopatinesCercanos(double latitud, double longitud) {
+    public ResponseEntity<?> getMonopatinesCercanos(String token, double latitud, double longitud) {
+
+//        String url = "/paradas/cercana?latitud=" + latitud + "&longitud=" + longitud;
+//        String type = "Parada";
+//        ResponseEntity<?> responseParada = this.http.getRequest(token, url, type);
         RestTemplate rest = new RestTemplate();
 
         HttpHeaders headers = new HttpHeaders();
@@ -103,31 +109,22 @@ public class UsuarioService {
                 url,
                 HttpMethod.GET,
                 requestEntity,
-                new ParameterizedTypeReference<>(){}
+                new ParameterizedTypeReference<Parada>(){}
         );
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         if(responseParada.getStatusCode().is2xxSuccessful() && responseParada.getBody()!=null && responseParada.hasBody()){
-            Parada p = responseParada.getBody();
-            System.out.println(p.toString());
-            ResponseEntity<List<Monopatin>> responseMonopatin = rest.exchange(
-                    "http://localhost:8082/monopatines/parada/" + p.getId(),
-                    HttpMethod.GET,
-                    requestEntity,
-                    new ParameterizedTypeReference<>(){}
-            );
-            headers.setContentType(MediaType.APPLICATION_JSON);
-            if(responseMonopatin.getStatusCode().is2xxSuccessful() && responseMonopatin.getBody()!=null && !responseMonopatin.getBody().isEmpty()){
+            Parada p = (Parada) responseParada.getBody();
+            //System.out.println(p.toString());
+            String url2 = "/monopatines/parada/" + p.getId();
+            ResponseEntity<?> responseMonopatin = this.http.getRequest(token, url2, "jasd");
+            if(responseMonopatin.getStatusCode().is2xxSuccessful() && responseMonopatin.getBody()!=null){
                 return ResponseEntity.ok(responseMonopatin.getBody());
             }
             return ResponseEntity.ok("no se encontraron monopatines en la parada cercana");
         }
         return ResponseEntity.ok("no se encontraron paradas cercanas");
     }
-
-//    public ResponseEntity<?> addRol(Authority a){
-//        usuarioRepository.addRol(a)
-//    }
 
     public ResponseEntity<?> addCuenta(Usuario user){
         this.usuarioRepository.save(user);

@@ -10,7 +10,6 @@
         <module name="microservicioMonopatin" />
         <module name="microservicioMantenimiento" />
         <module name="api-gateway" />
-        <module name="microservicioAuthentication" />
         <module name="microservicioSeguridad" />
         <module name="microservicioAdministrador" />
         <module name="microservicioUsuario" />
@@ -18,6 +17,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="microservicioAuthentication" target="17" />
       <module name="microservicioParadas" target="17" />
       <module name="microservicioSeguridad" target="17" />
       <module name="microservicioViaje" target="17" />

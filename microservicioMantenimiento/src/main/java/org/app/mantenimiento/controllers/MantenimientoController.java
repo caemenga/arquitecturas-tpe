@@ -68,9 +68,10 @@ public class MantenimientoController {
     //http://localhost:8085/mantenimiento/reporte/monopatines?pausa=true
     //http://localhost:8085/mantenimiento/reporte/monopatines?pausa=false
     @GetMapping( path = "/reporte/monopatines")
-    public ResponseEntity<?> getReporteKms(@RequestParam Boolean pausa) {
+    public ResponseEntity<?> getReporteKms(@RequestHeader("Authorization") String token, @RequestParam Boolean pausa) {
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(mantenimientoService.getReporteKms(pausa));
+            String _token = token.split(" ")[1];
+            return ResponseEntity.status(HttpStatus.OK).body(mantenimientoService.getReporteKms(_token, pausa));
         } catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }

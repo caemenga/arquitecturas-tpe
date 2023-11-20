@@ -21,16 +21,20 @@ public class MonopatinService {
     @Autowired
     private ViajeService viajeService;
 
-    public List<Monopatin> getMonopatines() {
-        return monopatinRepository.findAll();
+    public List<Monopatin> getMonopatines() throws Exception {
+        try{
+            return monopatinRepository.findAll();
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
     }
 
-    public Monopatin addMonopatin(Monopatin m) {
-        //if(!monopatinRepository.existsById(m.getId())){
+    public Monopatin addMonopatin(Monopatin m) throws Exception {
+        try{
             return monopatinRepository.save(m);
-            //return null;
-       // }
-        //return null;
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
     }
 
     public Optional<Monopatin> getById(Long id) {
@@ -79,19 +83,20 @@ public class MonopatinService {
         }
     }
 
-    public List<MonopatinViajeDTO> getMonopatinesPorXViajes(Long cant, Long anio) {
-        //List<Monopatin> listaMonopatines = new ArrayList<>();
-        return viajeService.findAllByAnio(cant, anio);
-
-//        for (MonopatinViajeDTO mvDTO: aRetornar){
-//            if(mvDTO.getCantViajes()>cant){
-//                listaMonopatines.add(mvDTO.getMonopatin());
-//            }
-//        }
-        //return aRetornar;
+    public List<MonopatinViajeDTO> getMonopatinesPorXViajes(Long cant, Long anio) throws Exception {
+        try {
+            return viajeService.findAllByAnio(cant, anio);
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
     }
 
-    public List<Monopatin> getMonopatinesPorParada(Long id) {
-        return monopatinRepository.getMonopatinesPorParada(id);
+    public List<Monopatin> getMonopatinesPorParada(Long id) throws Exception {
+        try {
+            return monopatinRepository.getMonopatinesPorParada(id);
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+
     }
 }
