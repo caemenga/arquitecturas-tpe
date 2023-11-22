@@ -1,4 +1,4 @@
-package org.app.administrador.test;
+package administrador.test;
 import org.app.administrador.Services.AdministradorService;
 
 

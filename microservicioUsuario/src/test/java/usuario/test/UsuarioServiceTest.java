@@ -1,4 +1,4 @@
-package org.app.usuarios.entities.test;
+package usuario.test;
 
 import org.app.usuarios.entities.Usuario;
 import org.app.usuarios.repositories.UsuarioRepository;

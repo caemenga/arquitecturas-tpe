@@ -1,4 +1,4 @@
-package org.app.monopatin.test;
+package monopatin.test;
 import org.app.monopatin.services.MonopatinService;
 
 
