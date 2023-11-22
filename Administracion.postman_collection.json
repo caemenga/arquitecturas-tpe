@@ -1,0 +1,365 @@
+{
+	"info": {
+		"_postman_id": "94856efe-444d-45dc-ac7f-8ad9c8bc477f",
+		"name": "Administracion",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26252431"
+	},
+	"item": [
+		{
+			"name": "3)a) Reporte de uso por KM",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjYWVAaG90bWFpbC5jb20iLCJhdXRoIjoiQURNSU4sVVNFUiIsImV4cCI6MTcwMDQwNDQ0NX0.LnGLWszxsE0-sLWFhj1SvvOl6mJea3EKgn1m9u8nhe9IZvaXCi-y0NnbiM2Lz871ZpwSTOLZcUfxQ3uItgQBSg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"tarifa\": 10, \"porc_recargo\": 0.3, \"fecha_creacion\": \"2024-02-12T10:00:00Z\", \"fecha_caducacion\": \"2024-03-12T10:00:00Z\" }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/mantenimiento/reporte/monopatines?pausa=true",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"mantenimiento",
+						"reporte",
+						"monopatines"
+					],
+					"query": [
+						{
+							"key": "pausa",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "GET",
+						"header": []
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "3)b) anular cuenta",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjYWVAaG90bWFpbC5jb20iLCJhdXRoIjoiQURNSU4sVVNFUiIsImV4cCI6MTcwMDQwNDQ0NX0.LnGLWszxsE0-sLWFhj1SvvOl6mJea3EKgn1m9u8nhe9IZvaXCi-y0NnbiM2Lz871ZpwSTOLZcUfxQ3uItgQBSg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/administracion/cuenta/anular/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"administracion",
+						"cuenta",
+						"anular",
+						"2"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "GET",
+						"header": []
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "3)c) Cant monopatines x año",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjYWVAaG90bWFpbC5jb20iLCJhdXRoIjoiQURNSU4sVVNFUiIsImV4cCI6MTcwMDQwNDQ0NX0.LnGLWszxsE0-sLWFhj1SvvOl6mJea3EKgn1m9u8nhe9IZvaXCi-y0NnbiM2Lz871ZpwSTOLZcUfxQ3uItgQBSg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/administracion/monopatines/viajes?cant=1&anio=2023",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"administracion",
+						"monopatines",
+						"viajes"
+					],
+					"query": [
+						{
+							"key": "cant",
+							"value": "1"
+						},
+						{
+							"key": "anio",
+							"value": "2023"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "GET",
+						"header": []
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "3)d) total facturado por meses",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjYWVAaG90bWFpbC5jb20iLCJhdXRoIjoiQURNSU4sVVNFUiIsImV4cCI6MTcwMDQwNDQ0NX0.LnGLWszxsE0-sLWFhj1SvvOl6mJea3EKgn1m9u8nhe9IZvaXCi-y0NnbiM2Lz871ZpwSTOLZcUfxQ3uItgQBSg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/administracion/viajes?mes1=1&mes2=12&anio=2023",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"administracion",
+						"viajes"
+					],
+					"query": [
+						{
+							"key": "mes1",
+							"value": "1"
+						},
+						{
+							"key": "mes2",
+							"value": "12"
+						},
+						{
+							"key": "anio",
+							"value": "2023"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "GET",
+						"header": []
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "3)e) reporte monopatines en operacion",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjYWVAaG90bWFpbC5jb20iLCJhdXRoIjoiQURNSU4sVVNFUiIsImV4cCI6MTcwMDQwNDQ0NX0.LnGLWszxsE0-sLWFhj1SvvOl6mJea3EKgn1m9u8nhe9IZvaXCi-y0NnbiM2Lz871ZpwSTOLZcUfxQ3uItgQBSg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/administracion/monopatines/reporte/en-operacion",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"administracion",
+						"monopatines",
+						"reporte",
+						"en-operacion"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "GET",
+						"header": []
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "3)f) nueva tarifa",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjYWVAaG90bWFpbC5jb20iLCJhdXRoIjoiQURNSU4sVVNFUiIsImV4cCI6MTcwMDQwNDQ0NX0.LnGLWszxsE0-sLWFhj1SvvOl6mJea3EKgn1m9u8nhe9IZvaXCi-y0NnbiM2Lz871ZpwSTOLZcUfxQ3uItgQBSg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"tarifa\": 10, \"porc_recargo\": 0.3, \"fecha_creacion\": \"2024-02-12T10:00:00Z\", \"fecha_caducacion\": \"2024-03-12T10:00:00Z\" }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/administracion/tarifa",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"administracion",
+						"tarifa"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "GET",
+						"header": []
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "3)g) Monopatines Cercanos",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjYWVAaG90bWFpbC5jb20iLCJhdXRoIjoiQURNSU4sVVNFUiIsImV4cCI6MTcwMDQwNDQ0NX0.LnGLWszxsE0-sLWFhj1SvvOl6mJea3EKgn1m9u8nhe9IZvaXCi-y0NnbiM2Lz871ZpwSTOLZcUfxQ3uItgQBSg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/usuarios/monopatinesCercanos/latitud/37/longitud/284.55",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"usuarios",
+						"monopatinesCercanos",
+						"latitud",
+						"37",
+						"longitud",
+						"284.55"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "GET",
+						"header": []
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		}
+	]
+}
