@@ -1,9 +1,8 @@
 package org.app.monopatin.test;
-import org.app.administrador.Services.AdministradorService;
+import org.app.monopatin.services.MonopatinService;
 
 
 import org.app.monopatin.entities.Monopatin;
-import org.app.monopatin.services.MonopatinService;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,7 @@ import java.util.Optional;
 public class MonopatinControllerTest {
     private MonopatinService monopatinService;
 
-    public void addMonopatinTest(){
+    public void addMonopatinTest() throws Exception {
         Monopatin monopatinTest = new Monopatin(12L, 1000, 2000);
         monopatinService.addMonopatin(monopatinTest);
         Optional<Monopatin> result = monopatinService.getById(monopatinTest.getId());

@@ -47,12 +47,14 @@ public class HttpConfig {
                 .addFilterBefore(new JwtFilter(jwtParser), UsernamePasswordAuthenticationFilter.class);
         http
                 .csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests( auth -> auth
+                    .requestMatchers(new AntPathRequestMatcher("/swagger-ui/**")).permitAll()
+                    .requestMatchers(new AntPathRequestMatcher("/swagger-resources/*")).permitAll()
+                    .requestMatchers(new AntPathRequestMatcher("/v3/api-docs/**")).permitAll()
+                    .anyRequest().authenticated()
+                )
                 // MANEJAMOS LOS PERMISOS A LOS ENDPOINTS.
-                .authorizeRequests()
-                .requestMatchers("monopatines").hasAuthority(AuthorityConstant.ADMIN)
-
-                        .anyRequest().authenticated();
-        http.anonymous(AbstractHttpConfigurer::disable)
+                .anonymous(AbstractHttpConfigurer::disable)
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         http
                 .httpBasic(Customizer.withDefaults());

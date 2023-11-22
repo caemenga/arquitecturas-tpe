@@ -1,0 +1,11 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="TPE" type="CompoundRunConfigurationType">
+    <toRun name="ApiGatewayApplication" type="SpringBootApplicationConfigurationType" />
+    <toRun name="MicroservicioAdministradorApplication" type="SpringBootApplicationConfigurationType" />
+    <toRun name="MicroservicioMantenimientoApplication" type="SpringBootApplicationConfigurationType" />
+    <toRun name="MicroservicioMonopatinApplication" type="SpringBootApplicationConfigurationType" />
+    <toRun name="MicroservicioParadaApplication" type="SpringBootApplicationConfigurationType" />
+    <toRun name="MicroservicioUsuarioApplication" type="SpringBootApplicationConfigurationType" />
+    <method v="2" />
+  </configuration>
+</component>

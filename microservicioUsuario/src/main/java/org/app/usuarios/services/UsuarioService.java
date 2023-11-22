@@ -94,30 +94,21 @@ public class UsuarioService {
 
     public ResponseEntity<?> getMonopatinesCercanos(String token, double latitud, double longitud) {
 
-//        String url = "/paradas/cercana?latitud=" + latitud + "&longitud=" + longitud;
-//        String type = "Parada";
-//        ResponseEntity<?> responseParada = this.http.getRequest(token, url, type);
-        RestTemplate rest = new RestTemplate();
+        //LLAMADA REST TEMPLATE
+        String url = "/paradas/cercana?latitud=" + latitud + "&longitud=" + longitud;
+        ParameterizedTypeReference<Parada> o = new ParameterizedTypeReference<Parada>() {};
+        ResponseEntity<Parada> responseParada = this.http.getRequest(token, url, o);
 
-        HttpHeaders headers = new HttpHeaders();
-        HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
-
-        //traer parada
-        String url = "http://localhost:8083/paradas/cercana?latitud=" + latitud + "&longitud=" + longitud ;
-
-        ResponseEntity<Parada> responseParada = rest.exchange(
-                url,
-                HttpMethod.GET,
-                requestEntity,
-                new ParameterizedTypeReference<Parada>(){}
-        );
-        headers.setContentType(MediaType.APPLICATION_JSON);
 
         if(responseParada.getStatusCode().is2xxSuccessful() && responseParada.getBody()!=null && responseParada.hasBody()){
             Parada p = (Parada) responseParada.getBody();
-            //System.out.println(p.toString());
+
             String url2 = "/monopatines/parada/" + p.getId();
-            ResponseEntity<?> responseMonopatin = this.http.getRequest(token, url2, "jasd");
+
+            //LLAMADA REST TEMPLATE
+            ParameterizedTypeReference<List<Monopatin>> m = new ParameterizedTypeReference<List<Monopatin>>() {};
+            ResponseEntity<?> responseMonopatin = this.http.getRequest(token, url2, m);
+
             if(responseMonopatin.getStatusCode().is2xxSuccessful() && responseMonopatin.getBody()!=null){
                 return ResponseEntity.ok(responseMonopatin.getBody());
             }

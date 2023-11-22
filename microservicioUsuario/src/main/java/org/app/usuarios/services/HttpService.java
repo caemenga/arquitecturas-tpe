@@ -16,7 +16,7 @@ public class HttpService {
     }
 
     //GET
-    public ResponseEntity<?> getRequest(String token, String url, String type){
+    public <T> ResponseEntity<T> getRequest(String token, String url, ParameterizedTypeReference<T> obj){
         //cargamos los headers junto con el token
         HttpHeaders headers = new HttpHeaders();
         headers.setBearerAuth(token);
@@ -26,17 +26,17 @@ public class HttpService {
         //llamada GET al api gateway + url pasada por parametro
         RestTemplate r = new RestTemplate();
 
-        ResponseEntity<?> response = r.exchange(
+        ResponseEntity<T> response = r.exchange(
                 this.env.get("API_GATEWAY_URL") + url,
                 HttpMethod.GET,
                 requestEntity,
-                new ParameterizedTypeReference<>() {}
+                obj
         );
 
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         //devolver response
-        System.out.println(response.getBody());
+        System.out.println("resp en http service: " + response.getBody());
         return response;
     }
 

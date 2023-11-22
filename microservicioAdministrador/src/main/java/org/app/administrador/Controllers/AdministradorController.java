@@ -1,5 +1,6 @@
 package org.app.administrador.Controllers;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import lombok.Data;
 import org.app.administrador.Entities.DTO.*;
 import org.app.administrador.Entities.DTO.MonopatinDTO;
@@ -112,6 +113,7 @@ public class AdministradorController {
         }
     }
 
+    @Hidden
     public String getToken(String token){
         return token.split(" ")[1];
     }

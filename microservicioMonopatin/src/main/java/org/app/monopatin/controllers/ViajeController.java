@@ -2,10 +2,12 @@ package org.app.monopatin.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.app.monopatin.entities.Viaje;
+import org.app.monopatin.security.AuthorityConstant;
 import org.app.monopatin.services.ViajeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -20,6 +22,7 @@ public class ViajeController {
     private RestTemplate restTemplate;
 
     @GetMapping()
+    @PreAuthorize( "hasAuthority( \"" + AuthorityConstant.ADMIN + "\" )" )
     public ResponseEntity<?> getViajes(){
         try {
             return ResponseEntity.status(HttpStatus.OK).body(viajeService.getViajes());
@@ -29,6 +32,7 @@ public class ViajeController {
     }
 
     @PostMapping()
+    @PreAuthorize( "hasAuthority( \"" + AuthorityConstant.ADMIN + "\" )" )
     public ResponseEntity<?> addViaje(@RequestBody Viaje v){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(viajeService.addViaje(v));
@@ -38,6 +42,7 @@ public class ViajeController {
     }
 
     @GetMapping( path = "/{id}")
+    @PreAuthorize( "hasAuthority( \"" + AuthorityConstant.ADMIN + "\" )" )
     public ResponseEntity<?> getById(@PathVariable("id") Long id){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(viajeService.getById(id));
@@ -47,6 +52,7 @@ public class ViajeController {
     }
 
     @DeleteMapping(path = "/{id}")
+    @PreAuthorize( "hasAuthority( \"" + AuthorityConstant.ADMIN + "\" )" )
     public ResponseEntity<?> deleteByID(@PathVariable("id") Long id){
         try{
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(viajeService.deleteViaje(id));
@@ -58,6 +64,7 @@ public class ViajeController {
     //http://localhost:8082/viajes/reporte/kms?pausa=false
     //http://localhost:8082/viajes/reporte/kms?pausa=true
     @GetMapping( path = "/reporte/kms")
+    @PreAuthorize( "hasAuthority( \"" + AuthorityConstant.ADMIN + "\" )" )
     public ResponseEntity<?> getReporteKms(@RequestParam Boolean pausa) {
         try {
             if (pausa) {
@@ -72,6 +79,7 @@ public class ViajeController {
 
     //http://localhost:8082/viajes/reporte/valores
     @GetMapping( path = "/reporte/valores")
+    @PreAuthorize( "hasAuthority( \"" + AuthorityConstant.ADMIN + "\" )" )
     public ResponseEntity<?> getReporteTotalFacturado(@RequestParam Long mes1, @RequestParam Long mes2, @RequestParam Long anio){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(viajeService.getReporteTotalFacturado(mes1,mes2,anio));

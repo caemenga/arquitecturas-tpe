@@ -1,24 +1,35 @@
 package org.app.usuarios.swagger;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.info.Contact;
+import io.swagger.v3.oas.annotations.info.Info;
+import io.swagger.v3.oas.annotations.servers.Server;
 import io.swagger.v3.oas.models.OpenAPI;
-import io.swagger.v3.oas.models.info.Info;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 
 
-@OpenAPIDefinition
+@OpenAPIDefinition(
+        info = @Info(
+                contact = @Contact(
+                        name = "Agustin"
+                ),
+                description = "documentacion oficial Arqui WEB",
+                title = "App Monopatines",
+                version = "1.0"
+        )
+)
 @Configuration
 public class SwaggerConfig {
 
 
-    @Bean
-    public OpenAPI api(){
-        return new OpenAPI().info(new Info().title("MONOPATINES")
-                .version("1.0-SNAPSHOT").description("APP DE MONOPATINES"));
-
-    }
+//    @Bean
+//    public OpenAPI api(){
+//        return new OpenAPI().info(new Info().title("MONOPATINES")
+//                .version("1.0-SNAPSHOT").description("APP DE MONOPATINES"));
+//
+//    }
 
 }
 

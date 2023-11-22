@@ -1,9 +1,5 @@
 package org.app.administrador.Entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,7 +12,7 @@ import java.sql.Date;
 @Getter
 @Setter
 
-public class Mantenimiento extends Entity implements Serializable {
+public class Mantenimiento implements Serializable {
     private Long id;
     private Long monopatinId;
     private Date inicioMantenimiento;

@@ -19,7 +19,7 @@ public class HttpService {
     }
 
     //GET
-    public ResponseEntity<?> getRequest(String token, String url){
+    public <T> ResponseEntity<T> getRequest(String token, String url, ParameterizedTypeReference<T> parameterizedTypeReference ){
         //cargamos los headers junto con el token
         HttpHeaders headers = new HttpHeaders();
         headers.setBearerAuth(token);
@@ -29,11 +29,11 @@ public class HttpService {
         //llamada GET al api gateway + url pasada por parametro
         RestTemplate r = new RestTemplate();
 
-        ResponseEntity<?> response = r.exchange(
+        ResponseEntity<T> response = r.exchange(
                 this.env.get("API_GATEWAY_URL") + url,
                 HttpMethod.GET,
                 requestEntity,
-                new ParameterizedTypeReference<>() {}
+                parameterizedTypeReference
         );
 
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -44,20 +44,20 @@ public class HttpService {
     }
 
     //POST
-    public ResponseEntity<?> postRequest(String token, String url, Object t){
+    public <T> ResponseEntity<T> postRequest(String token, String url, Object t, ParameterizedTypeReference<T> parameterizedTypeReference){
 
         HttpHeaders headers = new HttpHeaders();
         headers.setBearerAuth(token);
 
-        HttpEntity<?> requestEntity = new HttpEntity<>(t, headers);
+        HttpEntity<T> requestEntity = new HttpEntity<T>((T) t, headers);
 
         RestTemplate r = new RestTemplate();
 
-        ResponseEntity<?> response = r.exchange(
+        ResponseEntity<T> response = r.exchange(
                 this.env.get("API_GATEWAY_URL") + url,
                 HttpMethod.POST,
                 requestEntity,
-                new ParameterizedTypeReference<>() {}
+                parameterizedTypeReference
         );
 
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -65,7 +65,7 @@ public class HttpService {
     }
 
     //PUT
-    public ResponseEntity<?> putRequest(String token, String url){
+    public <T> ResponseEntity<T> putRequest(String token, String url, ParameterizedTypeReference<T> parameterizedTypeReference){
         RestTemplate r = new RestTemplate();
 
         HttpHeaders headers = new HttpHeaders();
@@ -73,11 +73,11 @@ public class HttpService {
 
         HttpEntity<?> requestEntity = new HttpEntity<>(headers);
 
-        ResponseEntity<?> response = r.exchange(
+        ResponseEntity<T> response = r.exchange(
                 this.env.get("API_GATEWAY_URL") + url,
                 HttpMethod.PUT,
                 requestEntity,
-                new ParameterizedTypeReference<>() {}
+                parameterizedTypeReference
         );
 
         headers.setContentType(MediaType.APPLICATION_JSON);

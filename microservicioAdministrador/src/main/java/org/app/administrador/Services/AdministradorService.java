@@ -26,26 +26,32 @@ public class AdministradorService {
         System.out.println(idMonopatin.toString());
 
         //traer monopatin
-        String url = "http://localhost:8082/monopatines/" + idMonopatin.getId();
-        ResponseEntity<?> response = this.http.getRequest(token, url);
+        String url = "/monopatines/" + idMonopatin.getId();
+        ParameterizedTypeReference<Monopatin> o = new ParameterizedTypeReference<Monopatin>() {};
+        ResponseEntity<Monopatin> response = this.http.getRequest(token, url, o);
 
         //si el monopatin es valido
         if(response.getStatusCode().is2xxSuccessful() && response.getBody() != null){
-            Monopatin monopatin = (Monopatin) response.getBody();
+            Monopatin monopatin = response.getBody();
 
             System.out.println("mono: " + monopatin.toString());
 
             //si el monopatin no esta en mantenimiento
             if(!monopatin.isEnMantenimiento()) {
+
                 MantenimientoDTO m = new MantenimientoDTO(idMonopatin.getIdMonopatin());
                 String url2 = "/mantenimiento";
+                ParameterizedTypeReference<Mantenimiento> Mant = new ParameterizedTypeReference<Mantenimiento>() {};
 
-                ResponseEntity<?> resp = this.http.postRequest(token, url2, m);
+                ResponseEntity<Mantenimiento> resp = this.http.postRequest(token, url2, m, Mant);
+
                 //si se creo correctamente
                 if(resp.getStatusCode().is2xxSuccessful()) {
                     System.out.println("Vamos!!!!!");
+
                     String url3 = "/monopatines/" + idMonopatin.getId() + "/mantenimiento/" + true;
-                    ResponseEntity<?> resp2 = this.http.putRequest(token,url3);
+                    ParameterizedTypeReference<Monopatin> mono = new ParameterizedTypeReference<Monopatin>() {};
+                    ResponseEntity<Monopatin> resp2 = this.http.putRequest(token,url3, mono);
 
                     return ResponseEntity.ok("Monopatin agregado a mantenimiento con exito");
                 }
@@ -57,18 +63,8 @@ public class AdministradorService {
     public ResponseEntity<?> addMonopatin(String token, Monopatin monopatin) {
 
         String url = "/monopatin";
-        ResponseEntity<?> response = this.http.postRequest(token, url, monopatin);
-//
-//        HttpHeaders headers = new HttpHeaders();
-//        HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
-//
-//        RestTemplate r = new RestTemplate();
-//        ResponseEntity<Monopatin> response = r.exchange(
-//                "http://localhost:8082/monopatin",
-//                HttpMethod.POST,
-//                requestEntity,
-//                new ParameterizedTypeReference<Monopatin>() {}
-//        );
+        ParameterizedTypeReference<Monopatin> monopatinParameterizedTypeReference = new ParameterizedTypeReference<Monopatin>() {};
+        ResponseEntity<Monopatin> response = this.http.postRequest(token, url, monopatin, monopatinParameterizedTypeReference);
 
         if(response.getStatusCode().is2xxSuccessful() && response.getBody() != null){
             return ResponseEntity.ok(response.getBody());
@@ -79,39 +75,14 @@ public class AdministradorService {
 
    public ResponseEntity<?> anularCuenta(String token, Long idCuenta) {
        //Traer Cuenta
-//
-//       RestTemplate restCuenta = new RestTemplate();
-//
-//       HttpHeaders headers = new HttpHeaders();
-//       HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
-
-
-
        String url = "/cuentas/" + idCuenta;
-//       System.out.println(url);
-       ResponseEntity<?> response = this.http.getRequest(token, url);
-//       ResponseEntity<Cuenta> response = restCuenta.exchange(
-//               url,
-//               HttpMethod.GET,
-//               requestEntity,
-//               new ParameterizedTypeReference<Cuenta>(){}
-//       );
-//       headers.setContentType(MediaType.APPLICATION_JSON);
-       //si la cuenta existe
+       ParameterizedTypeReference<Cuenta> cuenta = new ParameterizedTypeReference<Cuenta>() {};
+       ResponseEntity<Cuenta> response = this.http.getRequest(token, url, cuenta);
 
+       //si la cuenta existe
        if(response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
            String url2 = "/cuentas/anular/" + idCuenta;
-
-           this.http.putRequest(token,url2);
-
-//           ResponseEntity<Cuenta> response2 = restCuenta.exchange(
-//
-//                   "http://localhost:8081/cuentas/anular/" + idCuenta,
-//                   HttpMethod.PUT,
-//                   requestEntity,
-//                   new ParameterizedTypeReference<Cuenta>() {
-//                   }
-//           );
+           this.http.putRequest(token,url2, cuenta);
            return ResponseEntity.ok("Cuenta id: " + idCuenta + " anulada exitosamente");
        }
        return ResponseEntity.ok("La cuenta no existe");
@@ -119,21 +90,13 @@ public class AdministradorService {
 
 
     public ResponseEntity<?> getReporteTotalFacturado(String token, Long mes1, Long mes2, Long anio) {
-//        RestTemplate rest = new RestTemplate();
-//        HttpHeaders headers = new HttpHeaders();
-//        HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
 
         //?mes1=1&mes2=12&anio=2023
         String url = "/viajes/reporte/valores?mes1="+mes1+"&mes2="+mes2+"&anio="+anio;
+        ParameterizedTypeReference<ReporteTotalFacturadoDTO> o = new ParameterizedTypeReference<ReporteTotalFacturadoDTO>() {};
 
-        ResponseEntity<?> response = this.http.getRequest(token, url);
-//        ResponseEntity<ReporteTotalFacturadoDTO> response = rest.exchange(
-//                url,
-//                HttpMethod.GET,
-//                requestEntity,
-//                new ParameterizedTypeReference<ReporteTotalFacturadoDTO>(){}
-//        );
-//        headers.setContentType(MediaType.APPLICATION_JSON);
+        ResponseEntity<ReporteTotalFacturadoDTO> response = this.http.getRequest(token, url, o);
+
 
         if(response.getStatusCode().is2xxSuccessful() && response.getBody() != null){
             return ResponseEntity.ok(response.getBody());
@@ -142,63 +105,44 @@ public class AdministradorService {
         }
     }
 
-    // aca dio ERROR!!!!!
-    // REVISAR IMPLEMENTACION CON HTTPSERVICE
     public ResponseEntity<?> definirPrecio(String token, Tarifa t){
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setBearerAuth(token);
-        HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
 
-        RestTemplate rUltimaTarifa = new RestTemplate();
-        ResponseEntity<TarifaDTO> responseUltima = rUltimaTarifa.exchange(
-                "http://localhost:8080/tarifas/ultima",
-                HttpMethod.GET,
-                requestEntity,
-                new ParameterizedTypeReference<TarifaDTO>() {}
-        );
-
+        ParameterizedTypeReference<TarifaDTO> tarifaDTOParameterizedTypeReference = new ParameterizedTypeReference<>() {};
         String url = "/tarifas/ultima";
+        ResponseEntity<TarifaDTO> responseUltima = this.http.getRequest(token, url, tarifaDTOParameterizedTypeReference);
 
-        //ResponseEntity<?> response = this.http.getRequest(token, url );
+
         //Si existe la tarifa
         if(responseUltima.getStatusCode().is2xxSuccessful() && responseUltima.getBody() != null){
-            TarifaDTO ultimaTarifa = (TarifaDTO) responseUltima.getBody();
 
-            System.out.println(ultimaTarifa.toString());
+            TarifaDTO ultimaTarifa = responseUltima.getBody();
+
             //pregunto si las fechas son validas
             if(t.getFecha_creacion().after(ultimaTarifa.getFecha_caducacion())){
 
                 String url2 = "/tarifas";
-                System.out.println(url2);
-//                ResponseEntity<?> response2 = this.http.postRequest(token, url, t);
+                ParameterizedTypeReference<Tarifa> tarifaParameterizedTypeReference = new ParameterizedTypeReference<>() {};
+                ResponseEntity<Tarifa> response = this.http.postRequest(token, url2, t, tarifaParameterizedTypeReference);
 
-                HttpEntity<Tarifa> requestTarifa = new HttpEntity<>(t, headers);
-                RestTemplate r = new RestTemplate();
 
-                ResponseEntity<Tarifa> response = r.exchange(
-                        "http://localhost:8082/tarifas",
-                        HttpMethod.POST,
-                        requestTarifa,
-                        new ParameterizedTypeReference<Tarifa>() {}
-                );
-                System.out.println(response);
                 if(response.getStatusCode().is2xxSuccessful() && response.getBody() != null){
                     return ResponseEntity.ok(response.getBody());
                 } else {
-                    return ResponseEntity.ok("No se ha podido crear la tarifa con exito");
+                    return ResponseEntity.ok("No se ha podido crear la tarifa con exito, NO ANDUVO EL POST REQUEST.");
                 }
             }
-            return ResponseEntity.ok("La fecha de inicio de la tarifa no es valida");
+            return ResponseEntity.ok("Ya existe una tarifa en la misma fecha");
         }
-         return ResponseEntity.ok("No se ha podido crear la tarifa con exito");
+         return ResponseEntity.ok("No se ha podido crear la tarifa con exito. revisar problema. (ULTIMA tarifa)");
     }
 
     public ResponseEntity<?> getMonopatinesPorXViajes(String token, Long cant, Long anio) {
 
         String url = "/monopatines/viajes?cant=" + cant + "&anio=" + anio;
+        ParameterizedTypeReference<List<MonopatinViajeDTO>> monopatinViajeDTOParameterizedTypeReference = new ParameterizedTypeReference<>() {};
 
-        ResponseEntity<List<MonopatinViajeDTO>> response = (ResponseEntity<List<MonopatinViajeDTO>>) this.http.getRequest(token, url);
+        ResponseEntity<List<MonopatinViajeDTO>> response = this.http.getRequest(token, url, monopatinViajeDTOParameterizedTypeReference);
 
         if(response.getStatusCode().is2xxSuccessful() && response.getBody() != null){
             return ResponseEntity.ok(response.getBody());
@@ -210,8 +154,9 @@ public class AdministradorService {
     public ResponseEntity<?> getReporteEnOperacion(String token) {
 
         String url = "/monopatines/reporte/operacion";
+        ParameterizedTypeReference<ReporteOperacion> reporteOperacionParameterizedTypeReference = new ParameterizedTypeReference<>() {};
 
-        ResponseEntity<?> response = this.http.getRequest(token, url);
+        ResponseEntity<ReporteOperacion> response = this.http.getRequest(token, url, reporteOperacionParameterizedTypeReference);
 
         if(response.getStatusCode().is2xxSuccessful() && response.getBody() != null){
             return ResponseEntity.ok(response.getBody());

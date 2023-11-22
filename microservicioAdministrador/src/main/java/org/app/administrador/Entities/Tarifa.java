@@ -1,16 +1,14 @@
 package org.app.administrador.Entities;
 
-import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.io.Serial;
 import java.io.Serializable;
 import java.sql.Date;
 
 @Getter
 @Setter
-public class Tarifa extends Entity implements Serializable{
+public class Tarifa implements Serializable{
     private Date fecha_creacion;
     private Double tarifa;
     private Double porc_recargo;

@@ -9,7 +9,7 @@ import java.io.Serializable;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Monopatin extends Entity implements Serializable {
+public class Monopatin implements Serializable {
     private Long id;
     private Long paradaEstacionamientoId;
     private double latitud;

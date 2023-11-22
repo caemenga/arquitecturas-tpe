@@ -27,6 +27,7 @@ public class UsuarioController {
     private RestTemplate restTemplate;
 
     @GetMapping()
+    @PreAuthorize( "hasAuthority( \"" + AuthorityConstant.ADMIN + "\" )" )
     public ResponseEntity<?> getUsuarios(){
         try {
             return ResponseEntity.status(HttpStatus.OK).body(usuarioService.getUsuarios());
@@ -47,7 +48,7 @@ public class UsuarioController {
 
 
     //localhost:8081/usuarios/monopatinesCercanos/latitud/47.99/longitud/237.4
-    @PreAuthorize( "hasAuthority( \"" + AuthorityConstant.USER + "\" )" )
+    @PreAuthorize( "hasAuthority( \"" + AuthorityConstant.ADMIN + "\" )" )
     @GetMapping( path = "/monopatinesCercanos/latitud/{latitud}/longitud/{longitud}")
     public ResponseEntity<?> getMonopatinesCercanos(@RequestHeader("Authorization") String token, @PathVariable("latitud") double latitud, @PathVariable("longitud") double longitud){
         try{
